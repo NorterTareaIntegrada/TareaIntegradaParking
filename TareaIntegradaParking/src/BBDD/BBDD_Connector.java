@@ -34,6 +34,25 @@ public class BBDD_Connector {
 			this.pass = this.prop.getProperty("password");
 			this.serverName = this.prop.getProperty("server_name");
 			this.portNumber = Integer.parseInt(this.prop.getProperty("port_number"));
+			System.out.println("superada 1a prueba");
+			
+			//Se prueba la conexión para lanzar errores si no se puede conectar
+			try{
+				c = null;
+				Properties connectionProps = new Properties();
+				connectionProps.put("user", this.usuario);
+				connectionProps.put("password", this.pass);
+				c = DriverManager.getConnection("jdbc:"+this.dbms+"://"+this.serverName+":"+this.portNumber+"/"+this.dbName,connectionProps);
+			}
+			catch (SQLException e){
+				Parking.msgErrBBDD="No se ha podido establecer una conexión con la base de datos";
+				Parking.errConBBDD=true;
+			}
+			try{if (c!=null){c.close();c=null;}}
+			catch (SQLException e){
+				Parking.msgErrBBDD="No se ha podido completar la conexión con la base de datos";
+				Parking.errConBBDD=true;
+			}
 			
 		}catch(FileNotFoundException e){
 			Parking.msgErrBBDD="No se encuentra el archivo de configuración";
@@ -43,6 +62,9 @@ public class BBDD_Connector {
 			Parking.errConBBDD=true;
 		}catch(IOException e){
 			Parking.msgErrBBDD="Error abriendo fichero de configuración";
+			Parking.errConBBDD=true;
+		}catch(Exception e){
+			Parking.msgErrBBDD="Error desconocido al acceder a la Base de Datos";
 			Parking.errConBBDD=true;
 		}
 	}

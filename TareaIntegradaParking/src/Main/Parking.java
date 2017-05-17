@@ -33,14 +33,20 @@ public class Parking {
 		Cargador.abrir(400);
 		Timer cargaInicial=new Timer(1,new ActionListener(){
 			public void actionPerformed(ActionEvent e){
+				System.out.println("bucle "+ContCarga);
 				if(!errConBBDD)ContCarga++;
 				if(ContCarga==100){
 					bd=new BBDD_Connector("mysql-properties.xml");
-					if(errConBBDD)Cargador.errConBBDD(msgErrBBDD);
+					if(errConBBDD){
+						ContCarga++;
+						Cargador.errConBBDD(msgErrBBDD);
+					}
 				}
 				if(!errConBBDD)Cargador.setCarga(ContCarga);
 				if(ContCarga>450&&!errConBBDD) CargaAcabada=true;
-				if(errConBBDD&&Cargador.haPulsadoReiniciar)reiniciar=true;
+				if(errConBBDD&&Cargador.haPulsadoReiniciar){
+					reiniciar=true;
+				}
 			}
 		});
 		cargaInicial.start();

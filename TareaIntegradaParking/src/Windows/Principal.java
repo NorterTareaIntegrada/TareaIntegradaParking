@@ -26,6 +26,7 @@ import javax.swing.JLabel;
 import java.awt.Font;
 
 import Main.Parking;
+import javax.swing.border.MatteBorder;
 
 public class Principal extends JFrame {
 	private JPanel contentPane;
@@ -39,6 +40,11 @@ public class Principal extends JFrame {
 	public static JPanel cabecera = new JPanel();
 	//Less important
 	public static JLabel lblMsgBienvenida = new JLabel("   \u00A1 Bienvenido  !");
+	private final JPanel panelPersonal = new JPanel();
+	private final JPanel panelEventos = new JPanel();
+	private final JPanel panelConsulta = new JPanel();
+	private final JPanel panelPedidos = new JPanel();
+	private final JLabel lblEventos = new JLabel("a");
 	public static void abrir() {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -93,6 +99,7 @@ public class Principal extends JFrame {
 		cabecera.add(closeSessionButton);
 		
 		JButton changePasswordButton = new JButton("Cambiar Contrase\u00F1a");
+		changePasswordButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		changePasswordButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				frame.setEnabled(false);
@@ -105,7 +112,7 @@ public class Principal extends JFrame {
 		changePasswordButton.setHorizontalTextPosition(SwingConstants.CENTER);
 		changePasswordButton.setBackground(new Color(255, 204, 153));
 		changePasswordButton.setActionCommand("");
-		changePasswordButton.setBounds(689, 8, 170, 24);
+		changePasswordButton.setBounds(706, 8, 153, 24);
 		cabecera.add(changePasswordButton);
 		
 		lblMsgBienvenida.setFont(new Font("Gill Sans Ultra Bold Condensed", Font.PLAIN, 15));
@@ -121,11 +128,47 @@ public class Principal extends JFrame {
 		tabbedPane.setBounds(0, 40, 994, 532);
 		contentPane.add(tabbedPane);
 		
-		JPanel panel0 = new JPanel();
-		tabbedPane.addTab("Funcionalidad 1", null, panel0, null);
+		JPanel panelAvisos = new JPanel();
+		tabbedPane.addTab(" Avisos ", null, panelAvisos, "Mirar los temas de urgencia a tratar");
+		panelAvisos.setLayout(null);
 		
-		JPanel panel_1 = new JPanel();
-		tabbedPane.addTab("Funcionalidad 2", null, panel_1, null);
+		JPanel panelReponer = new JPanel();
+		tabbedPane.addTab(" Reponer ", null, panelReponer, "Reponer materiales propios de los servicios");
+		panelReponer.setLayout(null);
+		
+		tabbedPane.addTab(" Pedidos ", null, panelPedidos, "Consultar los ultimos pedidos");
+		panelPedidos.setLayout(null);
+		
+		tabbedPane.addTab(" Personal ", null, panelPersonal, "Dar de alta y de baja a el personal");
+		panelPersonal.setLayout(null);
+		
+		tabbedPane.addTab(" Eventos Recientes ", null, panelEventos, "Consultar los eventos que han ocurrido desde el inicio de sesi\u00F3n");
+		panelEventos.setLayout(null);
+		lblEventos.setForeground(new Color(47, 79, 79));
+		lblEventos.setVerticalAlignment(SwingConstants.BOTTOM);
+		lblEventos.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(105, 105, 105)));
+		lblEventos.setFont(new Font("Consolas", Font.PLAIN, 12));
+		lblEventos.setAlignmentY(Component.BOTTOM_ALIGNMENT);
+		lblEventos.setBackground(new Color(211, 211, 211));
+		lblEventos.setOpaque(true);
+		lblEventos.setBounds(315, 5, 664, 488);
+		
+		panelEventos.add(lblEventos);
+		
+		JLabel lblInfoTitle = new JLabel("Visor de Eventos");
+		lblInfoTitle.setForeground(new Color(0, 0, 51));
+		lblInfoTitle.setFont(new Font("Dialog", Font.PLAIN, 20));
+		lblInfoTitle.setHorizontalAlignment(SwingConstants.CENTER);
+		lblInfoTitle.setBounds(0, 0, 314, 74);
+		panelEventos.add(lblInfoTitle);
+		
+		JLabel lblInfoContent = new JLabel("<html>\r\n<p style=\"text-align:justify;padding:15px;\">\r\nAqui aparecer\u00E1n los <b>eventos</b> mas recientes desde el inicio de la sesi\u00F3n como:<br>\r\n</p><ul>\r\n<li>Entradas y salidas del parking</li>\r\n<li>Altas y bajas de personal</li>\r\n<li>Solicitaciones de servicios</li>\r\n<li>Pedidos realizados de forma autom\u00E1tica</li>\r\n</ul>\r\n</html>");
+		lblInfoContent.setVerticalAlignment(SwingConstants.TOP);
+		lblInfoContent.setBounds(10, 85, 304, 419);
+		panelEventos.add(lblInfoContent);
+		
+		tabbedPane.addTab(" Consultas ", null, panelConsulta, "Consultar distintos tipos de datos");
+		panelConsulta.setLayout(null);
 	}
 	public static void setUtil(Boolean x){
 		panelGris.setVisible(!x);
