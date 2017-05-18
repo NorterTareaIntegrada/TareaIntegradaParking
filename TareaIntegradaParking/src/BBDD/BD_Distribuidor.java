@@ -16,14 +16,14 @@ public class BD_Distribuidor extends BBDD_Connector {
 		// TODO Auto-generated constructor stub
 	}
 	public  Vector<Distribuidor> listado(String producto){
-		String cadenaSQL="SELECT * from productos WHERE curso='"+producto+"'";
+		String cadenaSQL="SELECT * from productos WHERE nombre='"+producto+"'";
 		Vector<Distribuidor> ListaProductos=new Vector<Distribuidor>();
 		try{
 			this.abrir();
 			s=c.createStatement();
 			reg=s.executeQuery(cadenaSQL);
 			while ( reg.next()){
-				ListaProductos.add(new Distribuidor(reg.getString("Código"),reg.getString("Nombre"),reg.getString("Correo"),reg.getString("Dirección")));
+				ListaProductos.add(new Distribuidor(reg.getString("Cod"),reg.getString("Nombre"),reg.getString("Correo"),reg.getString("Direccion")));
 			}
 			s.close();
 			this.cerrar();
