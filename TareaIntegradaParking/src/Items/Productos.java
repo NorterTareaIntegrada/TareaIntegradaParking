@@ -48,5 +48,11 @@ public class Productos {
 	public void setPrecioUnidad(double precioUnidad) {
 		this.precioUnidad = precioUnidad;
 	}
+	public double getMaxUnidades() {
+		return maxUnidades;
+	}
+	public void setMaxUnidades(double maxUnidades) {
+		this.maxUnidades = maxUnidades;
+	}
 	
 }

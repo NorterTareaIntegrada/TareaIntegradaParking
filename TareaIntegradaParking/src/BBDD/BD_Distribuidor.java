@@ -14,8 +14,8 @@ public class BD_Distribuidor extends BBDD_Connector {
 		super(bbdd);
 		// TODO Auto-generated constructor stub
 	}
-	public  Vector<Distribuidor> listado(String distribuidor){
-		String cadenaSQL="SELECT * from distribuidor'";
+	public  Vector<Distribuidor> listado(String distribuidores){
+		String cadenaSQL="SELECT * from distribuidor WHERE curso='"+distribuidores+"'";
 		Vector<Distribuidor> ListaDistribuidor=new Vector<Distribuidor>();
 		try{
 			this.abrir();
