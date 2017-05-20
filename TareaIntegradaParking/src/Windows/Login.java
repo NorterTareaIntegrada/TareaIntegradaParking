@@ -25,7 +25,9 @@ import java.awt.Color;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 
+import BBDD.BD_Usuario;
 import Main.Parking;
+
 import javax.swing.ImageIcon;
 
 public class Login extends JFrame {
@@ -177,7 +179,7 @@ public class Login extends JFrame {
 				try{
 					Thread.sleep(1000);
 				}catch(InterruptedException e){}
-				if(Parking.validarLogin(usernameField.getText(),passwordField.getText())){
+				if(new BD_Usuario("mysql-properties.xml").validarLogin(usernameField.getText(),passwordField.getText()).isVerificado()){
 					lblProTip.setText("¡Login Correcto!");
 					lblProTip.setForeground(new Color(75,255,75));
 					panelPrincipal.setVisible(true);
@@ -192,10 +194,8 @@ public class Login extends JFrame {
 					lblProTip.setText("¡Login Incorrecto!");
 					lblProTip.setForeground(new Color(255,75,75));
 				}
-				if(2==(2*1)){
-					panelPrincipal.setVisible(true);
-					panelCargando.setVisible(false);
-				}
+				panelPrincipal.setVisible(true);
+				panelCargando.setVisible(false);
 			}
 		});
 		panelCargando.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));

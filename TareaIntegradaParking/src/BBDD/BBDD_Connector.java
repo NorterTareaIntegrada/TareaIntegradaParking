@@ -34,7 +34,7 @@ public class BBDD_Connector {
 			this.pass = this.prop.getProperty("password");
 			this.serverName = this.prop.getProperty("server_name");
 			this.portNumber = Integer.parseInt(this.prop.getProperty("port_number"));
-			System.out.println("superada 1a prueba");
+			//System.out.println("Superada la prueba inicial de conexion a BBDD");
 			
 			//Se prueba la conexión para lanzar errores si no se puede conectar
 			try{
@@ -67,6 +67,8 @@ public class BBDD_Connector {
 			Parking.msgErrBBDD="Error desconocido al acceder a la Base de Datos";
 			Parking.errConBBDD=true;
 		}
+		abrir();
+		cerrar();
 	}
 	
 	public void abrir(){
