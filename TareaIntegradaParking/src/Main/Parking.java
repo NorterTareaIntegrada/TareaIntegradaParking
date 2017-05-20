@@ -9,6 +9,12 @@ import javax.swing.Timer;
 import BBDD.BBDD_Connector;
 import Windows.*;
 
+/**
+ * @descrition Programa de gestion de parking
+ * @author Norter S.L.
+ * @version 1.0
+ */
+
 public class Parking {
 	
 	
@@ -33,7 +39,7 @@ public class Parking {
 		Cargador.abrir(400);
 		Timer cargaInicial=new Timer(1,new ActionListener(){
 			public void actionPerformed(ActionEvent e){
-				System.out.println("bucle "+ContCarga);
+				//System.out.println("bucle "+ContCarga);
 				if(!errConBBDD)ContCarga++;
 				if(ContCarga==100){
 					bd=new BBDD_Connector("mysql-properties.xml");
