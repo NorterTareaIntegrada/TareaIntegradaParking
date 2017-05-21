@@ -26,9 +26,11 @@ import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 
 import BBDD.BD_Usuario;
+import Items.Usuario;
 import Main.Parking;
 
 import javax.swing.ImageIcon;
+import javax.swing.JTabbedPane;
 
 public class Login extends JFrame {
 	/**
@@ -37,9 +39,8 @@ public class Login extends JFrame {
 	private static final long serialVersionUID = 1L;
 	public static Login frame;
 	public static JPanel contentPane;
-		public static JComboBox comboBox = new JComboBox();
-		public static JLabel label_enterAs = new JLabel("Entrar como:");
 		public static JPanel panelPrincipal = new JPanel();
+		public static JPanel panelClientes = new JPanel();
 		public static JTextField usernameField;
 		public static JPasswordField passwordField;
 		public static JButton button_id = new JButton("Identificarse");
@@ -52,6 +53,11 @@ public class Login extends JFrame {
 		public static JLabel lblProTip = new JLabel("Rellena los campos para continuar");
 	public static JPanel panelCargando = new JPanel();
 	private final JLabel lblCargando = new JLabel("Un momento...");
+	private final JButton btnAreaDeClientes = new JButton("Area de Clientes");
+	private final JSeparator separator_mid_2 = new JSeparator();
+	private final JButton btnDuplicado = new JButton("Pedir duplicado de tarjeta");
+	private final JPanel panelEstandar = new JPanel();
+	private final JPanel panelAbonados = new JPanel();
 	/**
 	 * Launch the application.
 	 */
@@ -87,19 +93,6 @@ public class Login extends JFrame {
 		panelPrincipal.setBounds(0, 0, 255, 313);
 		contentPane.add(panelPrincipal);
 		panelPrincipal.setLayout(null);
-		
-		comboBox.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		comboBox.setFont(new Font("Consolas", Font.PLAIN, 11));
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Administrador", "Mec\u00E1nico", "Personal de Limpieza", "Personal de Seguridad"}));
-		comboBox.setBounds(113, 14, 132, 30);
-		comboBox.setToolTipText("Selecciona el tipo de usuario con el que te identificaras");
-		panelPrincipal.add(comboBox);
-		
-		label_enterAs.setBounds(0, 13, 111, 30);
-		label_enterAs.setHorizontalTextPosition(SwingConstants.CENTER);
-		label_enterAs.setHorizontalAlignment(SwingConstants.CENTER);
-		label_enterAs.setFont(new Font("Consolas", Font.PLAIN, 15));
-		panelPrincipal.add(label_enterAs);
 		
 		separator_top.setBounds(0, 55, 255, 2);
 		panelPrincipal.add(separator_top);
@@ -172,6 +165,16 @@ public class Login extends JFrame {
 		lblProTip.setHorizontalAlignment(SwingConstants.CENTER);
 		lblProTip.setBounds(0, 210, 255, 40);
 		panelPrincipal.add(lblProTip);
+		btnAreaDeClientes.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnAreaDeClientes.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				panelPrincipal.setVisible(false);
+				panelClientes.setVisible(true);
+			}
+		});
+		btnAreaDeClientes.setBounds(10, 11, 235, 33);
+		
+		panelPrincipal.add(btnAreaDeClientes);
 		
 		panelCargando.addComponentListener(new ComponentAdapter() {
 			@Override
@@ -179,7 +182,9 @@ public class Login extends JFrame {
 				try{
 					Thread.sleep(1000);
 				}catch(InterruptedException e){}
-				if(new BD_Usuario("mysql-properties.xml").validarLogin(usernameField.getText(),passwordField.getText()).isVerificado()){
+				Usuario uSu= new BD_Usuario("mysql-properties.xml").validarLogin(usernameField.getText(),passwordField.getText());
+				if(uSu.isVerificado()){
+					Parking.usuarioConectado=uSu;
 					lblProTip.setText("¡Login Correcto!");
 					lblProTip.setForeground(new Color(75,255,75));
 					panelPrincipal.setVisible(true);
@@ -198,6 +203,36 @@ public class Login extends JFrame {
 				panelCargando.setVisible(false);
 			}
 		});
+		
+		panelClientes.setBounds(0, 0, 255, 313);
+		contentPane.add(panelClientes);
+		panelClientes.setLayout(null);
+		
+		JButton btnAreaDePersonal = new JButton("Area de personal");
+		btnAreaDePersonal.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnAreaDePersonal.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				panelPrincipal.setVisible(true);
+				panelClientes.setVisible(false);
+			}
+		});
+		btnAreaDePersonal.setBounds(10, 11, 235, 33);
+		panelClientes.add(btnAreaDePersonal);
+		
+		JTabbedPane tabbedPaneInsideClientes = new JTabbedPane(JTabbedPane.TOP);
+		tabbedPaneInsideClientes.setBounds(0, 50, 255, 263);
+		panelClientes.add(tabbedPaneInsideClientes);
+		
+		tabbedPaneInsideClientes.addTab(" Usuario Est\u00E1ndar", null, panelEstandar, null);
+		panelEstandar.setLayout(null);
+		
+		tabbedPaneInsideClientes.addTab(" Usuario Abonado ", null, panelAbonados, "Identificate como usuario abonado o pide un duplicado de tarjeta");
+		panelAbonados.setLayout(null);
+		btnDuplicado.setBounds(10, 5, 230, 20);
+		panelAbonados.add(btnDuplicado);
+		btnDuplicado.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		separator_mid_2.setBounds(0, 30, 255, 2);
+		panelAbonados.add(separator_mid_2);
 		panelCargando.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
 		
 		panelCargando.setBounds(0, 0, 255, 313);
@@ -217,6 +252,7 @@ public class Login extends JFrame {
 		
 		//Fin de la construcción
 		panelCargando.setVisible(false);
+		panelClientes.setVisible(false);
 	}
 	public static void reset(){
 		frame.setLocationRelativeTo(Principal.frame);

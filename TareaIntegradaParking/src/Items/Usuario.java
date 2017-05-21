@@ -33,5 +33,9 @@ public class Usuario {
 	public String getNombreCompleto(){
 		return nombre+" "+apellidos;
 	}
+
+	public String getTipo() {
+		return tipo;
+	}
 	
 }

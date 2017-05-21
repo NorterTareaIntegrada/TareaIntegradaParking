@@ -36,14 +36,17 @@ public class Principal extends JFrame {
 	 */
 	public static Principal frame;
 	public static JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-	public static JPanel panelGris = new JPanel();
+	//public static JPanel panelGris = new JPanel();
 	public static JPanel cabecera = new JPanel();
+	//Paneles de tabbedPane
+	public static JPanel panelAvisos = new JPanel();
+	public static JPanel panelReponer = new JPanel();
+	public static JPanel panelPedidos = new JPanel();
+	public static JPanel panelConsulta = new JPanel();
+	public static JPanel panelEventos = new JPanel();
+	public static JPanel panelPersonal = new JPanel();
 	//Less important
 	public static JLabel lblMsgBienvenida = new JLabel("   \u00A1 Bienvenido  !");
-	private final JPanel panelPersonal = new JPanel();
-	private final JPanel panelEventos = new JPanel();
-	private final JPanel panelConsulta = new JPanel();
-	private final JPanel panelPedidos = new JPanel();
 	private final JLabel lblEventos = new JLabel("a");
 	public static void abrir() {
 		EventQueue.invokeLater(new Runnable() {
@@ -119,30 +122,23 @@ public class Principal extends JFrame {
 		lblMsgBienvenida.setBounds(0, 0, 350, 40);
 		cabecera.add(lblMsgBienvenida);
 		
-		panelGris.setBackground(new Color(102, 102, 102));
-		panelGris.setCursor(Cursor.getPredefinedCursor(Cursor.CROSSHAIR_CURSOR));
-		panelGris.setBounds(0, 0, 994, 572);
-		contentPane.add(panelGris);
-		panelGris.setLayout(null);
+		//panelGris.setBackground(new Color(102, 102, 102));
+		//panelGris.setCursor(Cursor.getPredefinedCursor(Cursor.CROSSHAIR_CURSOR));
+		//panelGris.setBounds(0, 0, 994, 572);
+		//contentPane.add(panelGris);
+		//panelGris.setLayout(null);
 		
 		tabbedPane.setBounds(0, 40, 994, 532);
 		contentPane.add(tabbedPane);
 		
-		JPanel panelAvisos = new JPanel();
-		tabbedPane.addTab(" Avisos ", null, panelAvisos, "Mirar los temas de urgencia a tratar");
 		panelAvisos.setLayout(null);
 		
-		JPanel panelReponer = new JPanel();
-		tabbedPane.addTab(" Reponer ", null, panelReponer, "Reponer materiales propios de los servicios");
 		panelReponer.setLayout(null);
 		
-		tabbedPane.addTab(" Pedidos ", null, panelPedidos, "Consultar los ultimos pedidos");
 		panelPedidos.setLayout(null);
 		
-		tabbedPane.addTab(" Personal ", null, panelPersonal, "Dar de alta y de baja a el personal");
 		panelPersonal.setLayout(null);
 		
-		tabbedPane.addTab(" Eventos Recientes ", null, panelEventos, "Consultar los eventos que han ocurrido desde el inicio de sesi\u00F3n");
 		panelEventos.setLayout(null);
 		lblEventos.setForeground(new Color(47, 79, 79));
 		lblEventos.setVerticalAlignment(SwingConstants.BOTTOM);
@@ -167,12 +163,33 @@ public class Principal extends JFrame {
 		lblInfoContent.setBounds(10, 85, 304, 419);
 		panelEventos.add(lblInfoContent);
 		
-		tabbedPane.addTab(" Consultas ", null, panelConsulta, "Consultar distintos tipos de datos");
 		panelConsulta.setLayout(null);
 	}
 	public static void setUtil(Boolean x){
-		panelGris.setVisible(!x);
+		
+		//Visual
+		
+		lblMsgBienvenida.setText("   \u00A1 Bienvenido/a "+Parking.usuarioConectado.getNombreCompleto()+" !");
+		//panelGris.setVisible(!x);
 		cabecera.setVisible(x);
 		tabbedPane.setVisible(x);
+		
+		//Paneles
+		
+		if(Parking.usuarioConectado.isVerificado()){
+			tabbedPane.removeAll();
+			switch(Parking.usuarioConectado.getTipo()){
+				case "ADMINISTRADOR":
+					tabbedPane.addTab(" Consultas ", null, panelConsulta, "Consultar distintos tipos de datos");
+					tabbedPane.addTab(" Avisos ", null, panelAvisos, "Mirar los temas de urgencia a tratar");
+					tabbedPane.addTab(" Reponer ", null, panelReponer, "Reponer materiales propios de los servicios");
+					tabbedPane.addTab(" Pedidos ", null, panelPedidos, "Consultar los ultimos pedidos");
+					tabbedPane.addTab(" Personal ", null, panelPersonal, "Dar de alta y de baja a el personal");
+				case "MECANICO":case "LIMPIEZA":case "SEGURIDAD":
+					tabbedPane.addTab(" Eventos Recientes ", null, panelEventos, "Consultar los eventos que han ocurrido desde el inicio de sesi\u00F3n");
+					
+					break;
+			}
+		}
 	}
 }
