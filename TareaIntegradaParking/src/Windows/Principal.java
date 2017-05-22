@@ -164,6 +164,21 @@ public class Principal extends JFrame {
 		panelEventos.add(lblInfoContent);
 		
 		panelConsulta.setLayout(null);
+		
+		/**/
+		
+		panelPersonal.setBorder(new EmptyBorder(5, 5, 5, 5));
+		panelPersonal.setLayout(null);
+		
+		JLabel label = new JLabel("New label");
+		label.setBounds(10, 11, 200, 50);
+		panelPersonal.add(label);
+		
+		JButton btnNewButton = new JButton("New button");
+		btnNewButton.setBounds(554, 363, 430, 133);
+		panelPersonal.add(btnNewButton);
+		
+		/**/
 	}
 	public static void setUtil(Boolean x){
 		

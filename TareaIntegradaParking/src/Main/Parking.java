@@ -34,8 +34,9 @@ public class Parking {
 		while(programa(args));
 	}
 	public static boolean programa(String[] args){
-		
-		ContCarga=-150;
+
+		//ContCarga=-150;
+		ContCarga=449;
 		CargaAcabada=false;
 		
 		errConBBDD=false;

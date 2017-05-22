@@ -58,6 +58,12 @@ public class Login extends JFrame {
 	private final JButton btnDuplicado = new JButton("Pedir duplicado de tarjeta");
 	private final JPanel panelEstandar = new JPanel();
 	private final JPanel panelAbonados = new JPanel();
+	private final JTextField txtNAbonado = new JTextField();
+	private final JTextField txtDNI = new JTextField();
+	private final JLabel lblNAbonado = new JLabel("N\u00BA Abonado");
+	private final JLabel lblDNI = new JLabel("DNI");
+	private final JButton btnAbonados = new JButton("Acceder");
+	private final JButton btnBorrar = new JButton("Borrar");
 	/**
 	 * Launch the application.
 	 */
@@ -79,6 +85,10 @@ public class Login extends JFrame {
 	 * Create the frame.
 	 */
 	public Login() {
+		txtDNI.setBounds(85, 90, 160, 35);
+		txtDNI.setColumns(10);
+		txtNAbonado.setBounds(85, 40, 160, 35);
+		txtNAbonado.setColumns(10);
 		setIconImage(Toolkit.getDefaultToolkit().getImage(Cargador.class.getResource("/Recursos/iconos/northlogo_default.png")));
 		setResizable(false);
 		//setIconImage(Toolkit.getDefaultToolkit().getImage(Cargador.class.getResource("/north2.png")));
@@ -208,7 +218,7 @@ public class Login extends JFrame {
 		contentPane.add(panelClientes);
 		panelClientes.setLayout(null);
 		
-		JButton btnAreaDePersonal = new JButton("Area de personal");
+		JButton btnAreaDePersonal = new JButton("Area de Personal");
 		btnAreaDePersonal.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnAreaDePersonal.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -233,6 +243,47 @@ public class Login extends JFrame {
 		btnDuplicado.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		separator_mid_2.setBounds(0, 30, 255, 2);
 		panelAbonados.add(separator_mid_2);
+		
+		panelAbonados.add(txtNAbonado);
+		lblNAbonado.setBounds(10, 40, 74, 35);
+		
+		panelAbonados.add(lblNAbonado);
+		
+		panelAbonados.add(txtDNI);
+		lblDNI.setBounds(10, 90, 74, 35);
+		
+		panelAbonados.add(lblDNI);
+		btnBorrar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				txtDNI.setText("");
+				txtNAbonado.setText("");
+			}
+		});
+		btnBorrar.setBounds(10, 189, 81, 36);
+		panelAbonados.add(btnBorrar);
+		btnAbonados.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//aqui se validan los abonados
+			}
+		});
+		btnAbonados.setBounds(113, 189, 128, 36);
+		
+		panelAbonados.add(btnAbonados);
+		
+		JSeparator separator_abonado_1 = new JSeparator();
+		separator_abonado_1.setBounds(0, 135, 250, 2);
+		panelAbonados.add(separator_abonado_1);
+		
+		JSeparator separator_abonado_2 = new JSeparator();
+		separator_abonado_2.setBounds(0, 180, 250, 2);
+		panelAbonados.add(separator_abonado_2);
+		
+		JLabel lblAbonadoProTip = new JLabel("Introduce N\u00BA Abonado y DNI");
+		lblAbonadoProTip.setFont(new Font("Consolas", Font.PLAIN, 11));
+		lblAbonadoProTip.setForeground(new Color(75,75,75));
+		lblAbonadoProTip.setHorizontalAlignment(SwingConstants.CENTER);
+		lblAbonadoProTip.setBounds(0, 140, 250, 35);
+		panelAbonados.add(lblAbonadoProTip);
 		panelCargando.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
 		
 		panelCargando.setBounds(0, 0, 255, 313);
