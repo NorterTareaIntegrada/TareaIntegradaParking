@@ -71,6 +71,8 @@ public class Parking {
 		}
 		return false;
 	}
+	
+	
 	public static int buscarUsu(String usu){
 		for(int i=0;i<usuarios.length;i++) if(usuarios[i].equals(usu)) return i;
 		return -1;
