@@ -7,12 +7,6 @@ public class Distribuidor {
 	private String nombre;
 	private String mail;
 	private String direccion;
-	private Vector<Productos> productos= new Vector <Productos>();
-	
-	public Distribuidor(Vector<Productos> productos) {
-		super();
-		this.productos = productos;
-	}
 
 	public Distribuidor(String cod, String nombre, String mail, String direccion) {
 		super();
