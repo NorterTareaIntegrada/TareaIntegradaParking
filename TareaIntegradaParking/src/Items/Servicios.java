@@ -1,4 +1,4 @@
-package items;
+package Items;
 
 public class Servicios {
 	private String codigo;
