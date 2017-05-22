@@ -35,8 +35,8 @@ public class Parking {
 	}
 	public static boolean programa(String[] args){
 
-		//ContCarga=-150;
-		ContCarga=449;
+		ContCarga=-150;
+		//ContCarga=449;
 		CargaAcabada=false;
 		
 		errConBBDD=false;
