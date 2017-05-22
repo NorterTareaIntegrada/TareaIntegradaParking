@@ -63,7 +63,11 @@ public class Login extends JFrame {
 	private final JLabel lblNAbonado = new JLabel("N\u00BA Abonado");
 	private final JLabel lblDNI = new JLabel("DNI");
 	private final JButton btnAbonados = new JButton("Acceder");
-	private final JButton btnBorrar = new JButton("Borrar");
+	private final JButton btnAbonadoBorrar = new JButton("Borrar");
+	private final JLabel lblMatricula = new JLabel("Matricula");
+	private JTextField txtMatricula;
+	private JTextField txtCodTicket;
+	private final JButton btnEstardar = new JButton("Acceder");
 	/**
 	 * Launch the application.
 	 */
@@ -85,8 +89,10 @@ public class Login extends JFrame {
 	 * Create the frame.
 	 */
 	public Login() {
+		txtDNI.setHorizontalAlignment(SwingConstants.CENTER);
 		txtDNI.setBounds(85, 90, 160, 35);
 		txtDNI.setColumns(10);
+		txtNAbonado.setHorizontalAlignment(SwingConstants.CENTER);
 		txtNAbonado.setBounds(85, 40, 160, 35);
 		txtNAbonado.setColumns(10);
 		setIconImage(Toolkit.getDefaultToolkit().getImage(Cargador.class.getResource("/Recursos/iconos/northlogo_default.png")));
@@ -235,6 +241,56 @@ public class Login extends JFrame {
 		
 		tabbedPaneInsideClientes.addTab(" Usuario Est\u00E1ndar", null, panelEstandar, null);
 		panelEstandar.setLayout(null);
+		lblMatricula.setBounds(10, 5, 74, 35);
+		panelEstandar.add(lblMatricula);
+		
+		JLabel lblCodTicket = new JLabel("Cod. Ticket");
+		lblCodTicket.setBounds(10, 50, 74, 35);
+		panelEstandar.add(lblCodTicket);
+		
+		txtMatricula = new JTextField();
+		txtMatricula.setHorizontalAlignment(SwingConstants.CENTER);
+		txtMatricula.setBounds(85, 5, 160, 35);
+		panelEstandar.add(txtMatricula);
+		txtMatricula.setColumns(10);
+		
+		txtCodTicket = new JTextField();
+		txtCodTicket.setHorizontalAlignment(SwingConstants.CENTER);
+		txtCodTicket.setBounds(85, 50, 160, 35);
+		panelEstandar.add(txtCodTicket);
+		txtCodTicket.setColumns(10);
+		
+		JSeparator separator_estandar_1 = new JSeparator();
+		separator_estandar_1.setBounds(0, 90, 250, 2);
+		panelEstandar.add(separator_estandar_1);
+		
+		JSeparator separator_estandar_2 = new JSeparator();
+		separator_estandar_2.setBounds(0, 140, 250, 2);
+		panelEstandar.add(separator_estandar_2);
+		
+		JLabel lblEstandarProTip = new JLabel("Introducir matricula y el C. Ticket.");
+		lblEstandarProTip.setFont(new Font("Consolas", Font.PLAIN, 11));
+		lblEstandarProTip.setForeground(new Color(75, 75, 75));
+		lblEstandarProTip.setBackground(new Color(240, 240, 240));
+		lblEstandarProTip.setHorizontalAlignment(SwingConstants.CENTER);
+		lblEstandarProTip.setBounds(0, 95, 250, 40);
+		panelEstandar.add(lblEstandarProTip);
+		
+		JButton btnEstandarBorrar = new JButton("Borrar");
+		btnEstandarBorrar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				txtCodTicket.setText("");
+				txtMatricula.setText("");
+			}
+		});
+		btnEstandarBorrar.setBackground(new Color(211, 211, 211));
+		btnEstandarBorrar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnEstandarBorrar.setBounds(5, 145, 240, 40);
+		panelEstandar.add(btnEstandarBorrar);
+		btnEstardar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnEstardar.setBounds(5, 190, 240, 40);
+		
+		panelEstandar.add(btnEstardar);
 		
 		tabbedPaneInsideClientes.addTab(" Usuario Abonado ", null, panelAbonados, "Identificate como usuario abonado o pide un duplicado de tarjeta");
 		panelAbonados.setLayout(null);
@@ -253,14 +309,17 @@ public class Login extends JFrame {
 		lblDNI.setBounds(10, 90, 74, 35);
 		
 		panelAbonados.add(lblDNI);
-		btnBorrar.addActionListener(new ActionListener() {
+		btnAbonadoBorrar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnAbonadoBorrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				txtDNI.setText("");
 				txtNAbonado.setText("");
 			}
 		});
-		btnBorrar.setBounds(10, 189, 81, 36);
-		panelAbonados.add(btnBorrar);
+		btnAbonadoBorrar.setBounds(10, 189, 81, 36);
+		btnAbonadoBorrar.setBackground(new Color(211, 211, 211));
+		panelAbonados.add(btnAbonadoBorrar);
+		btnAbonados.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnAbonados.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//aqui se validan los abonados
