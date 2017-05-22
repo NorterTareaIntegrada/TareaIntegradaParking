@@ -1,31 +1,65 @@
 package BBDD;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.sql.*;
+import java.util.InvalidPropertiesFormatException;
+import java.util.Properties;
+
+import Main.Parking;
 
 public class BBDD_Connector {
-	
-	private String base;
+
+	private String dbms;
+	private String dbName;
 	private String usuario;
 	private String pass;
-	private String url;
 	protected Connection c;
+
+	//private String driver;
+	private String serverName;
+	private int portNumber;
+	private Properties prop;
 	
-	public BBDD_Connector(String bbdd){		
-		base=bbdd;
-		usuario="UsuNorter";
-		pass="a1234567";
-		url="jdbc:mysql://localhost/"+base;
+	public BBDD_Connector(String fileName){
+		try{
+			this.prop = new Properties();
+		    prop.loadFromXML(Files.newInputStream(Paths.get(fileName)));
+			this.dbms = this.prop.getProperty("dbms");
+			//this.driver = this.prop.getProperty("driver");
+			this.dbName = this.prop.getProperty("database_name");
+			this.usuario = this.prop.getProperty("user_name");
+			this.pass = this.prop.getProperty("password");
+			this.serverName = this.prop.getProperty("server_name");
+			this.portNumber = Integer.parseInt(this.prop.getProperty("port_number"));
+			
+		}catch(FileNotFoundException e){
+			Parking.msgErrBBDD="No se encuentra el archivo de configuración";
+			Parking.errConBBDD=true;
+		}catch(InvalidPropertiesFormatException e){
+			Parking.msgErrBBDD="Error formato fichero de configuración";
+			Parking.errConBBDD=true;
+		}catch(IOException e){
+			Parking.msgErrBBDD="Error abriendo fichero de configuración";
+			Parking.errConBBDD=true;
+		}
 	}
 	
 	public void abrir(){
-		try{Class.forName("com.mysql.jdbc.Driver");}
-		catch (ClassNotFoundException e){System.out.println(e.getMessage());}
-		try{c=DriverManager.getConnection(url,usuario,pass);}
-		catch (SQLException e ){System.out.println(e.getMessage());}
-	}	
-
+		try{
+			c = null;
+			Properties connectionProps = new Properties();
+			connectionProps.put("user", this.usuario);
+			connectionProps.put("password", this.pass);
+			c = DriverManager.getConnection("jdbc:"+this.dbms+"://"+this.serverName+":"+this.portNumber+"/"+this.dbName,connectionProps);
+		}
+		catch (SQLException e){System.out.println(e.getMessage());}
+	}
+	
 	public void cerrar(){
-		try{c.close();}
+		try{if (c!=null){c.close();c=null;}}
 		catch (SQLException e){System.out.println(e.getMessage());}
 	}
 }
