@@ -31,6 +31,7 @@ import javax.swing.JLabel;
 
 import java.awt.Font;
 
+import Items.Usuario;
 import Main.Parking;
 
 import javax.swing.border.MatteBorder;
@@ -100,6 +101,7 @@ public class Principal extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				setUtil(false);
 				frame.setEnabled(false);
+				Parking.usuarioConectado=new Usuario(false);
 				Login.reset();
 			}
 		});
@@ -268,16 +270,27 @@ public class Principal extends JFrame {
 		
 		if(Parking.usuarioConectado.isVerificado()){
 			tabbedPane.removeAll();
-			switch(Parking.usuarioConectado.getTipo()){
-				case "ADMINISTRADOR":
-					tabbedPane.addTab(" Consultas ", null, panelConsulta, "Consultar distintos tipos de datos");
-					tabbedPane.addTab(" Avisos ", null, panelAvisos, "Mirar los temas de urgencia a tratar");
-					tabbedPane.addTab(" Reponer ", null, panelReponer, "Reponer materiales propios de los servicios");
-					tabbedPane.addTab(" Pedidos ", null, panelPedidos, "Consultar los ultimos pedidos");
-					tabbedPane.addTab(" Personal ", null, panelPersonal, "Dar de alta y de baja a el personal");
-				case "MECANICO":case "LIMPIEZA":case "SEGURIDAD":
-					tabbedPane.addTab(" Eventos Recientes ", null, panelEventos, "Consultar los eventos que han ocurrido desde el inicio de sesi\u00F3n");
-					
+			switch(Parking.TOKEN){
+				case "USUARIO":
+					switch(Parking.usuarioConectado.getTipo()){
+						case "ADMINISTRADOR":
+							tabbedPane.addTab(" Consultas ", null, panelConsulta, "Consultar distintos tipos de datos");
+							tabbedPane.addTab(" Avisos ", null, panelAvisos, "Mirar los temas de urgencia a tratar");
+							tabbedPane.addTab(" Reponer ", null, panelReponer, "Reponer materiales propios de los servicios");
+							tabbedPane.addTab(" Pedidos ", null, panelPedidos, "Consultar los ultimos pedidos");
+							tabbedPane.addTab(" Personal ", null, panelPersonal, "Dar de alta y de baja a el personal");
+						case "MECANICO":case "LIMPIEZA":case "SEGURIDAD":
+							tabbedPane.addTab(" Eventos Recientes ", null, panelEventos, "Consultar los eventos que han ocurrido desde el inicio de sesi\u00F3n");
+							break;
+					}
+					break;
+				case "ESTANDAR":
+					break;
+				case "ABONADO":
+					break;
+				case "LOST":
+					break;
+				default:
 					break;
 			}
 		}

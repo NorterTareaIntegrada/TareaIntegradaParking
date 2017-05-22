@@ -22,7 +22,8 @@ public class Plazas {
 		this.hora_entrada = hora_entrada;
 		this.codTicket = codTicket;
 	}
-
+	
+	public Plazas(){};
 
 	public String getCodGaraje() {
 		return codGaraje;
@@ -93,6 +94,8 @@ public class Plazas {
 		this.codTicket = codTicket;
 	}
 	
-	
+	public boolean isValida(){
+		return true;
+	}
 	
 }

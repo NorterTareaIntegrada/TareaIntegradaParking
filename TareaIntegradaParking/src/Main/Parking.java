@@ -7,6 +7,8 @@ import java.util.Scanner;
 import javax.swing.Timer;
 
 import BBDD.BBDD_Connector;
+import Items.Plazas;
+import Items.Tarjetas;
 import Items.Usuario;
 import Windows.*;
 
@@ -22,7 +24,10 @@ public class Parking {
 	public static Scanner in=new Scanner(System.in);
 	public static BBDD_Connector bd;
 	
+	public static String TOKEN=null;
 	public static Usuario usuarioConectado = new Usuario(false);
+	public static Tarjetas tarjetaIdentificada = new Tarjetas();
+	public static Plazas plazaObjetivo = new Plazas();
 	
 	public static int ContCarga;
 	public static boolean CargaAcabada;
