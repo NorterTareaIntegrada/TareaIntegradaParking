@@ -6,32 +6,32 @@ import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.Vector;
 
-import Items.Cargos;
+import Items.Pedidos;
 
 
-public class BD_Cargos extends BBDD_Connector {
+public class BD_Pedidos extends BBDD_Connector {
 
 	private static Statement s;	
 	private static ResultSet reg;
 	
-	public BD_Cargos(String bbdd){
+	public BD_Pedidos(String bbdd){
 		super(bbdd);
 	}	
 	
-	public  Vector<Cargos> listadoCargos(String Cargos){
-		String cadenaSQL="SELECT * from cargos WHERE nombre='"+Cargos+"'";
-		Vector<Cargos> listaCargos=new Vector<Cargos>();
+	public  Vector<Pedidos> listadoPedidos(String Pedidos){
+		String cadenaSQL="SELECT * from pedidos WHERE nombre='"+Pedidos+"'";
+		Vector<Pedidos> listaPedidos=new Vector<Pedidos>();
 		try{
 			this.abrir();
 			s=c.createStatement();
 			reg=s.executeQuery(cadenaSQL);
 			while ( reg.next()){
-				listaCargos.add(new Cargos(reg.getString("cod_garaje"),reg.getString("num_plaza"),reg.getString("cod_servicio")));
+				listaPedidos.add(new Pedidos(reg.getString("fecha"),reg.getString("cod_producto"),reg.getDouble("cantidad"),reg.getDouble("precio_total")));
 				
 			}
 			s.close();
 			this.cerrar();
-			return listaCargos;
+			return listaPedidos;
 		}
 		catch ( SQLException e){		
 			return null;			
