@@ -95,7 +95,7 @@ public class Plazas {
 	}
 	
 	public boolean isValida(){
-		return true;
+		return false;
 	}
 	
 }

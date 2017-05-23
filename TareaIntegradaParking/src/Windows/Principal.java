@@ -54,7 +54,7 @@ public class Principal extends JFrame {
 	public static JPanel panelEventos = new JPanel();
 	public static JPanel panelPersonal = new JPanel();
 	//Less important
-	public static JLabel lblMsgBienvenida = new JLabel("   \u00A1 Bienvenido  !");
+	public static JLabel lblMsgBienvenida = new JLabel("");
 	private final JLabel lblEventos = new JLabel("a");
 	public static void abrir() {
 		EventQueue.invokeLater(new Runnable() {
@@ -107,6 +107,7 @@ public class Principal extends JFrame {
 		});
 		closeSessionButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		closeSessionButton.setBackground(new Color(204, 102, 102));
+		closeSessionButton.setFocusPainted(false);
 		closeSessionButton.setBounds(869, 5, 120, 30);
 		cabecera.add(closeSessionButton);
 		
@@ -124,11 +125,12 @@ public class Principal extends JFrame {
 		changePasswordButton.setHorizontalTextPosition(SwingConstants.CENTER);
 		changePasswordButton.setBackground(new Color(255, 204, 153));
 		changePasswordButton.setActionCommand("");
+		changePasswordButton.setFocusPainted(false);
 		changePasswordButton.setBounds(706, 8, 153, 24);
 		cabecera.add(changePasswordButton);
 		
 		lblMsgBienvenida.setFont(new Font("Gill Sans Ultra Bold Condensed", Font.PLAIN, 15));
-		lblMsgBienvenida.setBounds(0, 0, 350, 40);
+		lblMsgBienvenida.setBounds(0, 0, 850, 40);
 		cabecera.add(lblMsgBienvenida);
 		
 		//panelGris.setBackground(new Color(102, 102, 102));
@@ -261,17 +263,18 @@ public class Principal extends JFrame {
 		
 		//Visual
 		
-		lblMsgBienvenida.setText("   \u00A1 Bienvenido/a "+Parking.usuarioConectado.getNombreCompleto()+" !");
 		//panelGris.setVisible(!x);
 		cabecera.setVisible(x);
 		tabbedPane.setVisible(x);
 		
 		//Paneles
 		
-		if(Parking.usuarioConectado.isVerificado()){
+		if(Parking.TOKEN!=null){
 			tabbedPane.removeAll();
+			System.out.println(Parking.TOKEN);
 			switch(Parking.TOKEN){
 				case "USUARIO":
+					lblMsgBienvenida.setText("<html>&nbsp;&nbsp;&nbsp;\u00A1 Bienvenido/a "+Parking.usuarioConectado.getNombreCompleto()+" !&nbsp;&nbsp;&nbsp;<span style=\"background-color:#8c7a31;color:#ceccc2;font-size:11px;padding-left:3px;\">&nbsp;"+Parking.usuarioConectado.getTipo().toUpperCase()+"&nbsp;</span></html>");
 					switch(Parking.usuarioConectado.getTipo()){
 						case "ADMINISTRADOR":
 							tabbedPane.addTab(" Consultas ", null, panelConsulta, "Consultar distintos tipos de datos");
@@ -285,12 +288,16 @@ public class Principal extends JFrame {
 					}
 					break;
 				case "ESTANDAR":
+					lblMsgBienvenida.setText("<html>&nbsp;&nbsp;&nbsp;Gestión de Coche&nbsp;&nbsp;&nbsp;<span style=\"background-color:#687043;color:#ceccc2;font-size:11px;padding-left:3px;font-family:consolas;\">&nbsp;"+"aqui va la matricula de la clase plazas"+"&nbsp;</span></html>");
 					break;
 				case "ABONADO":
+					lblMsgBienvenida.setText("<html>&nbsp;&nbsp;&nbsp;Panel Gestión Abonado&nbsp;&nbsp;&nbsp;<span style=\"background-color:#8c7a31;color:#ceccc2;font-size:11px;padding-left:3px;font-family:consolas;\">&nbsp;"+Parking.tarjetaIdentificada.getDni().toUpperCase()+"&nbsp;</span>&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;Coche&nbsp;&nbsp;&nbsp;<span style=\"background-color:#687043;color:#ceccc2;font-size:11px;padding-left:3px;font-family:consolas;\">&nbsp;"+Parking.tarjetaIdentificada.getMatricula().toUpperCase()+"&nbsp;</span></html>");
 					break;
 				case "LOST":
+					lblMsgBienvenida.setText("<html>&nbsp;&nbsp;&nbsp;Panel de Duplicado de Tarjeta</html>");
 					break;
 				default:
+					System.out.println("INVALID TOKEN!: "+Parking.TOKEN);
 					break;
 			}
 		}

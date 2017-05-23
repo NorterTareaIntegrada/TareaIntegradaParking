@@ -62,7 +62,7 @@ public class Login extends JFrame {
 	public static JTextField txtMatricula;
 	public static JTextField txtCodTicket;
 	private final JLabel lblCargando = new JLabel("Un momento...");
-	private final JButton btnAreaDeClientes = new JButton("Area de Clientes");
+	private final JButton btnAreaDeClientes = new JButton("<html><span style=\"color:gray;\">Area de Clientes</span> &lt; <b>Area de Personal</b></html>");
 	private final JSeparator separator_mid_2 = new JSeparator();
 	private final JButton btnDuplicado = new JButton("Pedir duplicado de tarjeta");
 	private final JPanel panelEstandar = new JPanel();
@@ -148,6 +148,7 @@ public class Login extends JFrame {
 		
 		separator_bot.setBounds(0, 250, 255, 1);
 		panelPrincipal.add(separator_bot);
+		button_delete.setFocusPainted(false);
 		button_delete.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				usernameField.setText("");
@@ -161,6 +162,7 @@ public class Login extends JFrame {
 		button_delete.setFont(new Font("Consolas", Font.PLAIN, 12));
 		button_delete.setBackground(new Color(211, 211, 211));
 		panelPrincipal.add(button_delete);
+		button_id.setFocusPainted(false);
 		
 		button_id.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		button_id.addActionListener(new ActionListener() {
@@ -187,7 +189,9 @@ public class Login extends JFrame {
 		lblProTip.setHorizontalAlignment(SwingConstants.CENTER);
 		lblProTip.setBounds(0, 210, 255, 40);
 		panelPrincipal.add(lblProTip);
+		btnAreaDeClientes.setFont(new Font("Leelawadee", Font.PLAIN, 11));
 		btnAreaDeClientes.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnAreaDeClientes.setFocusPainted(false);
 		btnAreaDeClientes.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				panelPrincipal.setVisible(false);
@@ -231,8 +235,8 @@ public class Login extends JFrame {
 						Plazas plaz=new Plazas();
 						if(plaz.isValida()){
 							Parking.plazaObjetivo=plaz;
-							lblAbonadoProTip.setText("¡Login Correcto!");
-							lblAbonadoProTip.setForeground(new Color(75,255,75));
+							lblEstandarProTip.setText("¡Login Correcto!");
+							lblEstandarProTip.setForeground(new Color(75,255,75));
 							panelClientes.setVisible(true);
 							panelCargando.setVisible(false);
 							try{
@@ -242,8 +246,8 @@ public class Login extends JFrame {
 							Principal.setUtil(true);
 							Login.frame.dispose();
 						}else{
-							lblAbonadoProTip.setText("¡Datos incorrectos!");
-							lblAbonadoProTip.setForeground(new Color(255,75,75));
+							lblEstandarProTip.setText("¡Datos incorrectos!");
+							lblEstandarProTip.setForeground(new Color(255,75,75));
 						}
 						panelClientes.setVisible(true);
 						break;
@@ -269,9 +273,15 @@ public class Login extends JFrame {
 						panelClientes.setVisible(true);
 						break;
 					case "LOST":
+						try{Thread.sleep(500);}catch(InterruptedException e){}
+						panelClientes.setVisible(true);
+						panelCargando.setVisible(false);
+						Principal.frame.setEnabled(true);
+						Principal.setUtil(true);
+						Login.frame.dispose();
 						break;
 					default:
-						System.out.println("Not valid TOKEN");
+						System.out.println("INVALID TOKEN: "+Parking.TOKEN);
 				}
 				
 				panelCargando.setVisible(false);
@@ -282,7 +292,9 @@ public class Login extends JFrame {
 		contentPane.add(panelClientes);
 		panelClientes.setLayout(null);
 		
-		JButton btnAreaDePersonal = new JButton("Area de Personal");
+		JButton btnAreaDePersonal = new JButton("<html><b>Area de Clientes</b> > <span style=\"color:gray;\">Area de Personal</span></html>");
+		btnAreaDePersonal.setFocusPainted(false);
+		btnAreaDePersonal.setFont(new Font("Leelawadee", Font.PLAIN, 11));
 		btnAreaDePersonal.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnAreaDePersonal.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -334,6 +346,7 @@ public class Login extends JFrame {
 		panelEstandar.add(lblEstandarProTip);
 		
 		JButton btnEstandarBorrar = new JButton("Borrar");
+		btnEstandarBorrar.setFocusPainted(false);
 		btnEstandarBorrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				txtCodTicket.setText("");
@@ -344,6 +357,7 @@ public class Login extends JFrame {
 		btnEstandarBorrar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnEstandarBorrar.setBounds(5, 145, 240, 40);
 		panelEstandar.add(btnEstandarBorrar);
+		btnEstardar.setFocusPainted(false);
 		btnEstardar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if(txtMatricula.getText().equals("")||txtCodTicket.getText().equals("")){
@@ -387,6 +401,7 @@ public class Login extends JFrame {
 		lblDNI.setBounds(10, 90, 74, 35);
 		
 		panelAbonados.add(lblDNI);
+		btnAbonadoBorrar.setFocusPainted(false);
 		btnAbonadoBorrar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnAbonadoBorrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -397,6 +412,7 @@ public class Login extends JFrame {
 		btnAbonadoBorrar.setBounds(10, 189, 81, 36);
 		btnAbonadoBorrar.setBackground(new Color(211, 211, 211));
 		panelAbonados.add(btnAbonadoBorrar);
+		btnAbonados.setFocusPainted(false);
 		btnAbonados.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnAbonados.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
