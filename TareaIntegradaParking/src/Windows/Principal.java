@@ -24,6 +24,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.JPasswordField;
+import javax.swing.JSeparator;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.JTabbedPane;
@@ -36,6 +37,8 @@ import Main.Parking;
 
 import javax.swing.border.MatteBorder;
 
+import com.toedter.calendar.JDateChooser;
+
 public class Principal extends JFrame {
 	private JPanel contentPane;
 
@@ -44,7 +47,7 @@ public class Principal extends JFrame {
 	 */
 	public static Principal frame;
 	public static JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-	//public static JPanel panelGris = new JPanel();
+	public static JPanel panelGris = new JPanel();
 	public static JPanel cabecera = new JPanel();
 	//Paneles de tabbedPane
 	public static JPanel panelAvisos = new JPanel();
@@ -53,6 +56,8 @@ public class Principal extends JFrame {
 	public static JPanel panelConsulta = new JPanel();
 	public static JPanel panelEventos = new JPanel();
 	public static JPanel panelPersonal = new JPanel();
+	//Cosas de paneles de tabbedPane
+	public static JComboBox comboBoxPersonalAltaGaraje = new JComboBox();
 	//Less important
 	public static JLabel lblMsgBienvenida = new JLabel("");
 	private final JLabel lblEventos = new JLabel("a");
@@ -133,11 +138,11 @@ public class Principal extends JFrame {
 		lblMsgBienvenida.setBounds(0, 0, 850, 40);
 		cabecera.add(lblMsgBienvenida);
 		
-		//panelGris.setBackground(new Color(102, 102, 102));
-		//panelGris.setCursor(Cursor.getPredefinedCursor(Cursor.CROSSHAIR_CURSOR));
-		//panelGris.setBounds(0, 0, 994, 572);
-		//contentPane.add(panelGris);
-		//panelGris.setLayout(null);
+		panelGris.setBackground(new Color(102, 102, 102));
+		panelGris.setCursor(Cursor.getPredefinedCursor(Cursor.CROSSHAIR_CURSOR));
+		panelGris.setBounds(0, 0, 994, 572);
+		contentPane.add(panelGris);
+		panelGris.setLayout(null);
 		
 		tabbedPane.setBounds(0, 40, 994, 532);
 		contentPane.add(tabbedPane);
@@ -178,73 +183,171 @@ public class Principal extends JFrame {
 				
 		/**/
 
-		JTextField txtAltaNomUsuario;
-		JPasswordField passwordAlta1;
-		JPasswordField passwordAlta2;
-		JTextField txtAltaNombre;
-		JTextField txtAltaApellidos;
-
+		JTextField txtPersonalAltaNomUsuario;
+		JPasswordField passwordPersonalAlta1;
+		JPasswordField passwordPersonalAlta2;
+		JTextField txtPersonalAltaNombre;
+		JTextField txtPersonalAltaApellidos;
+		JTextField txtPersonalAltaDireccion;
+		JTextField txtPersonalAltaTelefono;
 		
 		panelPersonal.setBorder(new EmptyBorder(5, 5, 5, 5));
 		panelPersonal.setLayout(null);
 		
-		JLabel lblBajas = new JLabel("<html>\r\n\t<h2>Dar de baja</h2>\r\n</html>");
-		lblBajas.setFont(new Font("Lucida Console", Font.PLAIN, 11));
-		lblBajas.setHorizontalAlignment(SwingConstants.CENTER);
-		lblBajas.setBounds(651, 11, 333, 50);
-		panelPersonal.add(lblBajas);
+		JLabel lblPersonalBajas = new JLabel("<html>\r\n\t<h2>Dar de baja</h2>\r\n</html>");
+		lblPersonalBajas.setFont(new Font("Lucida Console", Font.PLAIN, 11));
+		lblPersonalBajas.setHorizontalAlignment(SwingConstants.CENTER);
+		lblPersonalBajas.setBounds(651, 11, 333, 50);
+		panelPersonal.add(lblPersonalBajas);
 		
-		JPanel panelBajas = new JPanel();
-		panelBajas.setBackground(SystemColor.controlHighlight);
-		panelBajas.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
-		panelBajas.setBounds(651, 64, 333, 432);
-		panelPersonal.add(panelBajas);
-		panelBajas.setLayout(null);
+		JPanel panelPersonalBajas = new JPanel();
+		panelPersonalBajas.setBackground(SystemColor.controlHighlight);
+		panelPersonalBajas.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
+		panelPersonalBajas.setBounds(651, 64, 333, 432);
+		panelPersonal.add(panelPersonalBajas);
+		panelPersonalBajas.setLayout(null);
 		
-		JLabel lblAlta = new JLabel("<html>\r\n\t<h2>Dar de alta</h2>\r\n</html>");
-		lblAlta.setHorizontalAlignment(SwingConstants.CENTER);
-		lblAlta.setFont(new Font("Lucida Console", Font.PLAIN, 11));
-		lblAlta.setBounds(304, 11, 333, 50);
-		panelPersonal.add(lblAlta);
+		JLabel lblPersonalAlta = new JLabel("<html>\r\n\t<h2>Dar de alta</h2>\r\n</html>");
+		lblPersonalAlta.setHorizontalAlignment(SwingConstants.CENTER);
+		lblPersonalAlta.setFont(new Font("Lucida Console", Font.PLAIN, 11));
+		lblPersonalAlta.setBounds(304, 11, 333, 50);
+		panelPersonal.add(lblPersonalAlta);
 		
-		JPanel panelAlta = new JPanel();
-		panelAlta.setLayout(null);
-		panelAlta.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
-		panelAlta.setBackground(SystemColor.controlHighlight);
-		panelAlta.setBounds(305, 64, 333, 432);
-		panelPersonal.add(panelAlta);
+		JPanel panelPersonalAlta = new JPanel();
+		panelPersonalAlta.setLayout(null);
+		panelPersonalAlta.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
+		panelPersonalAlta.setBackground(SystemColor.controlHighlight);
+		panelPersonalAlta.setBounds(305, 64, 333, 432);
+		panelPersonal.add(panelPersonalAlta);
 		
-		JComboBox comboBoxAltaTipo = new JComboBox();
-		comboBoxAltaTipo.setModel(new DefaultComboBoxModel(new String[] {"MECANICO", "LIMPIEZA", "SEGURIDAD"}));
-		comboBoxAltaTipo.setBounds(123, 11, 200, 20);
-		panelAlta.add(comboBoxAltaTipo);
+		JComboBox comboBoxPersonalAltaTipo = new JComboBox();
+		comboBoxPersonalAltaTipo.setToolTipText("Seleccionar el rol que tomar\u00E1 en el parking");
+		comboBoxPersonalAltaTipo.setModel(new DefaultComboBoxModel(new String[] {"MECANICO", "LIMPIEZA", "SEGURIDAD"}));
+		comboBoxPersonalAltaTipo.setBounds(123, 11, 200, 20);
+		panelPersonalAlta.add(comboBoxPersonalAltaTipo);
 		
-		txtAltaNomUsuario = new JTextField();
-		txtAltaNomUsuario.setBounds(123, 37, 200, 20);
-		panelAlta.add(txtAltaNomUsuario);
-		txtAltaNomUsuario.setColumns(10);
+		JLabel lblPersonalAltaTipo = new JLabel("Tipo");
+		lblPersonalAltaTipo.setBounds(10, 11, 103, 20);
+		panelPersonalAlta.add(lblPersonalAltaTipo);
 		
-		passwordAlta1 = new JPasswordField();
-		passwordAlta1.setBounds(123, 63, 200, 20);
-		panelAlta.add(passwordAlta1);
+		txtPersonalAltaNomUsuario = new JTextField();
+		txtPersonalAltaNomUsuario.setToolTipText("Introduce el nombre de usuario");
+		txtPersonalAltaNomUsuario.setBounds(123, 37, 200, 20);
+		panelPersonalAlta.add(txtPersonalAltaNomUsuario);
+		txtPersonalAltaNomUsuario.setColumns(10);
 		
-		passwordAlta2 = new JPasswordField();
-		passwordAlta2.setBounds(123, 89, 200, 20);
-		panelAlta.add(passwordAlta2);
+		JLabel lblPersonalAltaNombreDeUsuario = new JLabel("Nombre de Usuario");
+		lblPersonalAltaNombreDeUsuario.setBounds(10, 37, 103, 20);
+		panelPersonalAlta.add(lblPersonalAltaNombreDeUsuario);
 		
-		JComboBox comboBoxAltaGaraje = new JComboBox();
-		comboBoxAltaGaraje.setBounds(123, 116, 200, 20);
-		panelAlta.add(comboBoxAltaGaraje);
+		passwordPersonalAlta1 = new JPasswordField();
+		passwordPersonalAlta1.setToolTipText("Introduce la contrase\u00F1a");
+		passwordPersonalAlta1.setBounds(123, 63, 200, 20);
+		panelPersonalAlta.add(passwordPersonalAlta1);
 		
-		txtAltaNombre = new JTextField();
-		txtAltaNombre.setBounds(123, 141, 200, 20);
-		panelAlta.add(txtAltaNombre);
-		txtAltaNombre.setColumns(10);
+		JLabel lblPersonalAltaContrasenya = new JLabel("Contrase\u00F1a");
+		lblPersonalAltaContrasenya.setBounds(10, 63, 103, 20);
+		panelPersonalAlta.add(lblPersonalAltaContrasenya);
 		
-		txtAltaApellidos = new JTextField();
-		txtAltaApellidos.setBounds(123, 167, 200, 20);
-		panelAlta.add(txtAltaApellidos);
-		txtAltaApellidos.setColumns(10);
+		passwordPersonalAlta2 = new JPasswordField();
+		passwordPersonalAlta2.setToolTipText("Repite la contrase\u00F1a");
+		passwordPersonalAlta2.setBounds(123, 89, 200, 20);
+		panelPersonalAlta.add(passwordPersonalAlta2);
+		
+		JLabel lblPersonalAltaRepetirContrasenya = new JLabel("Repetir Contrase\u00F1a");
+		lblPersonalAltaRepetirContrasenya.setBounds(10, 89, 103, 20);
+		panelPersonalAlta.add(lblPersonalAltaRepetirContrasenya);
+		
+		comboBoxPersonalAltaGaraje.setEnabled(false);
+		comboBoxPersonalAltaGaraje.setBounds(123, 116, 200, 20);
+		//comboBoxPersonalAltaGaraje.setForeground(DefaultLookup.getColor(comboBoxPersonalAltaGaraje, this, "ComboBox.disabledForeground", null));
+		panelPersonalAlta.add(comboBoxPersonalAltaGaraje);
+		
+		JLabel lblPersonalAltaGaraje = new JLabel("Garaje");
+		lblPersonalAltaGaraje.setBounds(10, 116, 103, 20);
+		panelPersonalAlta.add(lblPersonalAltaGaraje);
+		
+		txtPersonalAltaNombre = new JTextField();
+		txtPersonalAltaNombre.setToolTipText("Nombre del empleado");
+		txtPersonalAltaNombre.setBounds(123, 141, 200, 20);
+		panelPersonalAlta.add(txtPersonalAltaNombre);
+		txtPersonalAltaNombre.setColumns(10);
+		
+		JLabel lblPersonalAltaNombre = new JLabel("Nombre");
+		lblPersonalAltaNombre.setBounds(10, 141, 103, 20);
+		panelPersonalAlta.add(lblPersonalAltaNombre);
+		
+		txtPersonalAltaApellidos = new JTextField();
+		txtPersonalAltaApellidos.setToolTipText("Apellidos del empleado");
+		txtPersonalAltaApellidos.setBounds(123, 167, 200, 20);
+		panelPersonalAlta.add(txtPersonalAltaApellidos);
+		txtPersonalAltaApellidos.setColumns(10);
+		
+		JLabel lblPersonalAltaApellidos = new JLabel("Apellidos");
+		lblPersonalAltaApellidos.setBounds(10, 167, 103, 20);
+		panelPersonalAlta.add(lblPersonalAltaApellidos);
+		
+		JDateChooser dateChooserPersonalAlta = new JDateChooser();
+		dateChooserPersonalAlta.getCalendarButton().setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		dateChooserPersonalAlta.setBounds(123, 193, 200, 20);
+		panelPersonalAlta.add(dateChooserPersonalAlta);
+		
+		JLabel lblPersonalAltaFechaNacimiento = new JLabel("Fecha Nacimiento");
+		lblPersonalAltaFechaNacimiento.setBounds(10, 193, 103, 20);
+		panelPersonalAlta.add(lblPersonalAltaFechaNacimiento);
+		
+		txtPersonalAltaDireccion = new JTextField();
+		txtPersonalAltaDireccion.setBounds(123, 219, 200, 20);
+		panelPersonalAlta.add(txtPersonalAltaDireccion);
+		txtPersonalAltaDireccion.setColumns(10);
+		
+		JLabel lblPersonalAltaDireccion = new JLabel("Direccion");
+		lblPersonalAltaDireccion.setBounds(10, 218, 103, 20);
+		panelPersonalAlta.add(lblPersonalAltaDireccion);
+		
+		txtPersonalAltaTelefono = new JTextField();
+		txtPersonalAltaTelefono.setBounds(123, 245, 200, 20);
+		panelPersonalAlta.add(txtPersonalAltaTelefono);
+		txtPersonalAltaTelefono.setColumns(10);
+		
+		JLabel lblPersonalAltaTelefono = new JLabel("Telefono");
+		lblPersonalAltaTelefono.setBounds(10, 245, 103, 20);
+		panelPersonalAlta.add(lblPersonalAltaTelefono);
+		
+		JSeparator separatorAltaPersonal1 = new JSeparator();
+		separatorAltaPersonal1.setBounds(2, 275, 329, 2);
+		panelPersonalAlta.add(separatorAltaPersonal1);
+		
+		JSeparator separatorAltaPersonal2 = new JSeparator();
+		separatorAltaPersonal2.setBounds(2, 305, 329, 2);
+		panelPersonalAlta.add(separatorAltaPersonal2);
+		
+		JSeparator separatorAltaPersonal3 = new JSeparator();
+		separatorAltaPersonal3.setBounds(2, 380, 329, 2);
+		panelPersonalAlta.add(separatorAltaPersonal3);
+		
+		JLabel lblAltaPersonalProTip = new JLabel("Completa el formulario para continuar");
+		lblAltaPersonalProTip.setHorizontalAlignment(SwingConstants.CENTER);
+		lblAltaPersonalProTip.setBounds(10, 276, 313, 30);
+		panelPersonalAlta.add(lblAltaPersonalProTip);
+		
+		JButton btnAltaPersonalCancelar = new JButton("Cancelar");
+		btnAltaPersonalCancelar.setFocusPainted(false);
+		btnAltaPersonalCancelar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnAltaPersonalCancelar.setBounds(10, 391, 103, 30);
+		panelPersonalAlta.add(btnAltaPersonalCancelar);
+		
+		JButton btnAltaPersonalGoes = new JButton("Dar de alta");
+		btnAltaPersonalGoes.setFocusPainted(false);
+		btnAltaPersonalGoes.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnAltaPersonalGoes.setBounds(123, 391, 200, 30);
+		panelPersonalAlta.add(btnAltaPersonalGoes);
+		
+		JLabel lblAltaPersonalDescripcion = new JLabel("<html>\r\n\t<div style=\"padding:3px;font-size:10px;\">Para poder da a nuevo personal es necesario:</div>\r\n\t<span style=\"color:#222222;\">&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;Rellenar los campos obligatorios</span><br>\r\n\t<span style=\"color:#222222;\">&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;Que todos los formatos sean correctos</span><br>\r\n\t<span style=\"color:#222222;\">&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;El nuevo miembro debe ser mayor de edad</span><br>\r\n\t\r\n</html>");
+		lblAltaPersonalDescripcion.setFont(new Font("Tahoma", Font.PLAIN, 10));
+		lblAltaPersonalDescripcion.setHorizontalAlignment(SwingConstants.CENTER);
+		lblAltaPersonalDescripcion.setBounds(10, 306, 313, 74);
+		panelPersonalAlta.add(lblAltaPersonalDescripcion);
 		
 		JLabel lblPersonal = new JLabel("<html>\r\n\t<h1><b>PERSONAL</b></h1>\r\n</html>");
 		lblPersonal.setHorizontalAlignment(SwingConstants.CENTER);
@@ -263,7 +366,7 @@ public class Principal extends JFrame {
 		
 		//Visual
 		
-		//panelGris.setVisible(!x);
+		panelGris.setVisible(!x);
 		cabecera.setVisible(x);
 		tabbedPane.setVisible(x);
 		
@@ -282,6 +385,7 @@ public class Principal extends JFrame {
 							tabbedPane.addTab(" Reponer ", null, panelReponer, "Reponer materiales propios de los servicios");
 							tabbedPane.addTab(" Pedidos ", null, panelPedidos, "Consultar los ultimos pedidos");
 							tabbedPane.addTab(" Personal ", null, panelPersonal, "Dar de alta y de baja a el personal");
+							comboBoxPersonalAltaGaraje.setModel(new DefaultComboBoxModel(new String[] {""+Parking.usuarioConectado.getCodGaraje()}));
 						case "MECANICO":case "LIMPIEZA":case "SEGURIDAD":
 							tabbedPane.addTab(" Eventos Recientes ", null, panelEventos, "Consultar los eventos que han ocurrido desde el inicio de sesi\u00F3n");
 							break;
