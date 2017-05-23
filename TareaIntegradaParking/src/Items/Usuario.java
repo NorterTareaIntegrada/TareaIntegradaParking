@@ -37,5 +37,9 @@ public class Usuario {
 	public String getTipo() {
 		return tipo;
 	}
+
+	public int getCodGaraje() {
+		return codGaraje;
+	}
 	
 }

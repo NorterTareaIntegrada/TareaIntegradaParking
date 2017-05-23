@@ -24,7 +24,7 @@ public class Plazas {
 		this.codTicket = codTicket;
 		this.activa = true;
 	}
-
+  
 	public Plazas() {
 		this.activa = false;
 	}
