@@ -1,40 +1,52 @@
 package Items;
 
+import java.time.LocalDate;
+
 public class Pedidos {
- private String fecha;
- private String cod_producto;
- private double cantidad;
- private double precio_total;
-public Pedidos(String fecha, String cod_producto, double cantidad, double precio_total) {
-	super();
-	this.fecha = fecha;
-	this.cod_producto = cod_producto;
-	this.cantidad = cantidad;
-	this.precio_total = precio_total;
-}
-public String getFecha() {
-	return fecha;
-}
-public void setFecha(String fecha) {
-	this.fecha = fecha;
-}
-public String getCod_producto() {
-	return cod_producto;
-}
-public void setCod_producto(String cod_producto) {
-	this.cod_producto = cod_producto;
-}
-public double getCantidad() {
-	return cantidad;
-}
-public void setCantidad(double cantidad) {
-	this.cantidad = cantidad;
-}
-public double getPrecio_total() {
-	return precio_total;
-}
-public void setPrecio_total(double precio_total) {
-	this.precio_total = precio_total;
-}
- 
+
+	private LocalDate fecha;
+	private String codigoProducto;
+	private int cantidad;
+	private double precioTotal;
+
+	public Pedidos(LocalDate fecha, String codigoProducto, int cantidad, double precioTotal) {
+		super();
+		this.fecha = fecha;
+		this.codigoProducto = codigoProducto;
+		this.cantidad = cantidad;
+		this.precioTotal = precioTotal;
+	}
+
+	public LocalDate getFecha() {
+		return fecha;
+	}
+
+	public void setFecha(LocalDate fecha) {
+		this.fecha = fecha;
+	}
+
+	public String getCodigoProducto() {
+		return codigoProducto;
+	}
+
+	public void setCodigoProducto(String codigoProducto) {
+		this.codigoProducto = codigoProducto;
+	}
+
+	public int getCantidad() {
+		return cantidad;
+	}
+
+	public void setCantidad(int cantidad) {
+		this.cantidad = cantidad;
+	}
+
+	public double getPrecioTotal() {
+		return precioTotal;
+	}
+
+	public void setPrecioTotal(double precioTotal) {
+		this.precioTotal = precioTotal;
+	}
+
 }
