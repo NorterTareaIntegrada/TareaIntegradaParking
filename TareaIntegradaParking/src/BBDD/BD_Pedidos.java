@@ -38,5 +38,4 @@ public class BD_Pedidos extends BBDD_Connector {
 			return null;
 		}
 	}
-
 }
