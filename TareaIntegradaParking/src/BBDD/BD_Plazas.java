@@ -47,12 +47,7 @@ public class BD_Plazas extends BBDD_Connector {
 					"SELECT COD_GARAJE,NUM_PLAZA,NUM_PLANTA,DIMENSIONES,MATRICULA,H_ENTRADA,COD_TICKET FROM plazas WHERE matricula = '"
 							+ matricula + "' AND cod_ticket = " + codTicket + " AND H_ENTRADA IS NOT NULL;");
 			reg.next();
-			java.sql.Date f = reg.getDate(6);
-			LocalDateTime fBuena;// = LocalDateTime.of(f.getYear(), month,
-									// dayOfMonth, hour, minute, second);
-			// plazaReturn = new Plazas(reg.getInt(1), reg.getInt(2),
-			// reg.getInt(3), reg.getInt(4), reg.getString(5),
-			// fBuena, reg.getInt(7));
+			plazaReturn = new Plazas(reg.getInt(1), reg.getInt(2),reg.getInt(3), reg.getInt(4), reg.getString(5),reg.getTimestamp(6).toLocalDateTime(), reg.getInt(7));
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

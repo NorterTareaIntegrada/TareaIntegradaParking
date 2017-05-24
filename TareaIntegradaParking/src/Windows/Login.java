@@ -25,6 +25,7 @@ import java.awt.Color;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 
+import BBDD.BD_Plazas;
 import BBDD.BD_Tarjeta;
 import BBDD.BD_Usuario;
 import Items.Plazas;
@@ -232,8 +233,8 @@ public class Login extends JFrame {
 						//**************************
 						//URGENTE, HAY QUE CAMBIARLO
 						//**************************
-						Plazas plaz=new Plazas();
-						if(plaz.isValida()){
+						Plazas plaz=new BD_Plazas("mysql-properties.xml").validarPlaza(txtMatricula.getText(),Integer.parseInt(txtCodTicket.getText()));
+						if(plaz.isActiva()){
 							Parking.plazaObjetivo=plaz;
 							lblEstandarProTip.setText("¡Login Correcto!");
 							lblEstandarProTip.setForeground(new Color(75,255,75));
