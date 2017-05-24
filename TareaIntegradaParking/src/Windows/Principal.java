@@ -32,6 +32,7 @@ import javax.swing.JLabel;
 
 import java.awt.Font;
 
+import BBDD.BD_Usuario;
 import Items.Usuario;
 import Main.Parking;
 
@@ -57,7 +58,22 @@ public class Principal extends JFrame {
 	public static JPanel panelEventos = new JPanel();
 	public static JPanel panelPersonal = new JPanel();
 	//Cosas de paneles de tabbedPane
-	public static JComboBox comboBoxPersonalAltaGaraje = new JComboBox();
+		//Cosas de panelPersonal
+			public static JComboBox comboBoxPersonalAltaGaraje = new JComboBox();
+			public static JSeparator separatorPersonalAlta1 = new JSeparator();
+			public static JLabel lblPersonalAltaPaso2 = new JLabel("<html><div style=\"font-weight:bold;\">&nbsp;&nbsp;&nbsp;<span>2</span>&nbsp;&nbsp;-&nbsp;&nbsp;Verifica los datos</div></html>");
+			public static JLabel lblPersonalAltaPaso2Alt = new JLabel("");
+			public static JLabel lblPersonalAltaDataContainer = new JLabel("<html>\r\n\t<table border=\"1\" cellpadding=\"2\" cellspacing=\"1\" width=\"238px\">\r\n\t\t<tr>\r\n\t\t\t<td width=\"75px\"><b>Tipo</b>:</td>\r\n\t\t\t<td></td>\r\n\t\t</tr>\r\n\t\t<tr>\r\n\t\t\t<td width=\"75px\"><b>N. Usuario</b>:</td>\r\n\t\t\t<td></td>\r\n\t\t</tr>\r\n\t\t<tr>\r\n\t\t\t<td width=\"75px\"><b>Contrase\u00F1a</b>:</td>\r\n\t\t\t<td></td>\r\n\t\t</tr>\r\n\t\t<tr>\r\n\t\t\t<td width=\"75px\"><b>Garaje</b>:</td>\r\n\t\t\t<td></td>\r\n\t\t</tr>\r\n\t\t<tr>\r\n\t\t\t<td width=\"75px\"><b>Nombre</b>:</td>\r\n\t\t\t<td></td>\r\n\t\t</tr>\r\n\t\t<tr>\r\n\t\t\t<td width=\"75px\"><b>F. Nac</b>:</td>\r\n\t\t\t<td></td>\r\n\t\t</tr>\r\n\t\t<tr>\r\n\t\t\t<td width=\"75px\"><b>Direccion</b>:</td>\r\n\t\t\t<td></td>\r\n\t\t</tr>\r\n\t\t<tr>\r\n\t\t\t<td width=\"75px\"><b>Tfno</b>:</td>\r\n\t\t\t<td></td>\r\n\t\t</tr>\r\n\t</table>\r\n</html>");
+			public static JButton btnPersonalAltaP2Continuar = new JButton("Continuar");
+			public static JSeparator separatorPersonalAlta2 = new JSeparator();
+			public static JLabel lblPersonalAltaPaso3 = new JLabel("<html><div style=\"font-weight:bold;\">&nbsp;&nbsp;&nbsp;<span>3</span>&nbsp;&nbsp;-&nbsp;&nbsp;Confirma los cambios a punto de realizarse</div></html>");
+			public static JLabel lblPersonalAltaPaso3Alt = new JLabel("");
+			public static JButton btnPersonalAltaP3Cancelar = new JButton("Cancelar Operaci\u00F3n");
+			public static JButton btnPersonalAltaP3Confirmar = new JButton("Confirmar Baja");
+			public static JTextField txtPersonalAltaNUsuario;
+			
+			public static Usuario usuABorrar=new Usuario();
+			
 	//Less important
 	public static JLabel lblMsgBienvenida = new JLabel("");
 	private final JLabel lblEventos = new JLabel("a");
@@ -106,7 +122,7 @@ public class Principal extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				setUtil(false);
 				frame.setEnabled(false);
-				Parking.usuarioConectado=new Usuario(false);
+				Parking.usuarioConectado=new Usuario();
 				Login.reset();
 			}
 		});
@@ -183,7 +199,6 @@ public class Principal extends JFrame {
 				
 		/**/
 
-		JTextField txtPersonalAltaNUsuario;
 		panelPersonal.setBorder(new EmptyBorder(5, 5, 5, 5));
 		panelPersonal.setLayout(null);
 		
@@ -228,6 +243,8 @@ public class Principal extends JFrame {
 		btnPersonalAltaP1Cancelar.setBackground(new Color(169, 169, 169));
 		btnPersonalAltaP1Cancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				txtPersonalAltaNUsuario.setText("");
+				PanelBajaBorrarTodo();
 			}
 		});
 		btnPersonalAltaP1Cancelar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -238,61 +255,105 @@ public class Principal extends JFrame {
 		btnPersonalAltaP1Continuar.setFocusPainted(false);
 		btnPersonalAltaP1Continuar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				PanelBajaBorrarTodo();
+				usuABorrar=new BD_Usuario("mysql-properties.xml").validarNomUsu(txtPersonalAltaNUsuario.getText());
+				if(usuABorrar.isVerificado()){
+					separatorPersonalAlta1.setVisible(true);
+					lblPersonalAltaPaso2.setVisible(true);
+					lblPersonalAltaDataContainer.setVisible(true);
+					lblPersonalAltaDataContainer.setText("<html>\r\n\t<table border=\"1\" cellpadding=\"2\" cellspacing=\"1\" width=\"238px\">\r\n\t\t<tr>\r\n\t\t\t<td width=\"75px\"><b>Tipo</b>:</td>\r\n\t\t\t<td>"+usuABorrar.getTipo()+"</td>\r\n\t\t</tr>\r\n\t\t<tr>\r\n\t\t\t<td width=\"75px\"><b>N. Usuario</b>:</td>\r\n\t\t\t<td>"+usuABorrar.getNombreUsuario()+"</td>\r\n\t\t</tr>\r\n\t\t<tr>\r\n\t\t\t<td width=\"75px\"><b>Contrase\u00F1a</b>:</td>\r\n\t\t\t<td>"+usuABorrar.getContrasenya()+"</td>\r\n\t\t</tr>\r\n\t\t<tr>\r\n\t\t\t<td width=\"75px\"><b>Garaje</b>:</td>\r\n\t\t\t<td>"+usuABorrar.getCodGaraje()+"</td>\r\n\t\t</tr>\r\n\t\t<tr>\r\n\t\t\t<td width=\"75px\"><b>Nombre</b>:</td>\r\n\t\t\t<td>"+usuABorrar.getNombreCompleto()+"</td>\r\n\t\t</tr>\r\n\t\t<tr>\r\n\t\t\t<td width=\"75px\"><b>F. Nac</b>:</td>\r\n\t\t\t<td>"+usuABorrar.getFechaNacimientoFormateada(" / ")+"</td>\r\n\t\t</tr>\r\n\t\t<tr>\r\n\t\t\t<td width=\"75px\"><b>Direccion</b>:</td>\r\n\t\t\t<td>"+usuABorrar.getDireccion()+"</td>\r\n\t\t</tr>\r\n\t\t<tr>\r\n\t\t\t<td width=\"75px\"><b>Tfno</b>:</td>\r\n\t\t\t<td>"+usuABorrar.getTelefono()+"</td>\r\n\t\t</tr>\r\n\t</table>\r\n</html>");
+					btnPersonalAltaP2Continuar.setVisible(true);
+					
+				}else{
+					lblPersonalAltaPaso2Alt.setText("<html><div style=\"font-weight:bold;\">&nbsp;&nbsp;&nbsp;El nombre de usuario introducido no existe</div></html>");
+					lblPersonalAltaPaso2Alt.setVisible(true);
+				}
 			}
 		});
 		btnPersonalAltaP1Continuar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnPersonalAltaP1Continuar.setBounds(171, 65, 152, 25);
 		panelPersonalBajas.add(btnPersonalAltaP1Continuar);
 		
-		JSeparator separatorPersonalAlta1 = new JSeparator();
 		separatorPersonalAlta1.setBounds(2, 96, 329, 2);
 		panelPersonalBajas.add(separatorPersonalAlta1);
-		
-		JLabel lblPersonalAltaPaso2 = new JLabel("<html><div style=\"font-weight:bold;\">&nbsp;&nbsp;&nbsp;<span>2</span>&nbsp;&nbsp;-&nbsp;&nbsp;Verifica los datos</div></html>");
+
 		lblPersonalAltaPaso2.setOpaque(true);
 		lblPersonalAltaPaso2.setBackground(new Color(169, 169, 169));
 		lblPersonalAltaPaso2.setHorizontalTextPosition(SwingConstants.CENTER);
 		lblPersonalAltaPaso2.setBounds(2, 98, 329, 26);
 		panelPersonalBajas.add(lblPersonalAltaPaso2);
+
+		lblPersonalAltaPaso2Alt.setOpaque(true);
+		lblPersonalAltaPaso2Alt.setBackground(new Color(183, 106, 106));
+		lblPersonalAltaPaso2Alt.setHorizontalTextPosition(SwingConstants.CENTER);
+		lblPersonalAltaPaso2Alt.setBounds(2, 98, 329, 26);
+		panelPersonalBajas.add(lblPersonalAltaPaso2Alt);
 		
-		JLabel lblPersonalAltaDataContainer = new JLabel("<html>\r\n\t<table border=\"1\" cellpadding=\"2\" cellspacing=\"1\" width=\"238px\">\r\n\t\t<tr>\r\n\t\t\t<td width=\"75px\"><b>Tipo</b>:</td>\r\n\t\t\t<td></td>\r\n\t\t</tr>\r\n\t\t<tr>\r\n\t\t\t<td width=\"75px\"><b>N. Usuario</b>:</td>\r\n\t\t\t<td></td>\r\n\t\t</tr>\r\n\t\t<tr>\r\n\t\t\t<td width=\"75px\"><b>Contrase\u00F1a</b>:</td>\r\n\t\t\t<td></td>\r\n\t\t</tr>\r\n\t\t<tr>\r\n\t\t\t<td width=\"75px\"><b>Garaje</b>:</td>\r\n\t\t\t<td></td>\r\n\t\t</tr>\r\n\t\t<tr>\r\n\t\t\t<td width=\"75px\"><b>Nombre</b>:</td>\r\n\t\t\t<td></td>\r\n\t\t</tr>\r\n\t\t<tr>\r\n\t\t\t<td width=\"75px\"><b>F. Nac</b>:</td>\r\n\t\t\t<td></td>\r\n\t\t</tr>\r\n\t\t<tr>\r\n\t\t\t<td width=\"75px\"><b>Direccion</b>:</td>\r\n\t\t\t<td></td>\r\n\t\t</tr>\r\n\t\t<tr>\r\n\t\t\t<td width=\"75px\"><b>Tfno</b>:</td>\r\n\t\t\t<td></td>\r\n\t\t</tr>\r\n\t</table>\r\n</html>");
 		lblPersonalAltaDataContainer.setFont(new Font("Tahoma", Font.PLAIN, 10));
 		lblPersonalAltaDataContainer.setVerticalAlignment(SwingConstants.TOP);
 		lblPersonalAltaDataContainer.setBounds(12, 135, 311, 178);
 		panelPersonalBajas.add(lblPersonalAltaDataContainer);
 		
-		JButton btnPersonalAltaP2Continuar = new JButton("Continuar");
 		btnPersonalAltaP2Continuar.setFocusPainted(false);
 		btnPersonalAltaP2Continuar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				System.out.println(1);
+				boolean posibleBorrar=true;
+				String msgError="";
+				if(posibleBorrar&&!usuABorrar.isVerificado()){
+					msgError="Ha ocurrido un error inesperado, reintenta más tarde";
+					posibleBorrar=false;
+				}
+				if(posibleBorrar&&usuABorrar.getNombreUsuario().equals(Parking.usuarioConectado.getNombreUsuario())){
+					msgError="No puedes date de baja a ti mismo";
+					posibleBorrar=false;
+				}
+				if(posibleBorrar&&usuABorrar.getCodGaraje()!=Parking.usuarioConectado.getCodGaraje()){
+					msgError="No puedes dar de baja a miembros de orto garaje";
+					posibleBorrar=false;
+				}
+				if(posibleBorrar){
+					separatorPersonalAlta2.setVisible(true);
+					lblPersonalAltaPaso3.setVisible(true);
+					btnPersonalAltaP3Cancelar.setVisible(true);
+					btnPersonalAltaP3Confirmar.setVisible(true);
+					System.out.println(2);
+				}else{
+					lblPersonalAltaPaso3Alt.setText("<html><div style=\"font-weight:bold;\">&nbsp;&nbsp;&nbsp;"+msgError+"</div></html>");
+					lblPersonalAltaPaso3Alt.setVisible(true);
+					System.out.println(3);
+				}
 			}
 		});
 		btnPersonalAltaP2Continuar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnPersonalAltaP2Continuar.setBounds(12, 324, 311, 26);
 		panelPersonalBajas.add(btnPersonalAltaP2Continuar);
 		
-		JSeparator separatorPersonalAlta2 = new JSeparator();
 		separatorPersonalAlta2.setBounds(2, 359, 329, 2);
 		panelPersonalBajas.add(separatorPersonalAlta2);
-		
-		JLabel lblPersonalAltaPaso3 = new JLabel("<html><div style=\"font-weight:bold;\">&nbsp;&nbsp;&nbsp;<span>3</span>&nbsp;&nbsp;-&nbsp;&nbsp;Confirma los cambios a punto de realizarse</div></html>");
+
 		lblPersonalAltaPaso3.setOpaque(true);
 		lblPersonalAltaPaso3.setBackground(new Color(169, 169, 169));
 		lblPersonalAltaPaso3.setBounds(2, 361, 329, 26);
 		panelPersonalBajas.add(lblPersonalAltaPaso3);
 		
-		JButton btnPersonalAltaP3Cancelar = new JButton("Cancelar Operaci\u00F3n");
+		lblPersonalAltaPaso3Alt.setOpaque(true);
+		lblPersonalAltaPaso3Alt.setBackground(new Color(183, 106, 106));
+		lblPersonalAltaPaso3Alt.setBounds(2, 361, 329, 26);
+		panelPersonalBajas.add(lblPersonalAltaPaso3Alt);
+		
 		btnPersonalAltaP3Cancelar.setFocusPainted(false);
 		btnPersonalAltaP3Cancelar.setBackground(new Color(255, 192, 203));
 		btnPersonalAltaP3Cancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				txtPersonalAltaNUsuario.setText("");
+				PanelBajaBorrarTodo();
 			}
 		});
 		btnPersonalAltaP3Cancelar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnPersonalAltaP3Cancelar.setBounds(12, 398, 152, 25);
 		panelPersonalBajas.add(btnPersonalAltaP3Cancelar);
 		
-		JButton btnPersonalAltaP3Confirmar = new JButton("Confirmar Baja");
 		btnPersonalAltaP3Confirmar.setFocusPainted(false);
 		btnPersonalAltaP3Confirmar.setBackground(new Color(240, 255, 240));
 		btnPersonalAltaP3Confirmar.addActionListener(new ActionListener() {
@@ -457,7 +518,9 @@ public class Principal extends JFrame {
 		lblDescripcion.setBounds(20, 67, 272, 429);
 		panelPersonal.add(lblDescripcion);
 		
+		PanelBajaBorrarTodo();
 		/**/
+		
 	}
 	public static void setUtil(Boolean x){
 		
@@ -502,5 +565,18 @@ public class Principal extends JFrame {
 					break;
 			}
 		}
+		
+	}
+	public static void PanelBajaBorrarTodo(){
+		separatorPersonalAlta1.setVisible(false);
+		lblPersonalAltaPaso2.setVisible(false);
+		lblPersonalAltaPaso2Alt.setVisible(false);
+		lblPersonalAltaDataContainer.setVisible(false);
+		btnPersonalAltaP2Continuar.setVisible(false);
+		separatorPersonalAlta2.setVisible(false);
+		lblPersonalAltaPaso3.setVisible(false);
+		lblPersonalAltaPaso3Alt.setVisible(false);
+		btnPersonalAltaP3Cancelar.setVisible(false);
+		btnPersonalAltaP3Confirmar.setVisible(false);
 	}
 }

@@ -25,7 +25,7 @@ public class Parking {
 	public static BBDD_Connector bd;
 	
 	public static String TOKEN=null;
-	public static Usuario usuarioConectado = new Usuario(false);
+	public static Usuario usuarioConectado = new Usuario();
 	public static Tarjetas tarjetaIdentificada = new Tarjetas();
 	public static Plazas plazaObjetivo = new Plazas();
 	

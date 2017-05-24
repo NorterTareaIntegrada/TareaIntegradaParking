@@ -230,9 +230,6 @@ public class Login extends JFrame {
 						break;
 					case "ESTANDAR":
 						try{Thread.sleep(500);}catch(InterruptedException e){}
-						//**************************
-						//URGENTE, HAY QUE CAMBIARLO
-						//**************************
 						Plazas plaz=new BD_Plazas("mysql-properties.xml").validarPlaza(txtMatricula.getText(),Integer.parseInt(txtCodTicket.getText()));
 						if(plaz.isActiva()){
 							Parking.plazaObjetivo=plaz;
