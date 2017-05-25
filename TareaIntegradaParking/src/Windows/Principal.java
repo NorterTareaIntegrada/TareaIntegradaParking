@@ -22,6 +22,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
 import javax.swing.JPasswordField;
 import javax.swing.JSeparator;
@@ -57,6 +58,7 @@ public class Principal extends JFrame {
 	public static JPanel panelConsulta = new JPanel();
 	public static JPanel panelEventos = new JPanel();
 	public static JPanel panelPersonal = new JPanel();
+	public static JPanel panelDuplicadoTarjeta = new JPanel();
 	//Cosas de paneles de tabbedPane
 		//Cosas de panelPersonal
 			public static JComboBox comboBoxPersonalAltaGaraje = new JComboBox();
@@ -73,7 +75,18 @@ public class Principal extends JFrame {
 			public static JTextField txtPersonalAltaNUsuario;
 			
 			public static Usuario usuABorrar=new Usuario();
-			
+		//Cosas de panelDuplicadotarjeta
+			public static JTextField txtDuplicadoTarjetaFormCodGaraje;
+			public static JTextField txtDuplicadoTarjetaFormNumPlaza;
+			public static JTextField txtDuplicadoTarjetaFormDNI;
+			public static JLabel lblDuplicadoTarjetaAnulacionDuplicado = new JLabel("<html>\r\n\t<h3>Anulaci\u00F3n y Duplicado</h3>\r\n</html>");
+			public static JLabel lblDuplicadoTarjetaDibujoTop = new JLabel("<html>\r\n\t<table>\r\n\t\t<tr>\r\n\t\t\t<td width=\"70\">Garaje: <b>1</b></td>\r\n\t\t\t<td></td>\r\n\t\t</tr>\r\n\t\t<tr>\r\n\t\t\t<td>N. Plaza: <b>1</b></td>\r\n\t\t\t<td></td>\r\n\t\t</tr>\r\n\t\t<tr height=\"3\">\r\n\t\t\t<td></td>\r\n\t\t\t<td>Cod. Tarjeta: <b>12345</b></td>\r\n\t\t</tr>\r\n\t</table>\r\n</html>");
+			public static JLabel lblDuplicadoTarjetaDibujo = new JLabel("");
+			public static JButton btnDuplicadoTarjetaFinalProTipOcultar = new JButton("Ocultar");
+			public static JLabel lblDuplicadoTarjetaFinalProTip = new JLabel("<html><div style=\"padding:10px;\">La tarjeta se ha anulado correctamente, su duplicado estar\u00E1 disponible en un periodo de 2 horas en la oficina de administraci\u00F3n de su parking<br><br>Deber\u00E1 traer la documentaci\u00F3n que lo acredite (DNI).</div></html>");
+			public static JLabel lblDuplicadoTarjetaConfirmacion = new JLabel("<html><div>\u00BFEst\u00E1s seguro/a de queres anular esta tarjeta?</div></html>");
+			public static JButton btnDuplicadoTarjetaCancelar = new JButton("Cancelar");
+			public static JButton btnDuplicadoTarjetaProceder = new JButton("Proceder");
 	//Less important
 	public static JLabel lblMsgBienvenida = new JLabel("");
 	private final JLabel lblEventos = new JLabel("a");
@@ -197,6 +210,8 @@ public class Principal extends JFrame {
 		
 		panelConsulta.setLayout(null);
 				
+		/**/
+		//	PERSONAL
 		/**/
 
 		panelPersonal.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -521,6 +536,168 @@ public class Principal extends JFrame {
 		PanelBajaBorrarTodo();
 		/**/
 		
+		/**/
+		//	PERSONAL
+		/**/
+		
+		panelDuplicadoTarjeta.setBorder(new EmptyBorder(5, 5, 5, 5));
+		panelDuplicadoTarjeta.setLayout(null);
+		
+		JLabel lblDuplicadoTarjetaIdentificacion = new JLabel("<html>\r\n\t<h3>Identificaci\u00F3n de tarjeta perdida</h3>\r\n</html>");
+		lblDuplicadoTarjetaIdentificacion.setHorizontalAlignment(SwingConstants.CENTER);
+		lblDuplicadoTarjetaIdentificacion.setFont(new Font("Lucida Console", Font.PLAIN, 11));
+		lblDuplicadoTarjetaIdentificacion.setBounds(304, 11, 333, 50);
+		panelDuplicadoTarjeta.add(lblDuplicadoTarjetaIdentificacion);
+		
+		btnDuplicadoTarjetaProceder.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+			}
+		});
+		btnDuplicadoTarjetaProceder.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnDuplicadoTarjetaProceder.setBackground(new Color(240, 255, 240));
+		btnDuplicadoTarjetaProceder.setBounds(830, 290, 100, 25);
+		panelDuplicadoTarjeta.add(btnDuplicadoTarjetaProceder);
+		
+		btnDuplicadoTarjetaCancelar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
+		btnDuplicadoTarjetaCancelar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnDuplicadoTarjetaCancelar.setBackground(new Color(255, 192, 203));
+		btnDuplicadoTarjetaCancelar.setBounds(720, 290, 100, 25);
+		panelDuplicadoTarjeta.add(btnDuplicadoTarjetaCancelar);
+		
+		lblDuplicadoTarjetaAnulacionDuplicado.setHorizontalAlignment(SwingConstants.CENTER);
+		lblDuplicadoTarjetaAnulacionDuplicado.setFont(new Font("Lucida Console", Font.PLAIN, 11));
+		lblDuplicadoTarjetaAnulacionDuplicado.setBounds(651, 11, 333, 50);
+		panelDuplicadoTarjeta.add(lblDuplicadoTarjetaAnulacionDuplicado);
+		
+		lblDuplicadoTarjetaDibujoTop.setVerticalAlignment(SwingConstants.TOP);
+		lblDuplicadoTarjetaDibujoTop.setBounds(725, 100, 194, 124);
+		panelDuplicadoTarjeta.add(lblDuplicadoTarjetaDibujoTop);
+		
+		lblDuplicadoTarjetaDibujo.setVerticalAlignment(SwingConstants.TOP);
+		lblDuplicadoTarjetaDibujo.setIcon(new ImageIcon(panelXXX.class.getResource("/Recursos/iconos/magnetic-stripe-recorted.png")));
+		lblDuplicadoTarjetaDibujo.setBounds(725, 100, 194, 124);
+		panelDuplicadoTarjeta.add(lblDuplicadoTarjetaDibujo);
+		
+		btnDuplicadoTarjetaFinalProTipOcultar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
+		btnDuplicadoTarjetaFinalProTipOcultar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnDuplicadoTarjetaFinalProTipOcultar.setBounds(720, 440, 210, 20);
+		panelDuplicadoTarjeta.add(btnDuplicadoTarjetaFinalProTipOcultar);
+		
+		lblDuplicadoTarjetaFinalProTip.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		lblDuplicadoTarjetaFinalProTip.setOpaque(true);
+		lblDuplicadoTarjetaFinalProTip.setBackground(Color.LIGHT_GRAY);
+		lblDuplicadoTarjetaFinalProTip.setVerticalAlignment(SwingConstants.TOP);
+		lblDuplicadoTarjetaFinalProTip.setBounds(651, 335, 333, 140);
+		panelDuplicadoTarjeta.add(lblDuplicadoTarjetaFinalProTip);
+		
+		lblDuplicadoTarjetaConfirmacion.setFont(new Font("Consolas", Font.PLAIN, 12));
+		lblDuplicadoTarjetaConfirmacion.setHorizontalAlignment(SwingConstants.CENTER);
+		lblDuplicadoTarjetaConfirmacion.setBounds(648, 252, 336, 30);
+		panelDuplicadoTarjeta.add(lblDuplicadoTarjetaConfirmacion);
+		
+		JPanel panelDuplicadoTarjetaForm = new JPanel();
+		panelDuplicadoTarjetaForm.setBounds(305, 64, 333, 432);
+		panelDuplicadoTarjetaForm.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
+		panelDuplicadoTarjeta.add(panelDuplicadoTarjetaForm);
+		panelDuplicadoTarjetaForm.setBackground(SystemColor.controlHighlight);
+		panelDuplicadoTarjetaForm.setLayout(null);
+		
+		JLabel lblDuplicadoTarjetaFormCodGaraje = new JLabel("C\u00F3digo de Garaje");
+		lblDuplicadoTarjetaFormCodGaraje.setFont(new Font("Rockwell", Font.PLAIN, 15));
+		lblDuplicadoTarjetaFormCodGaraje.setHorizontalAlignment(SwingConstants.CENTER);
+		lblDuplicadoTarjetaFormCodGaraje.setBounds(2, 10, 329, 30);
+		panelDuplicadoTarjetaForm.add(lblDuplicadoTarjetaFormCodGaraje);
+		
+		txtDuplicadoTarjetaFormCodGaraje = new JTextField();
+		txtDuplicadoTarjetaFormCodGaraje.setHorizontalAlignment(SwingConstants.CENTER);
+		txtDuplicadoTarjetaFormCodGaraje.setFont(new Font("Consolas", Font.PLAIN, 14));
+		txtDuplicadoTarjetaFormCodGaraje.setBounds(50, 50, 233, 30);
+		panelDuplicadoTarjetaForm.add(txtDuplicadoTarjetaFormCodGaraje);
+		txtDuplicadoTarjetaFormCodGaraje.setColumns(10);
+		
+		JLabel lblDuplicadoTarjetaFormNumPlaza = new JLabel("N\u00FAmero de Plaza");
+		lblDuplicadoTarjetaFormNumPlaza.setFont(new Font("Rockwell", Font.PLAIN, 15));
+		lblDuplicadoTarjetaFormNumPlaza.setHorizontalAlignment(SwingConstants.CENTER);
+		lblDuplicadoTarjetaFormNumPlaza.setBounds(2, 90, 329, 30);
+		panelDuplicadoTarjetaForm.add(lblDuplicadoTarjetaFormNumPlaza);
+		
+		txtDuplicadoTarjetaFormNumPlaza = new JTextField();
+		txtDuplicadoTarjetaFormNumPlaza.setHorizontalAlignment(SwingConstants.CENTER);
+		txtDuplicadoTarjetaFormNumPlaza.setFont(new Font("Consolas", Font.PLAIN, 14));
+		txtDuplicadoTarjetaFormNumPlaza.setBounds(50, 130, 233, 30);
+		panelDuplicadoTarjetaForm.add(txtDuplicadoTarjetaFormNumPlaza);
+		txtDuplicadoTarjetaFormNumPlaza.setColumns(10);
+		
+		JLabel lblDuplicadoTarjetaFormDNI = new JLabel("DNI Titular");
+		lblDuplicadoTarjetaFormDNI.setFont(new Font("Rockwell", Font.PLAIN, 15));
+		lblDuplicadoTarjetaFormDNI.setHorizontalAlignment(SwingConstants.CENTER);
+		lblDuplicadoTarjetaFormDNI.setBounds(2, 170, 329, 30);
+		panelDuplicadoTarjetaForm.add(lblDuplicadoTarjetaFormDNI);
+		
+		txtDuplicadoTarjetaFormDNI = new JTextField();
+		txtDuplicadoTarjetaFormDNI.setHorizontalAlignment(SwingConstants.CENTER);
+		txtDuplicadoTarjetaFormDNI.setFont(new Font("Consolas", Font.PLAIN, 14));
+		txtDuplicadoTarjetaFormDNI.setBounds(50, 210, 233, 30);
+		panelDuplicadoTarjetaForm.add(txtDuplicadoTarjetaFormDNI);
+		txtDuplicadoTarjetaFormDNI.setColumns(10);
+		
+		JSeparator separatorDuplicadoTarjetaForm1 = new JSeparator();
+		separatorDuplicadoTarjetaForm1.setBounds(2, 260, 329, 2);
+		panelDuplicadoTarjetaForm.add(separatorDuplicadoTarjetaForm1);
+		
+		JLabel lblDuplicadoTarjetaFormProTip = new JLabel("New label");
+		lblDuplicadoTarjetaFormProTip.setForeground(new Color(75,75,75));
+		lblDuplicadoTarjetaFormProTip.setHorizontalAlignment(SwingConstants.CENTER);
+		lblDuplicadoTarjetaFormProTip.setBounds(2, 260, 329, 52);
+		panelDuplicadoTarjetaForm.add(lblDuplicadoTarjetaFormProTip);
+		
+		JSeparator separatorDuplicadoTarjetaForm2 = new JSeparator();
+		separatorDuplicadoTarjetaForm2.setBounds(2, 310, 329, 2);
+		panelDuplicadoTarjetaForm.add(separatorDuplicadoTarjetaForm2);
+		
+		JButton btnDuplicadoTarjetaFormCancelar = new JButton("Borrar");
+		btnDuplicadoTarjetaFormCancelar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
+		btnDuplicadoTarjetaFormCancelar.setBackground(new Color(169, 169, 169));
+		btnDuplicadoTarjetaFormCancelar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnDuplicadoTarjetaFormCancelar.setBounds(50, 334, 233, 30);
+		panelDuplicadoTarjetaForm.add(btnDuplicadoTarjetaFormCancelar);
+		
+		JButton btnDuplicadoTarjetaFormAceptar = new JButton("Pedir Duplicado");
+		btnDuplicadoTarjetaFormAceptar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
+		btnDuplicadoTarjetaFormAceptar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnDuplicadoTarjetaFormAceptar.setBounds(50, 381, 233, 40);
+		panelDuplicadoTarjetaForm.add(btnDuplicadoTarjetaFormAceptar);
+		
+		JLabel lblDuplicadoTarjetaDescripcion = new JLabel("<html>\r\n\t<h3>Descripci\u00F3n</h3>\r\n\t<p style=\"margin:10px;text-align:justify;\">El panel de duplicado de tarjeta permite <b>anular</b> y <b>solicitar un duplicado</b> de una tarjeta extraviada</p>\r\n\t<h3>Utilizaci\u00F3n</h3>\r\n\t<p style=\"margin:10px;text-align:justify;\">Se deben introducir datos v\u00E1lidos para solicitar un duplicado, todos los campos son obligatorios.\r\n</p>\r\n\t<h3>Precauciones</h3>\r\n\t<p style=\"margin:10px;text-align:justify;\">Una vez anulada una tarjeta desde este panel, deber\u00E1 acudir a la oficina del parking presentando documnetaci\u00F3n v\u00E1lida como su DNI, y en un periodo de 2 horas recibir\u00E1 su duplicado.</p>\r\n</html>");
+		lblDuplicadoTarjetaDescripcion.setVerticalAlignment(SwingConstants.TOP);
+		lblDuplicadoTarjetaDescripcion.setBounds(10, 64, 285, 432);
+		panelDuplicadoTarjeta.add(lblDuplicadoTarjetaDescripcion);
+		
+		JLabel lblDuplicadoTarjetaTitle = new JLabel("<html>\r\n\t<h2>Duplicado de Tarjeta</h2>\r\n</html>");
+		lblDuplicadoTarjetaTitle.setHorizontalAlignment(SwingConstants.CENTER);
+		lblDuplicadoTarjetaTitle.setBounds(10, 11, 284, 50);
+		panelDuplicadoTarjeta.add(lblDuplicadoTarjetaTitle);
+		
+		PanelDuplicadoTarjetaBorrarTodo();
+		
+		/**/
 	}
 	public static void setUtil(Boolean x){
 		
@@ -559,6 +736,7 @@ public class Principal extends JFrame {
 					break;
 				case "LOST":
 					lblMsgBienvenida.setText("<html>&nbsp;&nbsp;&nbsp;Panel de Duplicado de Tarjeta</html>");
+					tabbedPane.addTab(" Duplicado de Tarjeta ", null, panelDuplicadoTarjeta, "Anula una tarjeta extraviada y pide un duplicado");
 					break;
 				default:
 					System.out.println("INVALID TOKEN!: "+Parking.TOKEN);
@@ -578,5 +756,15 @@ public class Principal extends JFrame {
 		lblPersonalAltaPaso3Alt.setVisible(false);
 		btnPersonalAltaP3Cancelar.setVisible(false);
 		btnPersonalAltaP3Confirmar.setVisible(false);
+	}
+	public static void PanelDuplicadoTarjetaBorrarTodo(){
+		lblDuplicadoTarjetaAnulacionDuplicado.setVisible(false);
+		lblDuplicadoTarjetaDibujoTop.setVisible(false);
+		lblDuplicadoTarjetaDibujo.setVisible(false);
+		btnDuplicadoTarjetaFinalProTipOcultar.setVisible(false);
+		lblDuplicadoTarjetaFinalProTip.setVisible(false);
+		lblDuplicadoTarjetaConfirmacion.setVisible(false);
+		btnDuplicadoTarjetaCancelar.setVisible(false);
+		btnDuplicadoTarjetaProceder.setVisible(false);
 	}
 }
