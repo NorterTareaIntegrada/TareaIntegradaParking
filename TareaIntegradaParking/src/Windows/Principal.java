@@ -33,7 +33,9 @@ import javax.swing.JLabel;
 
 import java.awt.Font;
 
+import BBDD.BD_Tarjeta;
 import BBDD.BD_Usuario;
+import Items.Tarjetas;
 import Items.Usuario;
 import Main.Parking;
 
@@ -87,6 +89,9 @@ public class Principal extends JFrame {
 			public static JLabel lblDuplicadoTarjetaConfirmacion = new JLabel("<html><div>\u00BFEst\u00E1s seguro/a de queres anular esta tarjeta?</div></html>");
 			public static JButton btnDuplicadoTarjetaCancelar = new JButton("Cancelar");
 			public static JButton btnDuplicadoTarjetaProceder = new JButton("Proceder");
+			public static JLabel lblDuplicadoTarjetaFormProTip = new JLabel("Introduce los datos para continuar");
+			
+			public static Tarjetas tarjetaAAunlar=new Tarjetas();
 	//Less important
 	public static JLabel lblMsgBienvenida = new JLabel("");
 	private final JLabel lblEventos = new JLabel("a");
@@ -373,6 +378,9 @@ public class Principal extends JFrame {
 		btnPersonalAltaP3Confirmar.setBackground(new Color(240, 255, 240));
 		btnPersonalAltaP3Confirmar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				txtPersonalAltaNUsuario.setText("");
+				PanelBajaBorrarTodo();
+				new BD_Usuario("mysql-properties.xml").bajaUsuario(usuABorrar.getNombreUsuario());
 			}
 		});
 		btnPersonalAltaP3Confirmar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -533,7 +541,6 @@ public class Principal extends JFrame {
 		lblDescripcion.setBounds(20, 67, 272, 429);
 		panelPersonal.add(lblDescripcion);
 		
-		PanelBajaBorrarTodo();
 		/**/
 		
 		/**/
@@ -551,7 +558,10 @@ public class Principal extends JFrame {
 		
 		btnDuplicadoTarjetaProceder.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				
+				PanelDuplicadoTarjetaBorrarTodo(true);
+				lblDuplicadoTarjetaFinalProTip.setVisible(true);
+				btnDuplicadoTarjetaFinalProTipOcultar.setVisible(true);
+				new BD_Tarjeta("mysql-properties.xml").desvalidarTarjeta(tarjetaAAunlar.getNumAbonado());
 			}
 		});
 		btnDuplicadoTarjetaProceder.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -561,7 +571,7 @@ public class Principal extends JFrame {
 		
 		btnDuplicadoTarjetaCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				PanelDuplicadoTarjetaBorrarTodo(true);
 			}
 		});
 		btnDuplicadoTarjetaCancelar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -583,32 +593,35 @@ public class Principal extends JFrame {
 		lblDuplicadoTarjetaDibujo.setBounds(725, 100, 194, 124);
 		panelDuplicadoTarjeta.add(lblDuplicadoTarjetaDibujo);
 		
-		btnDuplicadoTarjetaFinalProTipOcultar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
-			}
-		});
-		btnDuplicadoTarjetaFinalProTipOcultar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnDuplicadoTarjetaFinalProTipOcultar.setBounds(720, 440, 210, 20);
-		panelDuplicadoTarjeta.add(btnDuplicadoTarjetaFinalProTipOcultar);
-		
 		lblDuplicadoTarjetaFinalProTip.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		lblDuplicadoTarjetaFinalProTip.setOpaque(true);
 		lblDuplicadoTarjetaFinalProTip.setBackground(Color.LIGHT_GRAY);
 		lblDuplicadoTarjetaFinalProTip.setVerticalAlignment(SwingConstants.TOP);
-		lblDuplicadoTarjetaFinalProTip.setBounds(651, 335, 333, 140);
+		lblDuplicadoTarjetaFinalProTip.setBounds(651, 335, 333, 112);
 		panelDuplicadoTarjeta.add(lblDuplicadoTarjetaFinalProTip);
+		
+		btnDuplicadoTarjetaFinalProTipOcultar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				lblDuplicadoTarjetaFinalProTip.setVisible(false);
+				btnDuplicadoTarjetaFinalProTipOcultar.setVisible(false);
+			}
+		});
+		btnDuplicadoTarjetaFinalProTipOcultar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnDuplicadoTarjetaFinalProTipOcultar.setBounds(651, 447, 333, 20);
+		btnDuplicadoTarjetaFinalProTipOcultar.setBackground(SystemColor.controlHighlight);
+		panelDuplicadoTarjeta.add(btnDuplicadoTarjetaFinalProTipOcultar);
+		
 		
 		lblDuplicadoTarjetaConfirmacion.setFont(new Font("Consolas", Font.PLAIN, 12));
 		lblDuplicadoTarjetaConfirmacion.setHorizontalAlignment(SwingConstants.CENTER);
 		lblDuplicadoTarjetaConfirmacion.setBounds(648, 252, 336, 30);
+		lblDuplicadoTarjetaConfirmacion.setBackground(Color.LIGHT_GRAY);
 		panelDuplicadoTarjeta.add(lblDuplicadoTarjetaConfirmacion);
 		
 		JPanel panelDuplicadoTarjetaForm = new JPanel();
 		panelDuplicadoTarjetaForm.setBounds(305, 64, 333, 432);
 		panelDuplicadoTarjetaForm.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		panelDuplicadoTarjeta.add(panelDuplicadoTarjetaForm);
-		panelDuplicadoTarjetaForm.setBackground(SystemColor.controlHighlight);
 		panelDuplicadoTarjetaForm.setLayout(null);
 		
 		JLabel lblDuplicadoTarjetaFormCodGaraje = new JLabel("C\u00F3digo de Garaje");
@@ -654,7 +667,6 @@ public class Principal extends JFrame {
 		separatorDuplicadoTarjetaForm1.setBounds(2, 260, 329, 2);
 		panelDuplicadoTarjetaForm.add(separatorDuplicadoTarjetaForm1);
 		
-		JLabel lblDuplicadoTarjetaFormProTip = new JLabel("New label");
 		lblDuplicadoTarjetaFormProTip.setForeground(new Color(75,75,75));
 		lblDuplicadoTarjetaFormProTip.setHorizontalAlignment(SwingConstants.CENTER);
 		lblDuplicadoTarjetaFormProTip.setBounds(2, 260, 329, 52);
@@ -667,7 +679,7 @@ public class Principal extends JFrame {
 		JButton btnDuplicadoTarjetaFormCancelar = new JButton("Borrar");
 		btnDuplicadoTarjetaFormCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				PanelDuplicadoTarjetaBorrarTodo(true);
 			}
 		});
 		btnDuplicadoTarjetaFormCancelar.setBackground(new Color(169, 169, 169));
@@ -678,7 +690,40 @@ public class Principal extends JFrame {
 		JButton btnDuplicadoTarjetaFormAceptar = new JButton("Pedir Duplicado");
 		btnDuplicadoTarjetaFormAceptar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				PanelDuplicadoTarjetaBorrarTodo(false);
+				boolean proceder=true;
+				String txt="";
+				if(proceder&&(txtDuplicadoTarjetaFormCodGaraje.getText().equals("")||txtDuplicadoTarjetaFormNumPlaza.getText().equals("")||txtDuplicadoTarjetaFormDNI.getText().equals(""))){
+					txt="Completa todos los campos para continuar";proceder=false;
+				}
+				if(proceder&&false){
+					txt="El código de garaje no tiene un formato válido";proceder=false;
+				}
+				if(proceder&&false){
+					txt="El número de plaza no tiene un formato válido";proceder=false;
+				}
+				if(proceder&&false){
+					txt="El DNI del titular no tiene un formato válido";proceder=false;
+				}
+				if(proceder){
+					tarjetaAAunlar=new BD_Tarjeta("mysql-properties.xml").existenciaTarjeta(Integer.parseInt(txtDuplicadoTarjetaFormCodGaraje.getText()), Integer.parseInt(txtDuplicadoTarjetaFormNumPlaza.getText()), txtDuplicadoTarjetaFormDNI.getText());
+					if(tarjetaAAunlar.isValida()){
+						lblDuplicadoTarjetaFormProTip.setText("Tarjeta Válida");
+						lblDuplicadoTarjetaFormProTip.setForeground(new Color(75,150,75));
+						lblDuplicadoTarjetaAnulacionDuplicado.setVisible(true);
+						lblDuplicadoTarjetaDibujoTop.setVisible(true);
+						lblDuplicadoTarjetaDibujo.setVisible(true);
+						lblDuplicadoTarjetaConfirmacion.setVisible(true);
+						btnDuplicadoTarjetaCancelar.setVisible(true);
+						btnDuplicadoTarjetaProceder.setVisible(true);
+					}else{
+						lblDuplicadoTarjetaFormProTip.setText("La tarjeta indicada no existe o no esta activa");
+						lblDuplicadoTarjetaFormProTip.setForeground(new Color(255,75,75));
+					}
+				}else{
+					lblDuplicadoTarjetaFormProTip.setText(txt);
+					lblDuplicadoTarjetaFormProTip.setForeground(new Color(225,155,25));
+				}
 			}
 		});
 		btnDuplicadoTarjetaFormAceptar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -695,11 +740,26 @@ public class Principal extends JFrame {
 		lblDuplicadoTarjetaTitle.setBounds(10, 11, 284, 50);
 		panelDuplicadoTarjeta.add(lblDuplicadoTarjetaTitle);
 		
-		PanelDuplicadoTarjetaBorrarTodo();
+		btnDuplicadoTarjetaFormCancelar.setFocusPainted(false);
+		btnDuplicadoTarjetaFormAceptar.setFocusPainted(false);
+		btnDuplicadoTarjetaCancelar.setFocusPainted(false);
+		btnDuplicadoTarjetaProceder.setFocusPainted(false);
+		btnDuplicadoTarjetaFinalProTipOcultar.setFocusPainted(false);
 		
 		/**/
+		
+		reset();
 	}
+	
+	public static void reset(){
+		PanelDuplicadoTarjetaBorrarTodo(true);
+		PanelBajaBorrarTodo();
+		txtPersonalAltaNUsuario.setText("");
+	}
+	
 	public static void setUtil(Boolean x){
+		
+		reset();
 		
 		//Visual
 		
@@ -711,7 +771,7 @@ public class Principal extends JFrame {
 		
 		if(Parking.TOKEN!=null){
 			tabbedPane.removeAll();
-			System.out.println(Parking.TOKEN);
+			//System.out.println(Parking.TOKEN);
 			switch(Parking.TOKEN){
 				case "USUARIO":
 					lblMsgBienvenida.setText("<html>&nbsp;&nbsp;&nbsp;\u00A1 Bienvenido/a "+Parking.usuarioConectado.getNombreCompleto()+" !&nbsp;&nbsp;&nbsp;<span style=\"background-color:#8c7a31;color:#ceccc2;font-size:11px;padding-left:3px;\">&nbsp;"+Parking.usuarioConectado.getTipo().toUpperCase()+"&nbsp;</span></html>");
@@ -757,7 +817,14 @@ public class Principal extends JFrame {
 		btnPersonalAltaP3Cancelar.setVisible(false);
 		btnPersonalAltaP3Confirmar.setVisible(false);
 	}
-	public static void PanelDuplicadoTarjetaBorrarTodo(){
+	public static void PanelDuplicadoTarjetaBorrarTodo(boolean borrarTexto){
+		if(borrarTexto){
+			txtDuplicadoTarjetaFormCodGaraje.setText("");
+			txtDuplicadoTarjetaFormNumPlaza.setText("");
+			txtDuplicadoTarjetaFormDNI.setText("");
+			lblDuplicadoTarjetaFormProTip.setText("Introduce los datos para continuar");
+			lblDuplicadoTarjetaFormProTip.setForeground(new Color(75,75,75));
+		}
 		lblDuplicadoTarjetaAnulacionDuplicado.setVisible(false);
 		lblDuplicadoTarjetaDibujoTop.setVisible(false);
 		lblDuplicadoTarjetaDibujo.setVisible(false);
