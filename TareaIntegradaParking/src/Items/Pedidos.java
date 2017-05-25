@@ -5,48 +5,32 @@ import java.time.LocalDate;
 public class Pedidos {
 
 	private LocalDate fecha;
-	private String codigoProducto;
+	private int cod_producto;
 	private int cantidad;
-	private double precioTotal;
+	private double prec_total;
 
-	public Pedidos(LocalDate fecha, String codigoProducto, int cantidad, double precioTotal) {
+	public Pedidos(LocalDate fecha, int cod_producto, int cantidad, double precioTotal) {
 		super();
 		this.fecha = fecha;
-		this.codigoProducto = codigoProducto;
+		this.cod_producto = cod_producto;
 		this.cantidad = cantidad;
-		this.precioTotal = precioTotal;
+		this.prec_total = prec_total;
 	}
 
 	public LocalDate getFecha() {
 		return fecha;
 	}
 
-	public void setFecha(LocalDate fecha) {
-		this.fecha = fecha;
-	}
-
-	public String getCodigoProducto() {
-		return codigoProducto;
-	}
-
-	public void setCodigoProducto(String codigoProducto) {
-		this.codigoProducto = codigoProducto;
+	public int getCodigoProducto() {
+		return cod_producto;
 	}
 
 	public int getCantidad() {
 		return cantidad;
 	}
 
-	public void setCantidad(int cantidad) {
-		this.cantidad = cantidad;
-	}
-
 	public double getPrecioTotal() {
-		return precioTotal;
-	}
-
-	public void setPrecioTotal(double precioTotal) {
-		this.precioTotal = precioTotal;
+		return prec_total;
 	}
 
 }

@@ -3,41 +3,36 @@ package BBDD;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.time.LocalDate;
 import java.util.Vector;
 
 import Items.Servicios;
 
-
 public class BD_Servicio extends BBDD_Connector {
 
-	private static Statement s;	
+	private static Statement s;
 	private static ResultSet reg;
-	
-	public BD_Servicio(String bbdd){
+
+	public BD_Servicio(String bbdd) {
 		super(bbdd);
-	}	
-	
-	public  Vector<Servicios> listadoServicios(String Servicios){
-		String cadenaSQL="SELECT * from servicios WHERE nombre='"+Servicios+"'";
-		Vector<Servicios> listaServicios=new Vector<Servicios>();
-		try{
+	}
+
+	public Vector<Servicios> listadoServicios(String Servicios) {
+		String cadenaSQL = "SELECT cod,nombre,descripcion from servicios";
+		Vector<Servicios> listaServicios = new Vector<Servicios>();
+		try {
 			this.abrir();
-			s=c.createStatement();
-			reg=s.executeQuery(cadenaSQL);
-			while ( reg.next()){
-				listaServicios.add(new Servicios(reg.getString("codigo"),reg.getString("nombre"),reg.getString("descripcion")));
-				
+			s = c.createStatement();
+			reg = s.executeQuery(cadenaSQL);
+			while (reg.next()) {
+				listaServicios.add(new Servicios(reg.getInt(1), reg.getString(2), reg.getString(3)));
+
 			}
 			s.close();
 			this.cerrar();
 			return listaServicios;
-		}
-		catch ( SQLException e){		
-			return null;			
+		} catch (SQLException e) {
+			return null;
 		}
 	}
-	
-
 
 }

@@ -3,46 +3,46 @@ package Items;
 import java.time.LocalDateTime;
 
 public class Plazas {
-	private int codGaraje;
-	private int numPlaza;
-	private int numPlanta;
+	private int cod_garaje;
+	private int num_plaza;
+	private int num_planta;
 	private int dimensiones;
 	private String matricula;
-	private LocalDateTime hora_entrada;
-	private int codTicket;
+	private LocalDateTime h_entrada;
+	private int cod_ticket;
 	private Boolean activa;
 
-	public Plazas(int codGaraje, int numPlaza, int numPlanta, int dimensiones, String matricula,
-			LocalDateTime hora_entrada, int codTicket) {
+	public Plazas(int cod_garaje, int num_plaza, int num_planta, int dimensiones, String matricula,
+			LocalDateTime h_entrada, int cod_ticket) {
 		super();
-		this.codGaraje = codGaraje;
-		this.numPlaza = numPlaza;
-		this.numPlanta = numPlanta;
+		this.cod_garaje = cod_garaje;
+		this.num_plaza = num_plaza;
+		this.num_planta = num_planta;
 		this.dimensiones = dimensiones;
 		this.matricula = matricula;
-		this.hora_entrada = hora_entrada;
-		this.codTicket = codTicket;
+		this.h_entrada = h_entrada;
+		this.cod_ticket = cod_ticket;
 		this.activa = true;
 	}
-  
+
 	public Plazas() {
 		this.activa = false;
 	}
 
 	public int getCodGaraje() {
-		return codGaraje;
+		return cod_garaje;
 	}
 
 	public int getCodTicket() {
-		return codTicket;
+		return cod_ticket;
 	}
 
 	public int getNumPlaza() {
-		return numPlaza;
+		return num_plaza;
 	}
 
 	public int getNumPlanta() {
-		return numPlanta;
+		return num_planta;
 	}
 
 	public int getDimensiones() {
@@ -50,7 +50,7 @@ public class Plazas {
 	}
 
 	public LocalDateTime getHora_entrada() {
-		return hora_entrada;
+		return h_entrada;
 	}
 
 	public String getMatricula() {
@@ -60,5 +60,5 @@ public class Plazas {
 	public Boolean isActiva() {
 		return activa;
 	}
-	
+
 }

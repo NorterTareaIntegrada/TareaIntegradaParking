@@ -1,58 +1,58 @@
 package Items;
 
 public class Productos {
-	private String codProducto;
-	private String codServicio;
-	private String codProveedor;
-	private double unidades;
-	private double maxUnidades;
-	private double precioUnidad;
-	public Productos(String codProducto, String codServicio,
-			String codProveedor, double unidades, double maxUnidades,
-			double precioUnidad) {
+	private int cod;
+	private int cod_servicio;
+	private int cod_proveedor;
+	private String nombre;
+	private String descripcion;
+	private int max_unidades;
+	private int maxUnidades;
+	private double precio_uni;
+
+	public Productos(int cod, int cod_servicio, int cod_proveedor, String nombre, String descripcion, int max_unidades,
+			int maxUnidades, double precio_uni) {
 		super();
-		this.codProducto = codProducto;
-		this.codServicio = codServicio;
-		this.codProveedor = codProveedor;
-		this.unidades = unidades;
+		this.cod = cod;
+		this.cod_servicio = cod_servicio;
+		this.cod_proveedor = cod_proveedor;
+		this.nombre = nombre;
+		this.descripcion = descripcion;
+		this.max_unidades = max_unidades;
 		this.maxUnidades = maxUnidades;
-		this.precioUnidad = precioUnidad;
+		this.precio_uni = precio_uni;
 	}
-	public String getCodProducto() {
-		return codProducto;
+
+	public int getCod() {
+		return cod;
 	}
-	public void setCodProducto(String codProducto) {
-		this.codProducto = codProducto;
+
+	public int getCod_servicio() {
+		return cod_servicio;
 	}
-	public String getCodServicio() {
-		return codServicio;
+
+	public int getCod_proveedor() {
+		return cod_proveedor;
 	}
-	public void setCodServicio(String codServicio) {
-		this.codServicio = codServicio;
+
+	public String getNombre() {
+		return nombre;
 	}
-	public String getCodProveedor() {
-		return codProveedor;
+
+	public String getDescripcion() {
+		return descripcion;
 	}
-	public void setCodProveedor(String codProveedor) {
-		this.codProveedor = codProveedor;
+
+	public int getMax_unidades() {
+		return max_unidades;
 	}
-	public double getUnidades() {
-		return unidades;
-	}
-	public void setUnidades(double unidades) {
-		this.unidades = unidades;
-	}
-	public double getPrecioUnidad() {
-		return precioUnidad;
-	}
-	public void setPrecioUnidad(double precioUnidad) {
-		this.precioUnidad = precioUnidad;
-	}
-	public double getMaxUnidades() {
+
+	public int getMaxUnidades() {
 		return maxUnidades;
 	}
-	public void setMaxUnidades(double maxUnidades) {
-		this.maxUnidades = maxUnidades;
+
+	public double getPrecio_uni() {
+		return precio_uni;
 	}
-	
+
 }

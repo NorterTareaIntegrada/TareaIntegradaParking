@@ -26,10 +26,10 @@ public class BD_Plazas extends BBDD_Connector {
 			s = c.createStatement();
 			reg = s.executeQuery(cadenaSQL);
 			while (reg.next()) {
-				java.sql.Date f = reg.getDate("hora_entrada");
+				java.sql.Date f = reg.getDate("h_entrada");
 				LocalDateTime fBuena = LocalDateTime.ofInstant(f.toInstant(), ZoneId.systemDefault());
-				listaPlazas.add(new Plazas(reg.getInt("codGaraje"), reg.getInt("numPlaza"), reg.getInt("numPlanta"),
-						reg.getInt("dimensiones"), reg.getString("matricula"), fBuena, reg.getInt("codTicket")));
+				listaPlazas.add(new Plazas(reg.getInt(1), reg.getInt(2), reg.getInt(3), reg.getInt(4), reg.getString(5),
+						fBuena, reg.getInt(7)));
 			}
 			s.close();
 			this.cerrar();
@@ -47,7 +47,8 @@ public class BD_Plazas extends BBDD_Connector {
 					"SELECT COD_GARAJE,NUM_PLAZA,NUM_PLANTA,DIMENSIONES,MATRICULA,H_ENTRADA,COD_TICKET FROM plazas WHERE matricula = '"
 							+ matricula + "' AND cod_ticket = " + codTicket + " AND H_ENTRADA IS NOT NULL;");
 			reg.next();
-			plazaReturn = new Plazas(reg.getInt(1), reg.getInt(2),reg.getInt(3), reg.getInt(4), reg.getString(5),reg.getTimestamp(6).toLocalDateTime(), reg.getInt(7));
+			plazaReturn = new Plazas(reg.getInt(1), reg.getInt(2), reg.getInt(3), reg.getInt(4), reg.getString(5),
+					reg.getTimestamp(6).toLocalDateTime(), reg.getInt(7));
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

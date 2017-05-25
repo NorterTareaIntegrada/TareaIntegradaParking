@@ -1,38 +1,27 @@
 package Items;
 
 public class Servicios {
-	private String codigo;
+	private int cod;
 	private String nombre;
 	private String descripcion;
 
-	public Servicios (String codigo, String nombre, String descripcion) {
+	public Servicios(int cod, String nombre, String descripcion) {
 		super();
-		this.codigo = codigo;
+		this.cod = cod;
 		this.nombre = nombre;
 		this.descripcion = descripcion;
 	}
 
-	public String getCodigo() {
-		return codigo;
-	}
-
-	public void setCodigo(String codigo) {
-		this.codigo = codigo;
+	public int getCod() {
+		return cod;
 	}
 
 	public String getNombre() {
 		return nombre;
 	}
 
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
-
 	public String getDescripcion() {
 		return descripcion;
 	}
 
-	public void setDescripcion(String descripcion) {
-		this.descripcion = descripcion;
-	}
 }

@@ -18,7 +18,7 @@ public class BD_Pedidos extends BBDD_Connector {
 	}
 
 	public Vector<Pedidos> listadoPedidos(String Pedidos) {
-		String cadenaSQL = "SELECT * from pedidos WHERE nombre='" + Pedidos + "'";
+		String cadenaSQL = "SELECT fecha,cod_producto,cantidad,prec_total from pedidos";
 		Vector<Pedidos> listaPedidos = new Vector<Pedidos>();
 		try {
 			this.abrir();
@@ -27,8 +27,7 @@ public class BD_Pedidos extends BBDD_Connector {
 			while (reg.next()) {
 				java.sql.Date f = reg.getDate("fecha");
 				LocalDate fBuena = f.toLocalDate();
-				listaPedidos.add(new Pedidos(fBuena, reg.getString("codigoProducto"), reg.getInt("cantidad"),
-						reg.getDouble("precioTotal")));
+				listaPedidos.add(new Pedidos(fBuena, reg.getInt(1), reg.getInt(2), reg.getDouble(3)));
 
 			}
 			s.close();
