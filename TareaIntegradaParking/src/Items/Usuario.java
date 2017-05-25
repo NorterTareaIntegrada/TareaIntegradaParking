@@ -12,9 +12,9 @@ public class Usuario {
 	private LocalDate fechaNacimiento;
 	private String direccion;
 	private int telefono;
-	
+
 	private boolean verificado;
-	
+
 	public boolean isVerificado() {
 		return verificado;
 	}
@@ -24,7 +24,8 @@ public class Usuario {
 		this.verificado = false;
 	}
 
-	public Usuario(String tipo, String nombreUsuario, String contrasenya, int codGaraje, String nombre, String apellidos,LocalDate fechaNacimiento,String direccion ,int telefono) {
+	public Usuario(String tipo, String nombreUsuario, String contrasenya, int codGaraje, String nombre,
+			String apellidos, LocalDate fechaNacimiento, String direccion, int telefono) {
 		super();
 		this.tipo = tipo;
 		this.nombreUsuario = nombreUsuario;
@@ -35,12 +36,20 @@ public class Usuario {
 		this.fechaNacimiento = fechaNacimiento;
 		this.direccion = direccion;
 		this.telefono = telefono;
-		
+
 		this.verificado = true;
 	}
-	
-	public String getNombreCompleto(){
-		return nombre+" "+apellidos;
+
+	public String getNombre() {
+		return nombre;
+	}
+
+	public String getApellidos() {
+		return apellidos;
+	}
+
+	public String getNombreCompleto() {
+		return nombre + " " + apellidos;
 	}
 
 	public String getTipo() {
@@ -56,9 +65,9 @@ public class Usuario {
 	}
 
 	public String getContrasenya() {
-		String cadena="";
-		for(int i=0;i<this.contrasenya.length();i++){
-			cadena+="*";
+		String cadena = "";
+		for (int i = 0; i < this.contrasenya.length(); i++) {
+			cadena += "*";
 		}
 		return cadena;
 	}
@@ -66,9 +75,10 @@ public class Usuario {
 	public LocalDate getFechaNacimiento() {
 		return fechaNacimiento;
 	}
-	
+
 	public String getFechaNacimientoFormateada(String separador) {
-		return this.fechaNacimiento.getDayOfMonth()+separador+this.fechaNacimiento.getMonth()+separador+fechaNacimiento.getYear();
+		return this.fechaNacimiento.getDayOfMonth() + separador + this.fechaNacimiento.getMonth() + separador
+				+ fechaNacimiento.getYear();
 	}
 
 	public int getTelefono() {
@@ -78,5 +88,5 @@ public class Usuario {
 	public String getDireccion() {
 		return direccion;
 	}
-	
+
 }
