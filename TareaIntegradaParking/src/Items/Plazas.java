@@ -56,4 +56,9 @@ public class Plazas {
 	public String getMatricula() {
 		return matricula;
 	}
+
+	public Boolean isActiva() {
+		return activa;
+	}
+	
 }

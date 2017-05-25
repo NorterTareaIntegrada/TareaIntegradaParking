@@ -15,17 +15,29 @@ public class BD_Usuario extends BBDD_Connector {
 		super(fileName);
 	}
 	public Usuario validarLogin(String usu,String pass){
-		Usuario usuReturn=new Usuario(false);
+		Usuario usuReturn=new Usuario();
 		this.abrir();
 		try {
-			reg = c.createStatement().executeQuery("SELECT nombre_usuario,contrasenya,tipo,cod_garaje,nombre,apellidos FROM usuarios WHERE nombre_usuario = '"+usu+"' AND contrasenya = '"+pass+"'");
+			reg = c.createStatement().executeQuery("SELECT tipo,nombre_usuario,contrasenya,cod_garaje,nombre,apellidos,f_nac,direccion,telefono FROM usuarios WHERE nombre_usuario = '"+usu+"' AND contrasenya = '"+pass+"'");
 			reg.next();
-			usuReturn=new Usuario(reg.getString(1),reg.getString(2),true,reg.getString(3),reg.getInt(4),reg.getString(5),reg.getString(6));
+			usuReturn=new Usuario(reg.getString(1),reg.getString(2),reg.getString(3),reg.getInt(4),reg.getString(5),reg.getString(6),reg.getDate(7).toLocalDate(),reg.getString(8),reg.getInt(9));
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		this.cerrar();
+		return usuReturn;
+	}
+	public Usuario validarNomUsu(String usu){
+		Usuario usuReturn=new Usuario();
+		this.abrir();
+		try {
+			reg = c.createStatement().executeQuery("SELECT tipo,nombre_usuario,contrasenya,cod_garaje,nombre,apellidos,f_nac,direccion,telefono FROM usuarios WHERE nombre_usuario = '"+usu+"'");
+			reg.next();
+			usuReturn=new Usuario(reg.getString(1),reg.getString(2),reg.getString(3),reg.getInt(4),reg.getString(5),reg.getString(6),reg.getDate(7).toLocalDate(),reg.getString(8),reg.getInt(9));
 		} catch (SQLException e) {
 			//e.printStackTrace();
 		}
 		this.cerrar();
 		return usuReturn;
 	}
-	
 }
