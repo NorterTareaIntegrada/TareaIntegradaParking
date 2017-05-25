@@ -579,7 +579,7 @@ public class Principal extends JFrame {
 		panelDuplicadoTarjeta.add(lblDuplicadoTarjetaDibujoTop);
 		
 		lblDuplicadoTarjetaDibujo.setVerticalAlignment(SwingConstants.TOP);
-		lblDuplicadoTarjetaDibujo.setIcon(new ImageIcon(panelXXX.class.getResource("/Recursos/iconos/magnetic-stripe-recorted.png")));
+		lblDuplicadoTarjetaDibujo.setIcon(new ImageIcon(Principal.class.getResource("/Recursos/iconos/magnetic-stripe-recorted.png")));
 		lblDuplicadoTarjetaDibujo.setBounds(725, 100, 194, 124);
 		panelDuplicadoTarjeta.add(lblDuplicadoTarjetaDibujo);
 		
