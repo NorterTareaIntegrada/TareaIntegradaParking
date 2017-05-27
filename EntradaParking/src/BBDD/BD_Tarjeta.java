@@ -4,7 +4,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 //import java.sql.Statement;
 
+
 import Items.Tarjetas;
+import Main.Entrada;
 
 public class BD_Tarjeta extends BBDD_Connector {
 
@@ -20,7 +22,7 @@ public class BD_Tarjeta extends BBDD_Connector {
 		this.abrir();
 		try {
 			reg = c.createStatement().executeQuery(
-					"SELECT dni,num_plaza,matricula,n_abonado,cod_garaje,activa FROM tarjetas WHERE n_abonado = "+ nAbonado + " AND dni = '" + dni + "' AND (cod_garaje,num_plaza) IN (SELECT cod_garaje,num_plaza FROM plazas WHERE matricula IS NULL AND h_entrada IS NULL AND cod_ticket IS NULL);");
+					"SELECT dni,num_plaza,matricula,n_abonado,cod_garaje,activa FROM tarjetas WHERE n_abonado = "+ nAbonado + " AND dni = '" + dni + "' AND cod_garaje = " + Entrada.PARKING + " AND (cod_garaje,num_plaza) IN (SELECT cod_garaje,num_plaza FROM plazas WHERE matricula IS NULL AND h_entrada IS NULL AND cod_ticket IS NULL);");
 			reg.next();
 			tarjetaReturn = new Tarjetas(reg.getString(1), reg.getInt(2), reg.getString(3), reg.getInt(4),
 					reg.getInt(5), reg.getBoolean(6));
