@@ -7,27 +7,21 @@ import java.util.Scanner;
 import javax.swing.Timer;
 
 import BBDD.BBDD_Connector;
-import Items.Plazas;
-import Items.Tarjetas;
-import Items.Usuario;
 import Windows.*;
 
 /**
- * @descrition Programa de gestion de parking
+ * @descrition Programa de entrada al parking
  * @author Norter S.L.
  * @version 1.0
  */
 
-public class Parking {
+public class Entrada {
 	
 	
 	public static Scanner in=new Scanner(System.in);
 	public static BBDD_Connector bd;
 	
-	public static String TOKEN=null;
-	public static Usuario usuarioConectado = new Usuario();
-	public static Tarjetas tarjetaIdentificada = new Tarjetas();
-	public static Plazas plazaObjetivo = new Plazas();
+	public static final int PARKING=1;
 	
 	public static int ContCarga;
 	public static boolean CargaAcabada;
@@ -40,17 +34,15 @@ public class Parking {
 	}
 	public static boolean programa(String[] args){
 
-		ContCarga=-150;
-		//ContCarga=449;
+		ContCarga=-25;
 		CargaAcabada=false;
 		
 		errConBBDD=false;
-		Cargador.abrir(400);
+		Cargador.abrir(100);
 		Timer cargaInicial=new Timer(1,new ActionListener(){
 			public void actionPerformed(ActionEvent e){
-				//System.out.println("bucle "+ContCarga);
 				if(!errConBBDD)ContCarga++;
-				if(ContCarga==100){
+				if(ContCarga==20){
 					bd=new BBDD_Connector("mysql-properties.xml");
 					if(errConBBDD){
 						ContCarga++;
@@ -58,7 +50,7 @@ public class Parking {
 					}
 				}
 				if(!errConBBDD)Cargador.setCarga(ContCarga);
-				if(ContCarga>450&&!errConBBDD) CargaAcabada=true;
+				if(ContCarga>100&&!errConBBDD) CargaAcabada=true;
 				if(errConBBDD&&Cargador.haPulsadoReiniciar){
 					reiniciar=true;
 				}
@@ -78,7 +70,7 @@ public class Parking {
 		}
 		cargaInicial.stop();
 		Cargador.frame.dispose();
-		Principal.abrir();
+		PrincipalEntrada.abrir();
 		return false;
 	}
 }
