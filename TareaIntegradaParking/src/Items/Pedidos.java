@@ -14,7 +14,7 @@ public class Pedidos {
 		this.fecha = fecha;
 		this.cod_producto = cod_producto;
 		this.cantidad = cantidad;
-		this.prec_total = prec_total;
+		this.prec_total = precioTotal;
 	}
 
 	public LocalDate getFecha() {

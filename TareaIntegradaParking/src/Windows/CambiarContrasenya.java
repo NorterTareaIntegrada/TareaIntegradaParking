@@ -21,6 +21,11 @@ import java.awt.event.ActionEvent;
 
 public class CambiarContrasenya extends JFrame {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public static CambiarContrasenya frame;
 	
 	private JPanel contentPane;
@@ -115,10 +120,10 @@ public class CambiarContrasenya extends JFrame {
 		JButton btnAplicarCambios = new JButton("Establecer Nueva Contrase\u00F1a");
 		btnAplicarCambios.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				if(passwordAntiguaField.getText().equals("")||passwordNuevaField.getText().equals("")||passwordNuevaValidField.getText().equals("")){
+				if(new String(passwordAntiguaField.getPassword()).equals("")||new String(passwordNuevaField.getPassword()).equals("")||new String(passwordNuevaValidField.getPassword()).equals("")){
 					lblProTip.setText("Todos los campos tienen que estar rellenos");
 					lblProTip.setForeground(new Color(225,155,25));
-				}else if(!passwordNuevaField.getText().equals(passwordNuevaValidField.getText())){
+				}else if(!new String(passwordNuevaField.getPassword()).equals(new String(passwordNuevaValidField.getPassword()))){
 					lblProTip.setText("¡La contraseña nueva no coincide!");
 					lblProTip.setForeground(new Color(225,155,25));
 				}else{
