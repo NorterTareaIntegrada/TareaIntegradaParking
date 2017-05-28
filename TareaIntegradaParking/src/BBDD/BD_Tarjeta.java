@@ -2,13 +2,13 @@ package BBDD;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
+//import java.sql.Statement;
 
 import Items.Tarjetas;
 
 public class BD_Tarjeta extends BBDD_Connector {
 
-	private static Statement s;
+	//private static Statement s;
 	private static ResultSet reg;
 
 	public BD_Tarjeta(String bbdd) {

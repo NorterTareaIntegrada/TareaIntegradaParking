@@ -50,7 +50,6 @@ public class BD_Plazas extends BBDD_Connector {
 			plazaReturn = new Plazas(reg.getInt(1), reg.getInt(2), reg.getInt(3), reg.getInt(4), reg.getString(5),
 					reg.getTimestamp(6).toLocalDateTime(), reg.getInt(7));
 		} catch (SQLException e) {
-			e.printStackTrace();
 		}
 		this.cerrar();
 		return plazaReturn;

@@ -26,7 +26,6 @@ public class BD_Usuario extends BBDD_Connector {
 			usuReturn = new Usuario(reg.getString(1), reg.getString(2), reg.getString(3), reg.getInt(4),
 					reg.getString(5), reg.getString(6), reg.getDate(7).toLocalDate(), reg.getString(8), reg.getInt(9));
 		} catch (SQLException e) {
-			e.printStackTrace();
 		}
 		this.cerrar();
 		return usuReturn;
@@ -43,7 +42,6 @@ public class BD_Usuario extends BBDD_Connector {
 			usuReturn = new Usuario(reg.getString(1), reg.getString(2), reg.getString(3), reg.getInt(4),
 					reg.getString(5), reg.getString(6), reg.getDate(7).toLocalDate(), reg.getString(8), reg.getInt(9));
 		} catch (SQLException e) {
-			// e.printStackTrace();
 		}
 		this.cerrar();
 		return usuReturn;
