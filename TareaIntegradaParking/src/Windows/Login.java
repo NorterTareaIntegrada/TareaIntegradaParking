@@ -5,8 +5,6 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import javax.swing.JComboBox;
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
@@ -168,7 +166,7 @@ public class Login extends JFrame {
 		button_id.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		button_id.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				if(usernameField.getText().equals("")||passwordField.getText().equals("")){
+				if(usernameField.getText().equals("")||new String(passwordField.getPassword()).equals("")){
 					lblProTip.setText("¡Ningun campo puede estar vacio!");
 					lblProTip.setForeground(new Color(225,155,25));
 				}else{
@@ -209,7 +207,7 @@ public class Login extends JFrame {
 				switch(Parking.TOKEN){
 					case "USUARIO":
 						try{Thread.sleep(500);}catch(InterruptedException e){}
-						Usuario uSu= new BD_Usuario("mysql-properties.xml").validarLogin(usernameField.getText(),passwordField.getText());
+						Usuario uSu= new BD_Usuario("mysql-properties.xml").validarLogin(usernameField.getText(),new String(passwordField.getPassword()));
 						if(uSu.isVerificado()){
 							Parking.usuarioConectado=uSu;
 							lblProTip.setText("¡Login Correcto!");

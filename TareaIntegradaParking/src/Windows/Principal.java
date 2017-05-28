@@ -1,6 +1,5 @@
 package Windows;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.SystemColor;
 import java.awt.Toolkit;
@@ -11,10 +10,8 @@ import javax.swing.border.BevelBorder;
 import javax.swing.border.EmptyBorder;
 
 import java.awt.Color;
-import java.awt.FlowLayout;
 
 import javax.swing.JButton;
-import javax.swing.BoxLayout;
 
 import java.awt.Component;
 import java.awt.Cursor;
@@ -37,6 +34,7 @@ import BBDD.BD_Tarjeta;
 import BBDD.BD_Usuario;
 import Items.Tarjetas;
 import Items.Usuario;
+import Items.Validator;
 import Main.Parking;
 
 import javax.swing.border.MatteBorder;
@@ -44,6 +42,11 @@ import javax.swing.border.MatteBorder;
 import com.toedter.calendar.JDateChooser;
 
 public class Principal extends JFrame {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	private JPanel contentPane;
 
 	/**
@@ -63,7 +66,8 @@ public class Principal extends JFrame {
 	public static JPanel panelDuplicadoTarjeta = new JPanel();
 	//Cosas de paneles de tabbedPane
 		//Cosas de panelPersonal
-			public static JComboBox comboBoxPersonalAltaGaraje = new JComboBox();
+			public static JLabel lblAltaPersonalProTip = new JLabel("Completa el formulario para continuar");
+			public static JComboBox<Object> comboBoxPersonalAltaGaraje = new JComboBox<Object>();
 			public static JSeparator separatorPersonalAlta1 = new JSeparator();
 			public static JLabel lblPersonalAltaPaso2 = new JLabel("<html><div style=\"font-weight:bold;\">&nbsp;&nbsp;&nbsp;<span>2</span>&nbsp;&nbsp;-&nbsp;&nbsp;Verifica los datos</div></html>");
 			public static JLabel lblPersonalAltaPaso2Alt = new JLabel("");
@@ -317,7 +321,6 @@ public class Principal extends JFrame {
 		btnPersonalAltaP2Continuar.setFocusPainted(false);
 		btnPersonalAltaP2Continuar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				System.out.println(1);
 				boolean posibleBorrar=true;
 				String msgError="";
 				if(posibleBorrar&&!usuABorrar.isVerificado()){
@@ -337,11 +340,9 @@ public class Principal extends JFrame {
 					lblPersonalAltaPaso3.setVisible(true);
 					btnPersonalAltaP3Cancelar.setVisible(true);
 					btnPersonalAltaP3Confirmar.setVisible(true);
-					System.out.println(2);
 				}else{
 					lblPersonalAltaPaso3Alt.setText("<html><div style=\"font-weight:bold;\">&nbsp;&nbsp;&nbsp;"+msgError+"</div></html>");
 					lblPersonalAltaPaso3Alt.setVisible(true);
-					System.out.println(3);
 				}
 			}
 		});
@@ -400,9 +401,9 @@ public class Principal extends JFrame {
 		panelPersonalAlta.setBounds(305, 64, 333, 432);
 		panelPersonal.add(panelPersonalAlta);
 		
-		JComboBox comboBoxPersonalAltaTipo = new JComboBox();
+		JComboBox<Object> comboBoxPersonalAltaTipo = new JComboBox<Object>();
 		comboBoxPersonalAltaTipo.setToolTipText("Seleccionar el rol que tomar\u00E1 en el parking");
-		comboBoxPersonalAltaTipo.setModel(new DefaultComboBoxModel(new String[] {"MECANICO", "LIMPIEZA", "SEGURIDAD"}));
+		comboBoxPersonalAltaTipo.setModel(new DefaultComboBoxModel<Object>(new String[] {"MECANICO", "LIMPIEZA", "SEGURIDAD"}));
 		comboBoxPersonalAltaTipo.setBounds(123, 11, 200, 20);
 		panelPersonalAlta.add(comboBoxPersonalAltaTipo);
 		
@@ -416,7 +417,7 @@ public class Principal extends JFrame {
 		panelPersonalAlta.add(txtPersonalAltaNomUsuario);
 		txtPersonalAltaNomUsuario.setColumns(10);
 		
-		JLabel lblPersonalAltaNombreDeUsuario = new JLabel("Nombre de Usuario");
+		JLabel lblPersonalAltaNombreDeUsuario = new JLabel("Nombre Usuario");
 		lblPersonalAltaNombreDeUsuario.setBounds(10, 37, 103, 20);
 		panelPersonalAlta.add(lblPersonalAltaNombreDeUsuario);
 		
@@ -506,7 +507,6 @@ public class Principal extends JFrame {
 		separatorAltaPersonal3.setBounds(2, 380, 329, 2);
 		panelPersonalAlta.add(separatorAltaPersonal3);
 		
-		JLabel lblAltaPersonalProTip = new JLabel("Completa el formulario para continuar");
 		lblAltaPersonalProTip.setHorizontalAlignment(SwingConstants.CENTER);
 		lblAltaPersonalProTip.setBounds(10, 276, 313, 30);
 		panelPersonalAlta.add(lblAltaPersonalProTip);
@@ -522,6 +522,66 @@ public class Principal extends JFrame {
 		btnAltaPersonalGoes.setFocusPainted(false);
 		btnAltaPersonalGoes.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnAltaPersonalGoes.setBounds(123, 391, 200, 30);
+		btnAltaPersonalGoes.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				boolean cont = true;
+				String txt="";
+				if(cont&&(txtPersonalAltaNomUsuario.getText().equals("")||new String(passwordPersonalAlta1.getPassword()).equals("")||new String(passwordPersonalAlta2.getPassword()).equals("")||txtPersonalAltaNombre.getText().equals(""))){
+					cont=false;txt="Completa todos los campos obligatorios";
+				}
+				if(cont&&(!new String(passwordPersonalAlta1.getPassword()).equals(new String(passwordPersonalAlta2.getPassword())))){
+					cont=false;txt="Las contraseñas no coinciden";
+				}
+				if(cont&&(!Validator.Contrasenya(new String(passwordPersonalAlta1.getPassword())))){
+					cont=false;txt="La contraseña debe de tener al menos 8 caracteres";
+				}
+				if(cont&&!Validator.Telefono(txtPersonalAltaTelefono.getText())){
+					cont=false;txt="Formato incorrecto de telefono";
+				}
+				if(cont&&new BD_Usuario("mysql-properties.xml").validarNomUsu(txtPersonalAltaNomUsuario.getText()).isVerificado()){
+					cont=false;txt="Ese nombre de usuario ya esta cogido";
+				}
+				boolean tmp=false;
+				//try{dateChooserPersonalAlta.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate().wait();}catch(Exception ee){tmp=true;}
+				try{new java.sql.Date(dateChooserPersonalAlta.getDate().getTime()).toLocalDate();}catch(Exception ee){tmp=true;}
+				//System.out.println(new java.sql.Date(dateChooserPersonalAlta.getDate().getTime()).toLocalDate());
+				if(cont&&tmp){
+					cont=false;txt="Introduce una fecha de nacimiento";
+				}
+				if(cont){
+					if(new BD_Usuario("mysql-properties.xml").altaUsuario(
+							new Usuario(
+									(String)comboBoxPersonalAltaTipo.getSelectedItem(),
+									txtPersonalAltaNomUsuario.getText(),
+									new String(passwordPersonalAlta1.getPassword()),
+									Parking.usuarioConectado.getCodGaraje(),
+									txtPersonalAltaNombre.getText(),
+									(txtPersonalAltaApellidos.getText()),
+									new java.sql.Date(dateChooserPersonalAlta.getDate().getTime()).toLocalDate(),//dateChooserPersonalAlta.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate()
+									(txtPersonalAltaDireccion.getText()),
+									Integer.parseInt(txtPersonalAltaTelefono.getText())
+							))==1){//(String s)
+						lblAltaPersonalProTip.setForeground(new Color(75,255,75));
+						lblAltaPersonalProTip.setText("¡Todo en orden!");
+						//Se borra todo el texto
+						txtPersonalAltaNomUsuario.setText("");
+						passwordPersonalAlta1.setText("");
+						passwordPersonalAlta2.setText("");
+						txtPersonalAltaNombre.setText("");
+						txtPersonalAltaApellidos.setText("");
+						dateChooserPersonalAlta.setDate(null);
+						txtPersonalAltaDireccion.setText("");
+						txtPersonalAltaTelefono.setText("");
+					}else{
+						lblAltaPersonalProTip.setForeground(new Color(255,75,75));
+						lblAltaPersonalProTip.setText("La información no es válida");
+					}
+				}else{
+					lblAltaPersonalProTip.setForeground(new Color(225,155,25));
+					lblAltaPersonalProTip.setText(txt);
+				}
+			}
+		});
 		panelPersonalAlta.add(btnAltaPersonalGoes);
 		
 		JLabel lblAltaPersonalDescripcion = new JLabel("<html>\r\n\t<div style=\"padding:3px;font-size:10px;\">Para poder da a nuevo personal es necesario:</div>\r\n\t<span style=\"color:#222222;\">&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;Rellenar los campos obligatorios</span><br>\r\n\t<span style=\"color:#222222;\">&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;Que todos los formatos sean correctos</span><br>\r\n\t<span style=\"color:#222222;\">&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;El nuevo miembro debe ser mayor de edad</span><br>\r\n\t\r\n</html>");
@@ -544,7 +604,7 @@ public class Principal extends JFrame {
 		/**/
 		
 		/**/
-		//	PERSONAL
+		//	DUPLICADO TARJETA
 		/**/
 		
 		panelDuplicadoTarjeta.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -696,13 +756,13 @@ public class Principal extends JFrame {
 				if(proceder&&(txtDuplicadoTarjetaFormCodGaraje.getText().equals("")||txtDuplicadoTarjetaFormNumPlaza.getText().equals("")||txtDuplicadoTarjetaFormDNI.getText().equals(""))){
 					txt="Completa todos los campos para continuar";proceder=false;
 				}
-				if(proceder&&false){
+				if(proceder&&Validator.CodGaraje(txtDuplicadoTarjetaFormCodGaraje.getText())){
 					txt="El código de garaje no tiene un formato válido";proceder=false;
 				}
-				if(proceder&&false){
+				if(proceder&&Validator.NumPlaza(txtDuplicadoTarjetaFormNumPlaza.getText())){
 					txt="El número de plaza no tiene un formato válido";proceder=false;
 				}
-				if(proceder&&false){
+				if(proceder&&Validator.Dni(txtDuplicadoTarjetaFormDNI.getText())){
 					txt="El DNI del titular no tiene un formato válido";proceder=false;
 				}
 				if(proceder){
@@ -782,7 +842,7 @@ public class Principal extends JFrame {
 							tabbedPane.addTab(" Reponer ", null, panelReponer, "Reponer materiales propios de los servicios");
 							tabbedPane.addTab(" Pedidos ", null, panelPedidos, "Consultar los ultimos pedidos");
 							tabbedPane.addTab(" Personal ", null, panelPersonal, "Dar de alta y de baja a el personal");
-							comboBoxPersonalAltaGaraje.setModel(new DefaultComboBoxModel(new String[] {""+Parking.usuarioConectado.getCodGaraje()}));
+							comboBoxPersonalAltaGaraje.setModel(new DefaultComboBoxModel<Object>(new String[] {""+Parking.usuarioConectado.getCodGaraje()}));
 						case "MECANICO":case "LIMPIEZA":case "SEGURIDAD":
 							tabbedPane.addTab(" Eventos Recientes ", null, panelEventos, "Consultar los eventos que han ocurrido desde el inicio de sesi\u00F3n");
 							break;
@@ -806,6 +866,9 @@ public class Principal extends JFrame {
 		
 	}
 	public static void PanelBajaBorrarTodo(){
+		lblAltaPersonalProTip.setText("Completa el formulario para continuar");
+		lblAltaPersonalProTip.setForeground(new Color(75,75,75));
+		
 		separatorPersonalAlta1.setVisible(false);
 		lblPersonalAltaPaso2.setVisible(false);
 		lblPersonalAltaPaso2Alt.setVisible(false);

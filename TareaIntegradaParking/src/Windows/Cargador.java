@@ -12,7 +12,6 @@ import javax.swing.SwingConstants;
 import java.awt.Font;
 
 import Main.Parking;
-import Recursos.*;
 
 import javax.swing.ImageIcon;
 

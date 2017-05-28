@@ -2,8 +2,6 @@ package BBDD;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.sql.*;
 import java.util.InvalidPropertiesFormatException;
 import java.util.Properties;
@@ -26,7 +24,8 @@ public class BBDD_Connector {
 	public BBDD_Connector(String fileName){
 		try{
 			this.prop = new Properties();
-		    prop.loadFromXML(Files.newInputStream(Paths.get(fileName)));
+		    //prop.loadFromXML(Files.newInputStream(Paths.get(fileName)));
+		    prop.loadFromXML(BBDD_Connector.class.getResourceAsStream("/Recursos/"+fileName));
 			this.dbms = this.prop.getProperty("dbms");
 			//this.driver = this.prop.getProperty("driver");
 			this.dbName = this.prop.getProperty("database_name");
