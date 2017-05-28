@@ -21,7 +21,7 @@ public class Validator {
 	
 	public static boolean CodTicket(String codTicket){
 		try{
-			return codTicket.length()==10 && Integer.parseInt(codTicket)<100000;
+			return codTicket.length()==10 && Integer.parseInt(codTicket)<2000000000;
 		}catch(Exception e){
 			return false;
 		}

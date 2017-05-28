@@ -756,13 +756,13 @@ public class Principal extends JFrame {
 				if(proceder&&(txtDuplicadoTarjetaFormCodGaraje.getText().equals("")||txtDuplicadoTarjetaFormNumPlaza.getText().equals("")||txtDuplicadoTarjetaFormDNI.getText().equals(""))){
 					txt="Completa todos los campos para continuar";proceder=false;
 				}
-				if(proceder&&Validator.CodGaraje(txtDuplicadoTarjetaFormCodGaraje.getText())){
+				if(proceder&&!Validator.CodGaraje(txtDuplicadoTarjetaFormCodGaraje.getText())){
 					txt="El código de garaje no tiene un formato válido";proceder=false;
 				}
-				if(proceder&&Validator.NumPlaza(txtDuplicadoTarjetaFormNumPlaza.getText())){
+				if(proceder&&!Validator.NumPlaza(txtDuplicadoTarjetaFormNumPlaza.getText())){
 					txt="El número de plaza no tiene un formato válido";proceder=false;
 				}
-				if(proceder&&Validator.Dni(txtDuplicadoTarjetaFormDNI.getText())){
+				if(proceder&&!Validator.Dni(txtDuplicadoTarjetaFormDNI.getText())){
 					txt="El DNI del titular no tiene un formato válido";proceder=false;
 				}
 				if(proceder){

@@ -29,6 +29,7 @@ import BBDD.BD_Usuario;
 import Items.Plazas;
 import Items.Tarjetas;
 import Items.Usuario;
+import Items.Validator;
 import Main.Parking;
 
 import javax.swing.ImageIcon;
@@ -168,6 +169,9 @@ public class Login extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				if(usernameField.getText().equals("")||new String(passwordField.getPassword()).equals("")){
 					lblProTip.setText("¡Ningun campo puede estar vacio!");
+					lblProTip.setForeground(new Color(225,155,25));
+				}else if(!Validator.Contrasenya(new String(passwordField.getPassword()))){
+					lblProTip.setText("Formato inválido de contraseña");
 					lblProTip.setForeground(new Color(225,155,25));
 				}else{
 					Parking.TOKEN="USUARIO";
@@ -359,6 +363,12 @@ public class Login extends JFrame {
 				if(txtMatricula.getText().equals("")||txtCodTicket.getText().equals("")){
 					lblEstandarProTip.setText("¡Ningun campo puede estar vacio!");
 					lblEstandarProTip.setForeground(new Color(225,155,25));
+				}else if(!Validator.Matricula(txtMatricula.getText())){
+					lblEstandarProTip.setText("Formato inválido de matricula");
+					lblEstandarProTip.setForeground(new Color(225,155,25));
+				}else if(!Validator.CodTicket(txtCodTicket.getText())){
+					lblEstandarProTip.setText("Formato inválido de Cod. Ticket");
+					lblEstandarProTip.setForeground(new Color(225,155,25));
 				}else{
 					Parking.TOKEN="ESTANDAR";
 					lblEstandarProTip.setText("Cargando...");
@@ -414,6 +424,12 @@ public class Login extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				if(txtNAbonado.getText().equals("")||txtDNI.getText().equals("")){
 					lblAbonadoProTip.setText("¡Ningun campo puede estar vacio!");
+					lblAbonadoProTip.setForeground(new Color(225,155,25));
+				}else if(!Validator.CodAbonado(txtNAbonado.getText())){
+					lblAbonadoProTip.setText("Formato inválido de Cod. Abonado");
+					lblAbonadoProTip.setForeground(new Color(225,155,25));
+				}else if(!Validator.Dni(txtDNI.getText())){
+					lblAbonadoProTip.setText("Formato inválido de DNI");
 					lblAbonadoProTip.setForeground(new Color(225,155,25));
 				}else{
 					Parking.TOKEN="ABONADO";
