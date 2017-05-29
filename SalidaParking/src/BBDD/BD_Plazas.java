@@ -60,8 +60,10 @@ public class BD_Plazas extends BBDD_Connector {
 	public boolean salir(Plazas pl) {
 		this.abrir();
 		try {
+			c.createStatement().executeUpdate("DELETE FROM cargos WHERE cod_garaje = "+Salida.PARKING+" AND num_plaza = "+pl.getNumPlaza()+" ;");
 			c.createStatement().executeUpdate("UPDATE plazas SET matricula = NULL, h_entrada = NULL, cod_ticket = NULL WHERE cod_garaje = "+Salida.PARKING+" AND num_plaza = "+pl.getNumPlaza()+" ;");
 		} catch (SQLException e) {
+			e.printStackTrace();
 			this.cerrar();
 			return false;
 		}
