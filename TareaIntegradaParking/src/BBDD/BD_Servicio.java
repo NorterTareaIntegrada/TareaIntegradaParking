@@ -17,15 +17,14 @@ public class BD_Servicio extends BBDD_Connector {
 	}
 
 	public Vector<Servicios> listadoServicios(String Servicios) {
-		String cadenaSQL = "SELECT cod,nombre,descripcion from servicios";
+		String cadenaSQL = "SELECT cod,nombre,precio,descripcion from servicios";
 		Vector<Servicios> listaServicios = new Vector<Servicios>();
 		try {
 			this.abrir();
 			s = c.createStatement();
 			reg = s.executeQuery(cadenaSQL);
 			while (reg.next()) {
-				listaServicios.add(new Servicios(reg.getInt(1), reg.getString(2), reg.getString(3)));
-
+				listaServicios.add(new Servicios(reg.getInt(1), reg.getString(2), reg.getDouble(3), reg.getString(4)));
 			}
 			s.close();
 			this.cerrar();
