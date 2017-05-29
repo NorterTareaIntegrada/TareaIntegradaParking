@@ -25,6 +25,7 @@ import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JPasswordField;
 import javax.swing.JRadioButton;
+import javax.swing.JScrollBar;
 import javax.swing.JSeparator;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
@@ -33,6 +34,7 @@ import javax.swing.JLabel;
 
 import java.awt.Font;
 
+import BBDD.BD_Cargos;
 import BBDD.BD_Tarjeta;
 import BBDD.BD_Usuario;
 import Items.Tarjetas;
@@ -69,6 +71,7 @@ public class Principal extends JFrame {
 	public static JPanel panelPersonal = new JPanel();
 	public static JPanel panelDuplicadoTarjeta = new JPanel();
 	public static JPanel panelGenerar = new JPanel();
+	public static JPanel panelServicios = new JPanel();
 	//Cosas de paneles de tabbedPane
 		//Cosas de panelPersonal
 			public static JLabel lblAltaPersonalProTip = new JLabel("Completa el formulario para continuar");
@@ -109,6 +112,15 @@ public class Principal extends JFrame {
 			public static JRadioButton rdbtnGenerarPreferenciasNomDef = new JRadioButton("<html><b>Por Defecto</b>:&nbsp;&nbsp;&nbsp;<span style=\"color:gray\">Personal_Parking_X</span></html>");
 			
 			public static String preffilenamedef="Personal_Parking_X";
+		//Cosas de panelServicios
+			public static JPanel panelServDesc0 = new JPanel();
+			public static JPanel panelServDesc1 = new JPanel();
+			public static JPanel panelServDesc2 = new JPanel();
+			public static JButton btnServCancelar = new JButton("Cancelar");
+			public static JButton btnServSolicitar = new JButton("Solicitar");
+			public static JLabel lblServProTip = new JLabel("Selecciona un Servicio");
+			
+			public static int servSelect=0;
 	//Less important
 	public static JLabel lblMsgBienvenida = new JLabel("");
 	private final JLabel lblEventos = new JLabel("a");
@@ -1076,6 +1088,161 @@ public class Principal extends JFrame {
 		
 		/**/
 		
+		/**/
+		//
+		/**/
+		
+		panelServicios.setBorder(new EmptyBorder(5, 5, 5, 5));
+		panelServicios.setBorder(new EmptyBorder(5, 5, 5, 5));
+		panelServicios.setLayout(null);
+		
+		panelServicios.setBorder(new EmptyBorder(5, 5, 5, 5));
+		panelServicios.setLayout(null);
+		panelServicios.setLayout(null);
+		
+		JLabel lblServDetalles = new JLabel("<html>\r\n\t<h2>Detalles</h2>\r\n</html>");
+		lblServDetalles.setFont(new Font("Lucida Console", Font.PLAIN, 11));
+		lblServDetalles.setHorizontalAlignment(SwingConstants.CENTER);
+		lblServDetalles.setBounds(651, 15, 333, 50);
+		panelServicios.add(lblServDetalles);
+		
+		panelServDesc0.setLayout(null);
+		panelServDesc0.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
+		panelServDesc0.setBackground(SystemColor.controlHighlight);
+		panelServDesc0.setBounds(660, 80, 315, 209);
+		panelServicios.add(panelServDesc0);
+		
+		JLabel lblServDesc0 = new JLabel("<html>\r\n<h4 style=\"text-align:center;color:gray\">Selecciona un servicio para ver su informaci\u00F3n</h4>\r\n</html>");
+		lblServDesc0.setHorizontalAlignment(SwingConstants.CENTER);
+		lblServDesc0.setBounds(2, 2, 311, 205);
+		panelServDesc0.add(lblServDesc0);
+		
+		panelServDesc1.setBackground(SystemColor.controlHighlight);
+		panelServDesc1.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
+		panelServDesc1.setBounds(660, 80, 315, 209);
+		panelServicios.add(panelServDesc1);
+		panelServDesc1.setLayout(null);
+		
+		JLabel lblpanelServDesc1 = new JLabel("<html>\r\n<h3 style=\"text-align:center;\">Descripci\u00F3n</h3>\r\n<p style=\"text-align:center;padding-left:20px;padding-right:20px;\">Limpieza a fondo del vehiculo, interior y exterior. Duraci\u00F3n aproximada 1-2 horas.</p>\r\n<h3 style=\"text-align:center;\">Precio</h3>\r\n<p style=\"text-align:center;font-size:20px;\"><span style=\"color:orange;\">8,49</span> <span style=\"color:gray;\">\u20AC</span></p><br>\r\n<div style=\"text-align:center;\"><p style=\"background-color:green;color:white;padding:3px;font-size:13px;width:150px;\">DISPONIBLE</p></div>\r\n</html>");
+		lblpanelServDesc1.setHorizontalAlignment(SwingConstants.CENTER);
+		lblpanelServDesc1.setBounds(2, 2, 311, 205);
+		panelServDesc1.add(lblpanelServDesc1);
+		
+		panelServDesc2.setLayout(null);
+		panelServDesc2.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
+		panelServDesc2.setBackground(SystemColor.controlHighlight);
+		panelServDesc2.setBounds(660, 80, 315, 209);
+		panelServicios.add(panelServDesc2);
+		
+		JLabel lblpanelServDesc2 = new JLabel("<html>\r\n<h3 style=\"text-align:center;\">Descripci\u00F3n</h3>\r\n<p style=\"text-align:center;padding-left:20px;padding-right:20px;\">Cambio de aceite est\u00E1ndar para vehiculos. Duraci\u00F3n aproximada 1 hora.</p>\r\n<h3 style=\"text-align:center;\">Precio</h3>\r\n<p style=\"text-align:center;font-size:20px;\"><span style=\"color:orange;\">59,99</span> <span style=\"color:gray;\">\u20AC</span></p><br>\r\n<div style=\"text-align:center;\"><p style=\"background-color:green;color:white;padding:3px;font-size:13px;width:150px;\">DISPONIBLE</p></div>\r\n</html>");
+		lblpanelServDesc2.setHorizontalAlignment(SwingConstants.CENTER);
+		lblpanelServDesc2.setBounds(2, 2, 311, 205);
+		panelServDesc2.add(lblpanelServDesc2);
+		
+		JLabel lblServSelect = new JLabel("<html>\r\n\t<h2>Seleccionar Servicio</h2>\r\n</html>");
+		lblServSelect.setHorizontalAlignment(SwingConstants.CENTER);
+		lblServSelect.setFont(new Font("Lucida Console", Font.PLAIN, 11));
+		lblServSelect.setBounds(304, 15, 333, 50);
+		panelServicios.add(lblServSelect);
+		
+		JPanel panelServSelect = new JPanel();
+		panelServSelect.setLayout(null);
+		panelServSelect.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
+		panelServSelect.setBackground(SystemColor.controlHighlight);
+		panelServSelect.setBounds(314, 80, 333, 385);
+		panelServicios.add(panelServSelect);
+		
+		JScrollBar scrollBarServSelect = new JScrollBar();
+		scrollBarServSelect.setEnabled(false);
+		scrollBarServSelect.setBounds(311, 2, 20, 381);
+		panelServSelect.add(scrollBarServSelect);
+		
+		JButton btnServSelect1 = new JButton("<html>&nbsp;&nbsp;&nbsp;Lavado de Vehiculo<html>");
+		btnServSelect1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				resetServDesc(1);
+			}
+		});
+		btnServSelect1.setFocusPainted(false);
+		btnServSelect1.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnServSelect1.setHorizontalAlignment(SwingConstants.LEADING);
+		btnServSelect1.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		btnServSelect1.setIcon(new ImageIcon(panelXXX.class.getResource("/Recursos/iconos/icono_lavado.png")));
+		btnServSelect1.setBounds(2, 2, 309, 55);
+		panelServSelect.add(btnServSelect1);
+		
+		JButton btnServSelect2 = new JButton("<html>&nbsp;&nbsp;&nbsp;Cambio de Aceite<html>");
+		btnServSelect2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				resetServDesc(2);
+			}
+		});
+		btnServSelect2.setFocusPainted(false);
+		btnServSelect2.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnServSelect2.setIcon(new ImageIcon(panelXXX.class.getResource("/Recursos/iconos/icono_aceite.png")));
+		btnServSelect2.setHorizontalAlignment(SwingConstants.LEADING);
+		btnServSelect2.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		btnServSelect2.setBounds(2, 57, 309, 55);
+		panelServSelect.add(btnServSelect2);
+		
+		JLabel lblServ = new JLabel("<html>\r\n\t<h1><b>SERVICIOS</b></h1>\r\n</html>");
+		lblServ.setHorizontalAlignment(SwingConstants.CENTER);
+		lblServ.setBounds(10, 11, 282, 50);
+		panelServicios.add(lblServ);
+		
+		JLabel lblServDescripcion = new JLabel("<html>\r\n\t<h3 style=\"margin-bottom:0px;\">Descripci\u00F3n</h3>\r\n\t<p style=\"margin:10px;text-align:justify;\">El panel de Servicios permite <b>solicitar</b> distintos <b>servicios</b> para el mantenimiento de su vehiculo</p>\r\n\t<h3 style=\"margin-bottom:0px;\">Utilizaci\u00F3n</h3>\r\n\t<p style=\"margin:10px;text-align:justify;\">Selecciona el servicio sobre el que quieras conocer los detalles, como:\r\n<ul style=\"padding:0px;margin-top:0px;margin-bottom:0px;\">\r\n\t<li>Descripci\u00F3n</li>\r\n\t<li>Precio</li>\r\n\t<li>Duraci\u00F3n</li>\r\n\t<li>Disponibilidad</li>\r\n</ul></p>\r\n\t<h3 style=\"margin-bottom:0px;\">Precauciones</h3>\r\n\t<p style=\"margin:10px;text-align:justify;\">Los servicios se suman a su coste en el momento de contratarlos, debe dejar el vehiculo desocupado durante la duraci\u00F3n del servicio. Si desea <span style=\"color:orange;\">cancelar un servicio</span> contratado, debe acudir a la administraci\u00F3n del parking para anularlo. No puede anular un servicio en proceso.</p>\r\n</html>");
+		lblServDescripcion.setToolTipText("Datos generales sobre el panel de personal");
+		lblServDescripcion.setVerticalAlignment(SwingConstants.TOP);
+		lblServDescripcion.setBounds(20, 67, 272, 429);
+		panelServicios.add(lblServDescripcion);
+		
+		btnServSolicitar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int x=0;
+				switch(Parking.TOKEN){
+					case "ESTANDAR":x=new BD_Cargos("mysql-properties.xml").anyadirCargo(Parking.plazaObjetivo.getCodGaraje(), Parking.plazaObjetivo.getNumPlaza(), servSelect);break;
+					case "ABONADO":x=new BD_Cargos("mysql-properties.xml").anyadirCargo(Parking.tarjetaIdentificada.getCodGaraje(), Parking.tarjetaIdentificada.getNumPlaza(), servSelect);break;
+				}
+				if(x==1){
+					lblServProTip.setText("¡Solicitud Completada!");
+					lblServProTip.setForeground(new Color(75,255,75));
+				}else{
+					lblServProTip.setText("¡Ya has solicitado ese servicio!");
+					lblServProTip.setForeground(new Color(225,155,25));
+				}
+				resetServDesc(0);
+			}
+		});
+		btnServSolicitar.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		btnServSolicitar.setBackground(new Color(152, 251, 152));
+		btnServSolicitar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnServSolicitar.setFocusPainted(false);
+		btnServSolicitar.setBounds(825, 300, 150, 35);
+		panelServicios.add(btnServSolicitar);
+		
+		btnServCancelar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				resetServDesc(0);
+			}
+		});
+		btnServCancelar.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		btnServCancelar.setBackground(new Color(169, 169, 169));
+		btnServCancelar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnServCancelar.setFocusPainted(false);
+		btnServCancelar.setBounds(660, 300, 150, 35);
+		panelServicios.add(btnServCancelar);
+		
+		lblServProTip.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		lblServProTip.setOpaque(true);
+		lblServProTip.setHorizontalAlignment(SwingConstants.CENTER);
+		lblServProTip.setBackground(new Color(192, 192, 192));
+		lblServProTip.setBounds(660, 346, 315, 40);
+		panelServicios.add(lblServProTip);
+		
+		resetServDesc(0);
+		
+		/**/
+		
 		reset();
 	}
 	
@@ -1121,9 +1288,11 @@ public class Principal extends JFrame {
 					break;
 				case "ESTANDAR":
 					lblMsgBienvenida.setText("<html>&nbsp;&nbsp;&nbsp;Gestión de Coche&nbsp;&nbsp;&nbsp;<span style=\"background-color:#687043;color:#ceccc2;font-size:11px;padding-left:3px;font-family:consolas;\">&nbsp;"+Parking.plazaObjetivo.getMatricula()+"&nbsp;</span>&nbsp;&nbsp;&nbsp;Entrada: <span style=\"background-color:#91cee0;color:#343434;font-size:11px;padding-left:3px;font-family:consolas;\">&nbsp;"+Parking.plazaObjetivo.getHora_entrada()+"&nbsp;</span></html>");
+					tabbedPane.addTab(" Servicios ", null, panelServicios, "Solicitar servicios disponibles en este garaje");
 					break;
 				case "ABONADO":
 					lblMsgBienvenida.setText("<html>&nbsp;&nbsp;&nbsp;Panel Gestión Abonado&nbsp;&nbsp;&nbsp;<span style=\"background-color:#8c7a31;color:#ceccc2;font-size:11px;padding-left:3px;font-family:consolas;\">&nbsp;"+Parking.tarjetaIdentificada.getDni().toUpperCase()+"&nbsp;</span>&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;Coche&nbsp;&nbsp;&nbsp;<span style=\"background-color:#687043;color:#ceccc2;font-size:11px;padding-left:3px;font-family:consolas;\">&nbsp;"+Parking.tarjetaIdentificada.getMatricula().toUpperCase()+"&nbsp;</span></html>");
+					tabbedPane.addTab(" Servicios ", null, panelServicios, "Solicitar servicios disponibles en este garaje");
 					break;
 				case "LOST":
 					lblMsgBienvenida.setText("<html>&nbsp;&nbsp;&nbsp;Panel de Duplicado de Tarjeta</html>");
@@ -1167,5 +1336,22 @@ public class Principal extends JFrame {
 		lblDuplicadoTarjetaConfirmacion.setVisible(false);
 		btnDuplicadoTarjetaCancelar.setVisible(false);
 		btnDuplicadoTarjetaProceder.setVisible(false);
+	}
+	private static void resetServDesc(int id){
+		servSelect=id;
+		panelServDesc0.setVisible(false);
+		panelServDesc1.setVisible(false);
+		panelServDesc2.setVisible(false);
+		switch(id){
+			case 0:panelServDesc0.setVisible(true);break;
+			case 1:panelServDesc1.setVisible(true);break;
+			case 2:panelServDesc2.setVisible(true);break;
+		}
+		btnServCancelar.setEnabled(id!=0);
+		btnServSolicitar.setEnabled(id!=0);
+		if(id!=0){
+			lblServProTip.setText("Selecciona un Servicio");
+			lblServProTip.setForeground(new Color(0,0,0));
+		}
 	}
 }
