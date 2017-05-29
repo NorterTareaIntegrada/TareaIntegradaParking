@@ -197,7 +197,9 @@ public class PrincipalSalida extends JFrame {
 						//new BD_Plazas("mysql-properties.xml").salir(plaz);
 						lblSalidaEstandarProTip.setText("¡Datos Correctos!");
 						lblSalidaEstandarProTip.setForeground(new Color(70,150,70));
-						lblSalidaEstandarPrecio.setText("<html>&nbsp;&nbsp;<span style=\"font-size:15px;\">Estancia + <span style=\"font-size:17px;font-weight:bold;\">X</span> servicios: <span style=\"font-size:17px;font-weight:bold;\">12,34</sppan>\u20AC</span></html>");
+						int nServicios=new BD_Plazas("mysql-properties.xml").contServicios(plaz);
+						double precio=new BD_Plazas("mysql-properties.xml").precioTotal(plaz);
+						lblSalidaEstandarPrecio.setText("<html>&nbsp;&nbsp;<span style=\"font-size:15px;\">Estancia + <span style=\"font-size:17px;font-weight:bold;\">"+nServicios+"</span> servicios: <span style=\"font-size:17px;font-weight:bold;\">"+precio+"</sppan>\u20AC</span></html>");
 						lblSalidaEstandarPrecio.setVisible(true);
 						btnSalidaEstandarPago2.setVisible(true);
 						separatorSalidaEstandar1.setVisible(true);
