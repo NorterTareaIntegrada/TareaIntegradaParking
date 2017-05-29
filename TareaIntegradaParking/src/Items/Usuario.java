@@ -72,6 +72,10 @@ public class Usuario {
 		return cadena;
 	}
 
+	public String getContrasenyaIf() {
+		return contrasenya;
+	}
+
 	public LocalDate getFechaNacimiento() {
 		return fechaNacimiento;
 	}
