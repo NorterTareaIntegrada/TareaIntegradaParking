@@ -92,7 +92,41 @@ public class BD_Plazas extends BBDD_Connector {
 		this.cerrar();
 		return true;
 	}
-
+	
+	public double precioTotal(Plazas pla){
+		this.abrir();
+		double tot=0;
+		try{
+			System.out.println(pla.getCodGaraje()+" - "+pla.getNumPlaza());
+			reg = c.createStatement().executeQuery("SELECT IF(SUM(precio) IS NULL,0,SUM(precio)) FROM cargos,servicios WHERE cargos.cod_servicio = servicios.cod AND cargos.cod_garaje = "+pla.getCodGaraje()+" AND cargos.num_plaza = "+pla.getNumPlaza()+";");
+			reg.next();
+			double sumServ=reg.getDouble(1);
+			reg = c.createStatement().executeQuery("SELECT "+sumServ+" + (now()-h_entrada)/10000 FROM plazas WHERE cod_garaje = "+pla.getCodGaraje()+" AND num_plaza = "+pla.getNumPlaza()+";");
+			reg.next();
+			tot=reg.getDouble(1);
+		}catch(Exception e){
+			e.printStackTrace();
+			this.cerrar();
+			return 0;
+		}
+		this.cerrar();
+		return Math.floor(tot*100)/100;
+	}
+	
+	public int contServicios(Plazas pla){
+		this.abrir();
+		int tot=0;
+		try{
+			reg = c.createStatement().executeQuery("SELECT COUNT(precio) FROM cargos,servicios WHERE cargos.cod_servicio = servicios.cod AND cargos.cod_garaje = "+pla.getCodGaraje()+" AND cargos.num_plaza = "+pla.getNumPlaza()+";");
+			reg.next();
+			tot=reg.getInt(1);
+		}catch(Exception e){
+			this.cerrar();
+			return 0;
+		}
+		this.cerrar();
+		return tot;
+	}
 	/*
 	 * SALIR, ENTRAR, SI LA PLAZA ESTA OCUPADA O NO, Y PASANDOLE LA MAT Y COD
 	 * TICKET QUE LA MAT NO SEA NULL, QUE COD TICKET NO SEA NULL, Y HDE ENTRADA

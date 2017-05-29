@@ -50,7 +50,7 @@ public class BD_Usuario extends BBDD_Connector {
 
 	public int altaUsuario(Usuario usu) {
 		String cadenaSQL = "INSERT INTO usuarios VALUES('" + usu.getTipo() + "','" + usu.getNombreUsuario() + "','"
-				+ usu.getContrasenya() + "','" + usu.getCodGaraje() + "','" + usu.getNombre() + "','"
+				+ usu.getContrasenyaIf() + "','" + usu.getCodGaraje() + "','" + usu.getNombre() + "','"
 				+ usu.getApellidos() + "','" + usu.getFechaNacimiento() + "','" + usu.getDireccion() + "','"
 				+ usu.getTelefono() + "')";
 

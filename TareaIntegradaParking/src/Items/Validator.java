@@ -36,7 +36,7 @@ public class Validator {
 	}
 
 	public static boolean Contrasenya(String contrasenya){
-		return contrasenya.length()>=8;
+		return contrasenya.length()>=6;
 	}
 	
 	public static boolean Matricula(String matricula){
