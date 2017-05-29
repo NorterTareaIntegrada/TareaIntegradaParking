@@ -33,5 +33,17 @@ public class BD_Cargos extends BBDD_Connector {
 			return null;
 		}
 	}
+	public int anyadirCargo(int co,int nu,int se){
+		this.abrir();
+		int re=0;
+		try{
+			re=c.createStatement().executeUpdate("INSERT INTO cargos VALUES("+co+","+nu+","+se+") ;");
+		}catch(SQLException e){
+			this.cerrar();
+			return re;
+		}
+		this.cerrar();
+		return re;
+	}
 
 }
