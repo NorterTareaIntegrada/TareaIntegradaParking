@@ -3,6 +3,7 @@ package BBDD;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Vector;
 
 import Items.Usuario;
 
@@ -77,6 +78,26 @@ public class BD_Usuario extends BBDD_Connector {
 			return filas;
 		} catch (SQLException e) {
 			return -1;
+		}
+	}
+
+	public Vector<Usuario> listadoUsuarios() {
+		String cadenaSQL = "SELECT tipo, nombre_usuario, contrasenya, cod_garaje, nombre, apellidos, f_nac, direccion,telefono from usuarios";
+		Vector<Usuario> listaUsuarios = new Vector<Usuario>();
+		try {
+			this.abrir();
+			s = c.createStatement();
+			reg = s.executeQuery(cadenaSQL);
+			while (reg.next()) {
+				listaUsuarios.add(new Usuario(reg.getString(1), reg.getString(2), reg.getString(3), reg.getInt(4),
+						reg.getString(5), reg.getString(6), reg.getDate(7).toLocalDate(), reg.getString(8),
+						reg.getInt(9)));
+			}
+			s.close();
+			this.cerrar();
+			return listaUsuarios;
+		} catch (SQLException e) {
+			return null;
 		}
 	}
 
