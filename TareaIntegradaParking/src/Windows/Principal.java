@@ -18,10 +18,13 @@ import java.awt.Cursor;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
+import javax.swing.ButtonGroup;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
+import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JPasswordField;
+import javax.swing.JRadioButton;
 import javax.swing.JSeparator;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
@@ -35,6 +38,7 @@ import BBDD.BD_Usuario;
 import Items.Tarjetas;
 import Items.Usuario;
 import Items.Validator;
+import Items.Xml;
 import Main.Parking;
 
 import javax.swing.border.MatteBorder;
@@ -64,6 +68,7 @@ public class Principal extends JFrame {
 	public static JPanel panelEventos = new JPanel();
 	public static JPanel panelPersonal = new JPanel();
 	public static JPanel panelDuplicadoTarjeta = new JPanel();
+	public static JPanel panelGenerar = new JPanel();
 	//Cosas de paneles de tabbedPane
 		//Cosas de panelPersonal
 			public static JLabel lblAltaPersonalProTip = new JLabel("Completa el formulario para continuar");
@@ -96,6 +101,14 @@ public class Principal extends JFrame {
 			public static JLabel lblDuplicadoTarjetaFormProTip = new JLabel("Introduce los datos para continuar");
 			
 			public static Tarjetas tarjetaAAunlar=new Tarjetas();
+		//Cosas de panelGenerar
+			public static JTextField txtGenerarPreferenciasNomOtro = new JTextField();
+			public static JLabel lblGenerarCredits = new JLabel("<html><div style=\"padding:10px;text-align:justify;\">Se han generado los archivos requeridos.<br><br>Puedes encontrarlos en el directorio <b>\"/Personal/\"</b>.<br><br>El proceso se ha completado sin errores.</div></html>");
+			public static JButton btnGenerarOcultar = new JButton("Ocultar");
+			public static JLabel lblGenerarProTip = new JLabel("<html>ProTip</html>");
+			public static JRadioButton rdbtnGenerarPreferenciasNomDef = new JRadioButton("<html><b>Por Defecto</b>:&nbsp;&nbsp;&nbsp;<span style=\"color:gray\">Personal_Parking_X</span></html>");
+			
+			public static String preffilenamedef="Personal_Parking_X";
 	//Less important
 	public static JLabel lblMsgBienvenida = new JLabel("");
 	private final JLabel lblEventos = new JLabel("a");
@@ -808,6 +821,261 @@ public class Principal extends JFrame {
 		
 		/**/
 		
+		/**/
+		//Generar XML
+		/**/
+		
+		
+		panelGenerar.setBorder(new EmptyBorder(5, 5, 5, 5));
+		panelGenerar.setBorder(new EmptyBorder(5, 5, 5, 5));
+		panelGenerar.setLayout(null);
+		
+		panelGenerar.setBorder(new EmptyBorder(5, 5, 5, 5));
+		panelGenerar.setLayout(null);
+		panelGenerar.setLayout(null);
+		
+		JLabel lblGenerarGenerar = new JLabel("<html>\r\n\t<h2>Generar</h2>\r\n</html>");
+		lblGenerarGenerar.setFont(new Font("Lucida Console", Font.PLAIN, 11));
+		lblGenerarGenerar.setHorizontalAlignment(SwingConstants.CENTER);
+		lblGenerarGenerar.setBounds(651, 11, 333, 50);
+		panelGenerar.add(lblGenerarGenerar);
+		
+		JLabel lblGenerarPreferencias = new JLabel("<html>\r\n\t<h2>Preferencias</h2>\r\n</html>");
+		lblGenerarPreferencias.setHorizontalAlignment(SwingConstants.CENTER);
+		lblGenerarPreferencias.setFont(new Font("Lucida Console", Font.PLAIN, 11));
+		lblGenerarPreferencias.setBounds(304, 11, 333, 50);
+		panelGenerar.add(lblGenerarPreferencias);
+		
+		JPanel panelGenerarPreferencias = new JPanel();
+		panelGenerarPreferencias.setLayout(null);
+		panelGenerarPreferencias.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
+		panelGenerarPreferencias.setBackground(SystemColor.controlHighlight);
+		panelGenerarPreferencias.setBounds(305, 64, 333, 383);
+		panelGenerar.add(panelGenerarPreferencias);
+		
+		JLabel lblGenerarPreferenciasTitle1 = new JLabel("<html><div style=\"font-weight:bold;\">&nbsp;&nbsp;&nbsp;<span>Nombre del Archivo</span></div></html>");
+		lblGenerarPreferenciasTitle1.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblGenerarPreferenciasTitle1.setHorizontalAlignment(SwingConstants.CENTER);
+		lblGenerarPreferenciasTitle1.setOpaque(true);
+		lblGenerarPreferenciasTitle1.setBackground(new Color(169, 169, 169));
+		lblGenerarPreferenciasTitle1.setBounds(2, 2, 329, 30);
+		panelGenerarPreferencias.add(lblGenerarPreferenciasTitle1);
+		
+		rdbtnGenerarPreferenciasNomDef.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				txtGenerarPreferenciasNomOtro.setEnabled(false);
+			}
+		});
+		rdbtnGenerarPreferenciasNomDef.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		rdbtnGenerarPreferenciasNomDef.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		rdbtnGenerarPreferenciasNomDef.setFocusPainted(false);
+		rdbtnGenerarPreferenciasNomDef.setSelected(true);
+		rdbtnGenerarPreferenciasNomDef.setBackground(SystemColor.controlHighlight);
+		rdbtnGenerarPreferenciasNomDef.setBounds(20, 50, 303, 25);
+		panelGenerarPreferencias.add(rdbtnGenerarPreferenciasNomDef);
+		
+		JRadioButton rdbtnGenerarPreferenciasNomOtro = new JRadioButton("<html><b>Otro</b>:</html>");
+		rdbtnGenerarPreferenciasNomOtro.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				txtGenerarPreferenciasNomOtro.setEnabled(true);
+			}
+		});
+		rdbtnGenerarPreferenciasNomOtro.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		rdbtnGenerarPreferenciasNomOtro.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		rdbtnGenerarPreferenciasNomOtro.setFocusPainted(false);
+		rdbtnGenerarPreferenciasNomOtro.setBackground(SystemColor.controlHighlight);
+		rdbtnGenerarPreferenciasNomOtro.setBounds(20, 90, 100, 25);
+		panelGenerarPreferencias.add(rdbtnGenerarPreferenciasNomOtro);
+		
+		ButtonGroup group = new ButtonGroup();
+	    group.add(rdbtnGenerarPreferenciasNomDef);
+	    group.add(rdbtnGenerarPreferenciasNomOtro);
+
+		txtGenerarPreferenciasNomOtro.setToolTipText("Nombre del empleado");
+		txtGenerarPreferenciasNomOtro.setBounds(123, 90, 200, 25);
+		panelGenerarPreferencias.add(txtGenerarPreferenciasNomOtro);
+		txtGenerarPreferenciasNomOtro.setColumns(10);
+		txtGenerarPreferenciasNomOtro.setEnabled(false);
+		
+		JLabel lblGenerarPreferenciasTitle2 = new JLabel("<html><div style=\"font-weight:bold;\">&nbsp;&nbsp;&nbsp;<span>HTML</span></div></html>");
+		lblGenerarPreferenciasTitle2.setOpaque(true);
+		lblGenerarPreferenciasTitle2.setHorizontalAlignment(SwingConstants.CENTER);
+		lblGenerarPreferenciasTitle2.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblGenerarPreferenciasTitle2.setBackground(new Color(169, 169, 169));
+		lblGenerarPreferenciasTitle2.setBounds(2, 130, 329, 30);
+		panelGenerarPreferencias.add(lblGenerarPreferenciasTitle2);
+		
+		JCheckBox chckbxGenerarPreferenciasGenHTML = new JCheckBox("<html>Generar un documento HTML</html>");
+		chckbxGenerarPreferenciasGenHTML.setSelected(true);
+		chckbxGenerarPreferenciasGenHTML.setFocusPainted(false);
+		chckbxGenerarPreferenciasGenHTML.setBackground(SystemColor.controlHighlight);
+		chckbxGenerarPreferenciasGenHTML.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		chckbxGenerarPreferenciasGenHTML.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		chckbxGenerarPreferenciasGenHTML.setBounds(12, 170, 311, 30);
+		panelGenerarPreferencias.add(chckbxGenerarPreferenciasGenHTML);
+		
+		JLabel lblGenerarPreferenciasSkinHTML = new JLabel("<html>Estilo <span style=\"color:gray;\">/</span> Skin</html>");
+		lblGenerarPreferenciasSkinHTML.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		lblGenerarPreferenciasSkinHTML.setHorizontalAlignment(SwingConstants.CENTER);
+		lblGenerarPreferenciasSkinHTML.setBounds(2, 210, 111, 30);
+		panelGenerarPreferencias.add(lblGenerarPreferenciasSkinHTML);
+		
+		JComboBox<String> comboBoxGenerarPreferenciasSkinHTML = new JComboBox<String>();
+		comboBoxGenerarPreferenciasSkinHTML.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		comboBoxGenerarPreferenciasSkinHTML.setToolTipText("Seleccionar skin del documento html, cambiar\u00E1 la apariencia(colores) de el documento.");
+		comboBoxGenerarPreferenciasSkinHTML.setModel(new DefaultComboBoxModel<String>(new String[] {"  Por Defecto", "  Nocturno"}));
+		comboBoxGenerarPreferenciasSkinHTML.setBounds(115, 210, 200, 30);
+		comboBoxGenerarPreferenciasSkinHTML.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		panelGenerarPreferencias.add(comboBoxGenerarPreferenciasSkinHTML);
+		
+		JLabel lblGenerarPreferenciasTitle3 = new JLabel("<html><div style=\"font-weight:bold;\">&nbsp;&nbsp;&nbsp;<span>Otros</span></div></html>");
+		lblGenerarPreferenciasTitle3.setOpaque(true);
+		lblGenerarPreferenciasTitle3.setHorizontalAlignment(SwingConstants.CENTER);
+		lblGenerarPreferenciasTitle3.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblGenerarPreferenciasTitle3.setBackground(new Color(169, 169, 169));
+		lblGenerarPreferenciasTitle3.setBounds(2, 260, 329, 30);
+		panelGenerarPreferencias.add(lblGenerarPreferenciasTitle3);
+		
+		JCheckBox chckbxGenerarPreferenciasOverwrite = new JCheckBox("<html>Sobreescribir archivos</html>");
+		chckbxGenerarPreferenciasOverwrite.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		chckbxGenerarPreferenciasOverwrite.setSelected(true);
+		chckbxGenerarPreferenciasOverwrite.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		chckbxGenerarPreferenciasOverwrite.setFocusPainted(false);
+		chckbxGenerarPreferenciasOverwrite.setBackground(SystemColor.controlHighlight);
+		chckbxGenerarPreferenciasOverwrite.setBounds(12, 300, 311, 30);
+		panelGenerarPreferencias.add(chckbxGenerarPreferenciasOverwrite);
+		
+		JCheckBox chckbxGenerarPreferenciasSacar = new JCheckBox("<html>Sacar usuarios de todos los garajes (superusuario)</html>");
+		chckbxGenerarPreferenciasSacar.setEnabled(false);
+		chckbxGenerarPreferenciasSacar.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		chckbxGenerarPreferenciasSacar.setFocusPainted(false);
+		chckbxGenerarPreferenciasSacar.setBackground(SystemColor.controlHighlight);
+		chckbxGenerarPreferenciasSacar.setBounds(12, 335, 311, 30);
+		panelGenerarPreferencias.add(chckbxGenerarPreferenciasSacar);
+		
+		JLabel lblGenerar = new JLabel("<html>\r\n\t<h1><b>Generar Fichero XML</b></h1>\r\n</html>");
+		lblGenerar.setHorizontalAlignment(SwingConstants.CENTER);
+		lblGenerar.setBounds(10, 11, 282, 50);
+		panelGenerar.add(lblGenerar);
+		
+		JLabel lblGenerarDescripcion = new JLabel("<html>\r\n\t<h3>Descripci\u00F3n</h3>\r\n\t<p style=\"margin:10px;text-align:justify;\">Este panel permite generar ficheros que continen la informaci\u00F3n del personal del parking que diriges.</p>\r\n\t<h3>Utilizaci\u00F3n</h3>\r\n\t<p style=\"margin:10px;text-align:justify;\">El proceso es autom\u00E1tico, solo necesitas seleccionar las preferencias y los ficheros se generar\u00E1s de forma autom\u00E1tica:\r\n</p>\r\n\t<h3>Precauciones</h3>\r\n\t<p style=\"margin:10px;text-align:justify;\">No podr\u00E1s acceder a los datos de los usuarios de otro parking, ni a las contrase\u00F1as de ning\u00FAn usuario por motivos de seguridad. Si seleccionas la opci\u00F3n de sobreescribir archivo, se sustituir\u00E1 por completo el archivo con ese nombre.</p>\r\n</html>");
+		lblGenerarDescripcion.setToolTipText("Datos generales sobre el panel de personal");
+		lblGenerarDescripcion.setVerticalAlignment(SwingConstants.TOP);
+		lblGenerarDescripcion.setBounds(20, 67, 272, 429);
+		panelGenerar.add(lblGenerarDescripcion);
+		
+		JCheckBox chckbxGenerarIncAdm = new JCheckBox("<html>Incluir <b>Administradores</b></html>");
+		chckbxGenerarIncAdm.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		chckbxGenerarIncAdm.setSelected(true);
+		chckbxGenerarIncAdm.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		chckbxGenerarIncAdm.setFocusPainted(false);
+		chckbxGenerarIncAdm.setBackground(SystemColor.control);
+		chckbxGenerarIncAdm.setBounds(710, 75, 250, 30);
+		panelGenerar.add(chckbxGenerarIncAdm);
+		
+		JCheckBox chckbxGenerarIncMec = new JCheckBox("<html>Incluir <b>Mecanicos</b></html>");
+		chckbxGenerarIncMec.setSelected(true);
+		chckbxGenerarIncMec.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		chckbxGenerarIncMec.setFocusPainted(false);
+		chckbxGenerarIncMec.setBackground(SystemColor.menu);
+		chckbxGenerarIncMec.setBounds(710, 108, 250, 30);
+		chckbxGenerarIncMec.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		panelGenerar.add(chckbxGenerarIncMec);
+		
+		JCheckBox chckbxGenerarIncLim = new JCheckBox("<html>Incluir <b>Personal de Limpieza</b></html>");
+		chckbxGenerarIncLim.setSelected(true);
+		chckbxGenerarIncLim.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		chckbxGenerarIncLim.setFocusPainted(false);
+		chckbxGenerarIncLim.setBackground(SystemColor.menu);
+		chckbxGenerarIncLim.setBounds(710, 141, 250, 30);
+		chckbxGenerarIncLim.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		panelGenerar.add(chckbxGenerarIncLim);
+		
+		JCheckBox chckbxGenerarIncSeg = new JCheckBox("<html>Incluir <b>Personal de Seguridad</b></html>");
+		chckbxGenerarIncSeg.setSelected(true);
+		chckbxGenerarIncSeg.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		chckbxGenerarIncSeg.setFocusPainted(false);
+		chckbxGenerarIncSeg.setBackground(SystemColor.menu);
+		chckbxGenerarIncSeg.setBounds(710, 174, 250, 30);
+		chckbxGenerarIncSeg.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		panelGenerar.add(chckbxGenerarIncSeg);
+		
+		JButton btnGenerarGenerar = new JButton("Generar");
+		btnGenerarGenerar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String preffilename;
+				if(rdbtnGenerarPreferenciasNomDef.isSelected()) preffilename=preffilenamedef;
+				else preffilename=txtGenerarPreferenciasNomOtro.getText();
+				int errorCode=Xml.crearXmlPlantilla(
+						preffilename,
+						chckbxGenerarPreferenciasGenHTML.isSelected(),
+						comboBoxGenerarPreferenciasSkinHTML.getSelectedIndex()+1,
+						chckbxGenerarPreferenciasOverwrite.isSelected(),
+						chckbxGenerarIncAdm.isSelected(),
+						chckbxGenerarIncMec.isSelected(),
+						chckbxGenerarIncLim.isSelected(),
+						chckbxGenerarIncSeg.isSelected()
+					);
+				String txt="";
+				switch(errorCode){
+					case 0:
+						lblGenerarCredits.setVisible(true);
+						btnGenerarOcultar.setVisible(true);
+						lblGenerarProTip.setVisible(false);
+						break;
+					case 1:txt="Error al crear el archivo";break;
+					case 2:txt="No se ha podido crear el directorio /Personal/";break;
+					case 3:txt="No se pueden sobreescribir los archivos";break;
+					case 4:txt="Error al crear el archivo";break;
+					case 5:txt="Usuario Inválido";break;
+					case 6:txt="Introduce un nombre de archivo";break;
+					default:txt="Error Desconocido";break;
+				}
+				if(errorCode!=0){
+					lblGenerarCredits.setVisible(false);
+					btnGenerarOcultar.setVisible(false);
+					lblGenerarProTip.setVisible(true);
+					lblGenerarProTip.setText(txt);
+				}
+			}
+		});
+		btnGenerarGenerar.setFocusPainted(false);
+		btnGenerarGenerar.setBackground(SystemColor.info);
+		btnGenerarGenerar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnGenerarGenerar.setFont(new Font("Consolas", Font.PLAIN, 20));
+		btnGenerarGenerar.setBounds(675, 225, 275, 40);
+		panelGenerar.add(btnGenerarGenerar);
+		
+		lblGenerarCredits.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		lblGenerarCredits.setOpaque(true);
+		lblGenerarCredits.setBackground(new Color(169, 169, 169));
+		lblGenerarCredits.setVerticalAlignment(SwingConstants.TOP);
+		lblGenerarCredits.setBounds(675, 285, 275, 125);
+		lblGenerarCredits.setVisible(false);
+		panelGenerar.add(lblGenerarCredits);
+		
+		lblGenerarProTip.setHorizontalAlignment(SwingConstants.CENTER);
+		lblGenerarProTip.setOpaque(true);
+		lblGenerarProTip.setBackground(new Color(240, 128, 128));
+		lblGenerarProTip.setBounds(675, 285, 275, 30);
+		lblGenerarProTip.setVisible(false);
+		panelGenerar.add(lblGenerarProTip);
+		
+		btnGenerarOcultar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				lblGenerarCredits.setVisible(false);
+				btnGenerarOcultar.setVisible(false);
+			}
+		});
+		btnGenerarOcultar.setFocusPainted(false);
+		btnGenerarOcultar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnGenerarOcultar.setBackground(new Color(211, 211, 211));
+		btnGenerarOcultar.setBounds(675, 410, 275, 20);
+		btnGenerarOcultar.setVisible(false);
+		panelGenerar.add(btnGenerarOcultar);
+		
+		/**/
+		
 		reset();
 	}
 	
@@ -843,6 +1111,9 @@ public class Principal extends JFrame {
 							tabbedPane.addTab(" Pedidos ", null, panelPedidos, "Consultar los ultimos pedidos");
 							tabbedPane.addTab(" Personal ", null, panelPersonal, "Dar de alta y de baja a el personal");
 							comboBoxPersonalAltaGaraje.setModel(new DefaultComboBoxModel<Object>(new String[] {""+Parking.usuarioConectado.getCodGaraje()}));
+							tabbedPane.addTab(" Generar XML ", null, panelGenerar, "Generar archivos XML y HTML opcionalmente");
+							preffilenamedef="Personal_Parking_"+Parking.usuarioConectado.getCodGaraje();
+							rdbtnGenerarPreferenciasNomDef.setText("<html><b>Por Defecto</b>:&nbsp;&nbsp;&nbsp;<span style=\"color:gray\">Personal_Parking_"+Parking.usuarioConectado.getCodGaraje()+"</span></html>");
 						case "MECANICO":case "LIMPIEZA":case "SEGURIDAD":
 							tabbedPane.addTab(" Eventos Recientes ", null, panelEventos, "Consultar los eventos que han ocurrido desde el inicio de sesi\u00F3n");
 							break;
