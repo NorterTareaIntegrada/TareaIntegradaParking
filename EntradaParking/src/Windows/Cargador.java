@@ -26,16 +26,10 @@ import java.awt.Color;
 
 public class Cargador extends JFrame {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	private JPanel contentPane;
 
-	/**
-	 * Launch the application.
-	 */
 	public static Cargador frame;
 	public static JProgressBar progressBar = new JProgressBar();
 	public static JLabel lblNewLabel = new JLabel("");
@@ -45,6 +39,10 @@ public class Cargador extends JFrame {
 	public static JButton btnSalir = new JButton("Salir");
 	public static boolean haPulsadoReiniciar=false;
 	
+	/**
+	 * Abre la ventana de cargador
+	 * @param tam Especifica el tamaño de la barra de progreso
+	 */
 	
 	public static void abrir(int tam) {
 		EventQueue.invokeLater(new Runnable() {
@@ -62,7 +60,8 @@ public class Cargador extends JFrame {
 	}
 
 	/**
-	 * Create the frame.
+	 * Constructor de la Ventana
+	 * @param tam Tamaño de la barra de progreso
 	 */
 	public Cargador(int tam) {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(Cargador.class.getResource("/Recursos/iconos/northlogo_default.png")));

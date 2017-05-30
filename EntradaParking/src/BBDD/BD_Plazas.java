@@ -22,7 +22,7 @@ public class BD_Plazas extends BBDD_Connector {
 	 * Funcion para listar las plazas registradas en la base de datos
 	 * @return Devuelve un Vector de tipo Plazas que contiene las plazas registradas en la base de datos
 	 */
-	public Vector<Plazas> listado(String plaza) {
+	public Vector<Plazas> listado() {
 		String cadenaSQL = "SELECT COD_GARAJE,NUM_PLAZA,NUM_PLANTA,DIMENSIONES,MATRICULA,H_ENTRADA,COD_TICKET FROM plazas";
 		Vector<Plazas> listaPlazas = new Vector<Plazas>();
 		try {
