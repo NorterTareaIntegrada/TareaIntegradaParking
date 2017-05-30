@@ -16,7 +16,10 @@ public class BD_Pedidos extends BBDD_Connector {
 	public BD_Pedidos(String bbdd) {
 		super(bbdd);
 	}
-
+	/**
+	 * Funcion para listar los pedidos registrados en la base de datos
+	 * @return Devuelve un Vector de tipo Pedidos que contiene los Pedidos registrados en la base de datos
+	 */
 	public Vector<Pedidos> listadoPedidos(String Pedidos) {
 		String cadenaSQL = "SELECT fecha,cod_producto,cantidad,prec_total from pedidos";
 		Vector<Pedidos> listaPedidos = new Vector<Pedidos>();

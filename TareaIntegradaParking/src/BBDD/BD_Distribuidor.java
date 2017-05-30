@@ -15,7 +15,10 @@ public class BD_Distribuidor extends BBDD_Connector {
 		super(bbdd);
 		// TODO Auto-generated constructor stub
 	}
-
+	/**
+	 * Funcion para listar los distribuidores registrados en la base de datos
+	 * @return Devuelve un Vector de tipo Distribuidor que contiene los distribuidores registrados en la base de datos
+	 */
 	public Vector<Distribuidor> listado(String distribuidores) {
 		String cadenaSQL = "SELECT cod,nombre,mail,direccion from distribuidores";
 		Vector<Distribuidor> ListaDistribuidor = new Vector<Distribuidor>();

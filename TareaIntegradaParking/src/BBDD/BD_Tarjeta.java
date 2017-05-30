@@ -14,7 +14,12 @@ public class BD_Tarjeta extends BBDD_Connector {
 	public BD_Tarjeta(String bbdd) {
 		super(bbdd);
 	}
-
+	/**
+	 * Valida si las credenciales de una tarjeta introducidas son válidas
+	 * @param nAbonado Número de abonado asignado a esa tarjeta
+	 * @param dni DNI de el propietario de la tarjeta
+	 * @return Si las credenciales son válidas se devuelve un objeto Tarjeta con los datos de la misma, si no lo son, se devuelve un objeto Tarjeta sin datos válidos
+	 */
 	public Tarjetas validarTarjeta(int nAbonado, String dni) {
 		Tarjetas tarjetaReturn = new Tarjetas();
 		this.abrir();
@@ -30,7 +35,11 @@ public class BD_Tarjeta extends BBDD_Connector {
 		this.cerrar();
 		return tarjetaReturn;
 	}
-
+	/**
+	 * Función para hacer una tarjeta no funcional en caso de pérdida
+	 * @param nAbonado Número de abonado asignado ala tarjeta objetivo
+	 * @return Devuelve True en caso de ser satisfactorio, False en caso de excepción
+	 */
 	public boolean desvalidarTarjeta(int nAbonado) {
 		this.abrir();
 		try {
@@ -42,7 +51,13 @@ public class BD_Tarjeta extends BBDD_Connector {
 		this.cerrar();
 		return true;
 	}
-
+	/**
+	 * Comprueba si una tarjeta existe y no esta invalidada para pedir un duplicado
+	 * @param codGaraje Código del garaje a el que pertenece la tarjeta
+	 * @param numPlaza Plaza asignada a la tarjeta
+	 * @param dniTitular DNI del titular de la tarjeta
+	 * @return Si las credenciales son válidas se devuelve un objeto Tarjeta con los datos de la misma, si no lo son, se devuelve un objeto Tarjeta sin datos válidos
+	 */
 	public Tarjetas existenciaTarjeta(int codGaraje, int numPlaza, String dniTitular) {
 		Tarjetas tarjetaReturn = new Tarjetas();
 		this.abrir();

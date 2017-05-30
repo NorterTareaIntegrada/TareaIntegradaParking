@@ -15,7 +15,12 @@ public class BD_Usuario extends BBDD_Connector {
 	public BD_Usuario(String fileName) {
 		super(fileName);
 	}
-
+	/**
+	 * Función que valida las credenciales de un usuario
+	 * @param usu Nombre de usuario
+	 * @param pass Contraseña de la cuenta
+	 * @return Si las credenciales son válidas se devuelve un objeto Usuario con los datos del mismo, si no lo son se devuelve un objeto Usuario sin datos válidos
+	 */
 	public Usuario validarLogin(String usu, String pass) {
 		Usuario usuReturn = new Usuario();
 		this.abrir();
@@ -31,7 +36,11 @@ public class BD_Usuario extends BBDD_Connector {
 		this.cerrar();
 		return usuReturn;
 	}
-
+	/**
+	 * Función para validar que un nombre de usuario existe
+	 * @param usu Nombre de usuario a comprobar
+	 * @return Si el nombre existe se devuelve un objeto Usuario con los datos del mismo, si no lo es, se devuelve un objeto Usuario sin datos válidos
+	 */
 	public Usuario validarNomUsu(String usu) {
 		Usuario usuReturn = new Usuario();
 		this.abrir();
@@ -47,7 +56,11 @@ public class BD_Usuario extends BBDD_Connector {
 		this.cerrar();
 		return usuReturn;
 	}
-
+	/**
+	 * Función para dar de alta un usuario en la base de datos
+	 * @param usu Objeto tipo Usuario que se registrará
+	 * @return Devuelve el número de filas modificadas (1 si se ha dado de alta satisfactoriamente, -1 en caso de excepción)
+	 */
 	public int altaUsuario(Usuario usu) {
 		String cadenaSQL = "INSERT INTO usuarios VALUES('" + usu.getTipo() + "','" + usu.getNombreUsuario() + "','"
 				+ usu.getContrasenyaIf() + "','" + usu.getCodGaraje() + "','" + usu.getNombre() + "','"
@@ -65,7 +78,11 @@ public class BD_Usuario extends BBDD_Connector {
 			return -1;
 		}
 	}
-
+	/**
+	 * Función para dar de baja a un usuario en la base de datos
+	 * @param nombre_usuario Nombre del usuario a dar de baja
+	 * @return Devuelve el número de filas modificadas (1 si se ha dado de baja satisfactoriamente, -1 en caso de excepción)
+	 */
 	public int bajaUsuario(String nombre_usuario) {
 		String cadenaSQL = "DELETE FROM usuarios WHERE nombre_usuario = ('" + nombre_usuario + "')";
 
@@ -80,7 +97,10 @@ public class BD_Usuario extends BBDD_Connector {
 			return -1;
 		}
 	}
-
+	/**
+	 * Función para listar los usuarios en la base de datos
+	 * @return Devuelve un Vector de tipo Usuario con todos los usuarios de la base de datos
+	 */
 	public Vector<Usuario> listadoUsuarios() {
 		String cadenaSQL = "SELECT tipo, nombre_usuario, contrasenya, cod_garaje, nombre, apellidos, f_nac, direccion,telefono from usuarios";
 		Vector<Usuario> listaUsuarios = new Vector<Usuario>();

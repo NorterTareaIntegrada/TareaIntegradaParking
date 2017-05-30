@@ -15,8 +15,11 @@ public class BD_Servicio extends BBDD_Connector {
 	public BD_Servicio(String bbdd) {
 		super(bbdd);
 	}
-
-	public Vector<Servicios> listadoServicios(String Servicios) {
+	/**
+	 * Funcion para listar los servicios registrados en la base de datos
+	 * @return Devuelve un Vector de tipo Servicios que contiene los servicios registrados en la base de datos
+	 */
+	public Vector<Servicios> listadoServicios() {
 		String cadenaSQL = "SELECT cod,nombre,precio,descripcion from servicios";
 		Vector<Servicios> listaServicios = new Vector<Servicios>();
 		try {

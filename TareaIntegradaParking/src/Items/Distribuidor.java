@@ -5,7 +5,13 @@ public class Distribuidor {
 	private String nombre;
 	private String mail;
 	private String direccion;
-
+	/**
+	 * Constructor de Distribuidores
+	 * @param cod Código de distribuidor
+	 * @param nombre El nombre de el distribuidor
+	 * @param mail Correo electrónico de contacto con en proveedor
+	 * @param direccion Direccion de su sede principal
+	 */
 	public Distribuidor(int cod, String nombre, String mail, String direccion) {
 		super();
 		this.cod = cod;
