@@ -19,7 +19,7 @@ public class BD_Cargos extends BBDD_Connector {
 	 * Funcion para listar los cargos registrados en la base de datos
 	 * @return Devuelve un Vector de tipo Cargos que contiene los cargos registrados en la base de datos
 	 */
-	public Vector<Cargos> listadoCargos(String Cargos) {
+	public Vector<Cargos> listadoCargos() {
 		String cadenaSQL = "SELECT cod_garaje,num_plaza,cod_servicio FROM cargos";
 		Vector<Cargos> listaCargos = new Vector<Cargos>();
 		try {

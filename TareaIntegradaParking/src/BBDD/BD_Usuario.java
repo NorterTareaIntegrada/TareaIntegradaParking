@@ -120,5 +120,21 @@ public class BD_Usuario extends BBDD_Connector {
 			return null;
 		}
 	}
+	/**
+	 * Funcion para cambiar la contraseña de un usuario
+	 * @param usu Usuario objetivo del cambio
+	 * @param pass Contraseña nueva
+	 * @return Devuelve true si todo ha ido bien, y false si se ha producido una excepción
+	 */
+	public boolean cambiarContrasenya(Usuario usu,String pass) {
+		try {
+			this.abrir();
+			c.createStatement().executeUpdate("UPDATE usuarios SET contrasenya = '"+pass+"' WHERE nombre_usuario = '"+usu.getNombreUsuario()+"' AND contrasenya = '"+usu.getContrasenyaIf()+"'");
+			this.cerrar();
+		} catch (SQLException e) {
+			return false;
+		}
+		return true;
+	}
 
 }
