@@ -37,6 +37,7 @@ import java.awt.Font;
 import BBDD.BD_Cargos;
 import BBDD.BD_Tarjeta;
 import BBDD.BD_Usuario;
+import Items.Eventos;
 import Items.Tarjetas;
 import Items.Usuario;
 import Items.Validator;
@@ -171,6 +172,7 @@ public class Principal extends JFrame {
 				setUtil(false);
 				frame.setEnabled(false);
 				Parking.usuarioConectado=new Usuario();
+				Eventos.addEvento("<span style='color:purple'>[LOGIN]</span>: Se ha cerrado la última sesión abierta");
 				Login.reset();
 			}
 		});
@@ -407,6 +409,7 @@ public class Principal extends JFrame {
 				txtPersonalAltaNUsuario.setText("");
 				PanelBajaBorrarTodo();
 				new BD_Usuario("mysql-properties.xml").bajaUsuario(usuABorrar.getNombreUsuario());
+				Eventos.addEvento("<span style='color:blue'>[PERSONAL]</span>: <b>"+Parking.usuarioConectado.getNombreCompleto()+"</b> ha <span style='color:red'>dado de baja</span> a <b>"+usuABorrar.getNombreCompleto()+"</b>.");
 			}
 		});
 		btnPersonalAltaP3Confirmar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -574,20 +577,21 @@ public class Principal extends JFrame {
 					cont=false;txt="Introduce una fecha de nacimiento";
 				}
 				if(cont){
-					if(new BD_Usuario("mysql-properties.xml").altaUsuario(
-							new Usuario(
-									(String)comboBoxPersonalAltaTipo.getSelectedItem(),
-									txtPersonalAltaNomUsuario.getText(),
-									new String(passwordPersonalAlta1.getPassword()),
-									Parking.usuarioConectado.getCodGaraje(),
-									txtPersonalAltaNombre.getText(),
-									(txtPersonalAltaApellidos.getText()),
-									new java.sql.Date(dateChooserPersonalAlta.getDate().getTime()).toLocalDate(),//dateChooserPersonalAlta.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate()
-									(txtPersonalAltaDireccion.getText()),
-									Integer.parseInt(txtPersonalAltaTelefono.getText())
-							))==1){//(String s)
+					Usuario usuAlta = new Usuario(
+							(String)comboBoxPersonalAltaTipo.getSelectedItem(),
+							txtPersonalAltaNomUsuario.getText(),
+							new String(passwordPersonalAlta1.getPassword()),
+							Parking.usuarioConectado.getCodGaraje(),
+							txtPersonalAltaNombre.getText(),
+							(txtPersonalAltaApellidos.getText()),
+							new java.sql.Date(dateChooserPersonalAlta.getDate().getTime()).toLocalDate(),//dateChooserPersonalAlta.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate()
+							(txtPersonalAltaDireccion.getText()),
+							Integer.parseInt(txtPersonalAltaTelefono.getText())
+					);
+					if(new BD_Usuario("mysql-properties.xml").altaUsuario(usuAlta)==1){//(String s)
 						lblAltaPersonalProTip.setForeground(new Color(75,255,75));
 						lblAltaPersonalProTip.setText("¡Todo en orden!");
+						Eventos.addEvento("<span style='color:blue'>[PERSONAL]</span>: <b>"+Parking.usuarioConectado.getNombreCompleto()+"</b> ha dado de alta a <b>"+usuAlta.getNombreCompleto()+"</b>.");
 						//Se borra todo el texto
 						txtPersonalAltaNomUsuario.setText("");
 						passwordPersonalAlta1.setText("");
@@ -647,6 +651,7 @@ public class Principal extends JFrame {
 				lblDuplicadoTarjetaFinalProTip.setVisible(true);
 				btnDuplicadoTarjetaFinalProTipOcultar.setVisible(true);
 				new BD_Tarjeta("mysql-properties.xml").desvalidarTarjeta(tarjetaAAunlar.getNumAbonado());
+				Eventos.addEvento("<span style='color:brown'>[OTROS]</span>: Se ha anulado y pedido un duplicado de la tarjeta con el numero de abonado: <b>"+tarjetaAAunlar.getNumAbonado()+"</b> y DNI: "+tarjetaAAunlar.getDni()+".");
 			}
 		});
 		btnDuplicadoTarjetaProceder.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -1034,6 +1039,7 @@ public class Principal extends JFrame {
 						lblGenerarCredits.setVisible(true);
 						btnGenerarOcultar.setVisible(true);
 						lblGenerarProTip.setVisible(false);
+						Eventos.addEvento("<span style='color:blue'>[PERSONAL]</span>: <b>"+Parking.usuarioConectado.getNombreCompleto()+"</b> ha generado un archivo con la información del personal del parking <b>"+Parking.usuarioConectado.getCodGaraje()+"</b>.");
 						break;
 					case 1:txt="Error al crear el archivo";break;
 					case 2:txt="No se ha podido crear el directorio /Personal/";break;
@@ -1200,9 +1206,16 @@ public class Principal extends JFrame {
 		btnServSolicitar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int x=0;
+				String[] serv=new String[]{"Lavado","Cambio de Aceite"};
 				switch(Parking.TOKEN){
-					case "ESTANDAR":x=new BD_Cargos("mysql-properties.xml").anyadirCargo(Parking.plazaObjetivo.getCodGaraje(), Parking.plazaObjetivo.getNumPlaza(), servSelect);break;
-					case "ABONADO":x=new BD_Cargos("mysql-properties.xml").anyadirCargo(Parking.tarjetaIdentificada.getCodGaraje(), Parking.tarjetaIdentificada.getNumPlaza(), servSelect);break;
+					case "ESTANDAR":
+						x=new BD_Cargos("mysql-properties.xml").anyadirCargo(Parking.plazaObjetivo.getCodGaraje(), Parking.plazaObjetivo.getNumPlaza(), servSelect);
+						Eventos.addEvento("<span style='color:orange'>[CLIENTE]</span>: El vehiculo con matricula <b>"+Parking.plazaObjetivo.getMatricula()+"</b> en la plaza <b>"+Parking.plazaObjetivo.getNumPlaza()+"</b> del parking <b>"+Parking.plazaObjetivo.getCodGaraje()+"</b> ha solicitado el servicio de <b>"+serv[servSelect-1]+"</b>.");
+						break;
+					case "ABONADO":
+						x=new BD_Cargos("mysql-properties.xml").anyadirCargo(Parking.tarjetaIdentificada.getCodGaraje(), Parking.tarjetaIdentificada.getNumPlaza(), servSelect);
+						Eventos.addEvento("<span style='color:blue'>[ABONADO]</span>: El abonado con DNI <b>"+Parking.tarjetaIdentificada.getDni()+"</b> en la plaza <b>"+Parking.tarjetaIdentificada.getNumPlaza()+"</b> del parking <b>"+Parking.tarjetaIdentificada.getCodGaraje()+"</b> ha solicitado el servicio de <b>"+serv[servSelect-1]+"</b>.");
+						break;
 				}
 				if(x==1){
 					lblServProTip.setText("¡Solicitud Completada!");

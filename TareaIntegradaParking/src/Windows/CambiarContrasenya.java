@@ -12,6 +12,7 @@ import javax.swing.JSeparator;
 import javax.swing.JButton;
 
 import BBDD.BD_Usuario;
+import Items.Eventos;
 import Items.Usuario;
 import Items.Validator;
 import Main.Parking;
@@ -123,7 +124,9 @@ public class CambiarContrasenya extends JFrame {
 			@Override
 			public void componentShown(ComponentEvent arg0) {
 				if(success){
-					try {Thread.sleep(1250);}catch(InterruptedException e) {}
+					try {Thread.sleep(1000);}catch(InterruptedException e) {}
+					Eventos.addEvento("<span style='color:purple'>[LOGIN]</span>: <b>"+Parking.usuarioConectado.getNombreUsuario()+"</b> ha cambiado su contraseña");
+					try {Thread.sleep(250);}catch(InterruptedException e) {}
 					success=false;
 					reset();
 				}

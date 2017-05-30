@@ -26,6 +26,7 @@ import java.awt.event.ComponentEvent;
 import BBDD.BD_Plazas;
 import BBDD.BD_Tarjeta;
 import BBDD.BD_Usuario;
+import Items.Eventos;
 import Items.Plazas;
 import Items.Tarjetas;
 import Items.Usuario;
@@ -223,6 +224,7 @@ public class Login extends JFrame {
 							}catch(InterruptedException e){}
 							Principal.frame.setEnabled(true);
 							Principal.setUtil(true);
+							Eventos.addEvento("<span style='color:purple'>[LOGIN]</span>: El empleado <b>"+uSu.getNombreCompleto()+"</b> ha iniciado sesión con la cuenta <b>"+uSu.getNombreUsuario()+"</b>");
 							Login.frame.dispose();
 						}else{
 							lblProTip.setText("¡Login Incorrecto!");
@@ -244,6 +246,7 @@ public class Login extends JFrame {
 							}catch(InterruptedException e){}
 							Principal.frame.setEnabled(true);
 							Principal.setUtil(true);
+							Eventos.addEvento("<span style='color:purple'>[LOGIN]</span>: La plaza <b>"+plaz.getNumPlaza()+"</b> con matricula <b>"+plaz.getMatricula()+"</b> se ha identificado en la aplicación.");
 							Login.frame.dispose();
 						}else{
 							lblEstandarProTip.setText("¡Datos incorrectos!");
@@ -265,6 +268,7 @@ public class Login extends JFrame {
 							}catch(InterruptedException e){}
 							Principal.frame.setEnabled(true);
 							Principal.setUtil(true);
+							Eventos.addEvento("<span style='color:purple'>[LOGIN]</span>: Abonado con DNI <b>"+tarj.getDni()+"</b> ocupando la plaza <b>"+tarj.getNumPlaza()+"</b> se ha identificado en la aplicación.");
 							Login.frame.dispose();
 						}else{
 							lblAbonadoProTip.setText("¡Datos incorrectos!");
@@ -282,6 +286,7 @@ public class Login extends JFrame {
 						break;
 					default:
 						System.out.println("INVALID TOKEN: "+Parking.TOKEN);
+						Eventos.addEvento("<span style='color:purple'>[ERROR]</span>: TOKEN de inicio de sesion incorrecto, contacte con un administrador");
 				}
 				
 				panelCargando.setVisible(false);

@@ -7,6 +7,7 @@ import java.util.Scanner;
 import javax.swing.Timer;
 
 import BBDD.BBDD_Connector;
+import Items.Eventos;
 import Items.Plazas;
 import Items.Tarjetas;
 import Items.Usuario;
@@ -35,7 +36,9 @@ public class Parking {
 	public static boolean reiniciar;
 	
 	public static void main(String[] args){
-		while(programa(args));
+		Eventos.addEvento("<span style='color:green'>[INFO]</span>: Aplicación Iniciada");
+		while(programa(args))
+			Eventos.addEvento("<span style='color:green'>[INFO]</span>: Aplicación Reiniciándose");
 	}
 	/**
 	 * Funcion que actua como un main, contenido dentro de otro main en forma de bucle
@@ -44,7 +47,8 @@ public class Parking {
 	 */
 	public static boolean programa(String[] args){
 
-		ContCarga=449;
+		ContCarga=-150;
+		//ContCarga=449;
 		CargaAcabada=false;
 		
 		errConBBDD=false;
@@ -72,6 +76,7 @@ public class Parking {
 			if(reiniciar){
 				Cargador.frame.dispose();
 				cargaInicial.stop();
+				Eventos.addEvento("<span style='color:red'>[ERROR]</span>: "+msgErrBBDD+" al cargar la aplicación.");
 				return true;
 				}
 			try{
@@ -81,6 +86,7 @@ public class Parking {
 		cargaInicial.stop();
 		Cargador.frame.dispose();
 		Principal.abrir();
+		Eventos.addEvento("<span style='color:green'>[INFO]</span>: Aplicación cargada");
 		return false;
 	}
 }

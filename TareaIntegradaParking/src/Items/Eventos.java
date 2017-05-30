@@ -2,47 +2,29 @@ package Items;
 
 import java.util.Vector;
 
+import Windows.Principal;
+
 public class Eventos {
-
-	private String mensaje;
-	private int codGaraje;
+	
+	private static Vector<String> misEventos=new Vector<String>();
 	/**
-	 * Constructor de eventos que se registrarán en el panel de eventos recientes
-	 * @param mensaje El mensaje que se mostrará
-	 * @param codGaraje Garaje a el que va dirigido
+	 * Añade un evento a la lista y procede a insertar los 32 últimos elementos de la misma el el label de eventos
+	 * @param text Indica el texto con formato html del que se compone el evento
 	 */
-	public Eventos(String mensaje,int codGaraje) {
-		super();
-		this.mensaje = mensaje;
-		this.codGaraje = codGaraje;
-	}
-
-	public String getMensaje() {
-		return mensaje;
-	}
-
-	public int getCodGaraje() {
-		return codGaraje;
-	}
-
-	@Override
-	public String toString() {
-		return "Eventos [mensaje=" + mensaje + "]\n";
-	}
-	/**
-	 * Muestra los últimos eventos
-	 * @param misEventos Vector de Eventos que mostrar
-	 */
-	public static void mostrarEventos(Vector<Eventos> misEventos) {
-		if (misEventos.size() < 20) {
-			for (int i = misEventos.size() - 1; i >= 0; i--) {
-				System.out.println(misEventos.get(i).toString());
+	public static void addEvento(String text){
+		int n=32;
+		misEventos.add(text);
+		String txt="<html><div style='padding:10px;text-align:justify;'>";
+		if(misEventos.size() < n) {
+			for(int i=0;i<misEventos.size(); i++) {
+				txt+="<p>"+misEventos.get(i).toString()+"</p>";
 			}
-		} else {
-			for (int i = misEventos.size() - 1; i > misEventos.size() - 22; i--) {
-				System.out.println(misEventos.get(i).toString());
+		}else{
+			for(int i=misEventos.size()-n;i<misEventos.size();i++) {
+				txt+="<p>"+misEventos.get(i).toString()+"</p>";
 			}
 		}
+		txt+="</div></html>";
+		Principal.lblEventos.setText(txt);
 	}
-
 }
