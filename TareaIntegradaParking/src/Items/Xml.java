@@ -43,8 +43,12 @@ public class Xml {
 				return 2;
 			}
 		}
-		if((Files.exists(Paths.get("Personal/"+file+".html"))||Files.exists(Paths.get("Personal/"+file+".xml")))&&!replace){
-			return 3;
+		try{
+			if((Files.exists(Paths.get("Personal/"+file+".html"))||Files.exists(Paths.get("Personal/"+file+".xml")))&&!replace){
+				return 3;
+			}
+		}catch(Exception e){
+			return 7;
 		}
 		//Se crea todo el resto
 		try {

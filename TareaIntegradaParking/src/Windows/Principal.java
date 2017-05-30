@@ -1041,6 +1041,7 @@ public class Principal extends JFrame {
 					case 4:txt="Error al crear el archivo";break;
 					case 5:txt="Usuario Inválido";break;
 					case 6:txt="Introduce un nombre de archivo";break;
+					case 7:txt="Nombre de archivo inválido";break;
 					default:txt="Error Desconocido";break;
 				}
 				if(errorCode!=0){
