@@ -31,9 +31,6 @@ import java.awt.Toolkit;
 
 public class PrincipalEntrada extends JFrame {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	public static JPanel panelPortada = new JPanel();
@@ -48,7 +45,7 @@ public class PrincipalEntrada extends JFrame {
 	private JButton btnNewButton_2;
 	public static JButton btnNewButton_3 = new JButton("Atr\u00E1s");
 	/**
-	 * Launch the application.
+	 * Se crea la ventana
 	 */
 	public static void abrir() {
 		EventQueue.invokeLater(new Runnable() {
@@ -64,7 +61,7 @@ public class PrincipalEntrada extends JFrame {
 	}
 
 	/**
-	 * Create the frame.
+	 * Constructor de la ventana
 	 */
 	public PrincipalEntrada() {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(PrincipalEntrada.class.getResource("/Recursos/iconos/northlogo_default.png")));
@@ -118,7 +115,6 @@ public class PrincipalEntrada extends JFrame {
 		lblNewLabel.setBounds(0, 0, 494, 230);
 		panelPortada.add(lblNewLabel);
 		
-		/**/
 		panelEstandar.addComponentListener(new ComponentAdapter() {
 			@Override
 			public void componentShown(ComponentEvent e) {
@@ -258,6 +254,10 @@ public class PrincipalEntrada extends JFrame {
 		
 		reset(1);
 	}
+	/**
+	 * Función para alternar entre los paneles disponibles, y dar formato a los campos que lo necesiten
+	 * @param x ID de el panel que se quiera sacar al freante, escondiendo los demás (1-3)
+	 */
 	public static void reset(int x){
 		panelPortada.setVisible(false);
 		panelEstandar.setVisible(false);
