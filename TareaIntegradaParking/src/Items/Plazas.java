@@ -11,7 +11,16 @@ public class Plazas {
 	private LocalDateTime h_entrada;
 	private int cod_ticket;
 	private Boolean activa;
-
+	/**
+	 * Constructor de Plazas
+	 * @param cod_garaje Código del garaje en el que se situan
+	 * @param num_plaza Número de plaza por la que se identifica
+	 * @param num_planta Planta en la que se situa
+	 * @param dimensiones Dimensiones de la plaza expresada en metros cuadrados
+	 * @param matricula Martricula de el coche actualmente estacionado "si lo hay"
+	 * @param h_entrada Hora de entrada de el coche actualmente estacionado "si lo hay"
+	 * @param cod_ticket Código de ticket de el coche actualmente estacionado "si lo hay y no es abonado"
+	 */
 	public Plazas(int cod_garaje, int num_plaza, int num_planta, int dimensiones, String matricula,
 			LocalDateTime h_entrada, int cod_ticket) {
 		super();

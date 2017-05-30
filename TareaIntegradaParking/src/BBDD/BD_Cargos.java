@@ -15,7 +15,7 @@ public class BD_Cargos extends BBDD_Connector {
 	public BD_Cargos(String bbdd) {
 		super(bbdd);
 	}
-
+	
 	public Vector<Cargos> listadoCargos(String Cargos) {
 		String cadenaSQL = "SELECT cod_garaje,num_plaza,cod_servicio FROM cargos";
 		Vector<Cargos> listaCargos = new Vector<Cargos>();

@@ -8,7 +8,13 @@ public class Pedidos {
 	private int cod_producto;
 	private int cantidad;
 	private double prec_total;
-
+	/**
+	 * Constructor de Pedidos
+	 * @param fecha Fecha de el pedido
+	 * @param cod_producto Producto que se solicita
+	 * @param cantidad Contidad Solicitada
+	 * @param precioTotal Precio del pedido
+	 */
 	public Pedidos(LocalDate fecha, int cod_producto, int cantidad, double precioTotal) {
 		super();
 		this.fecha = fecha;

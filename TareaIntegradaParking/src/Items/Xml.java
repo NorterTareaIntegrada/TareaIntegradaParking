@@ -25,7 +25,18 @@ import BBDD.BD_Usuario;
 import Main.Parking;
 
 public class Xml {
-
+	/**
+	 * 
+	 * @param file Indica el nombre de el archivo a generar
+	 * @param html Indica si se quiere generar un documento html
+	 * @param skin Indica la skin que tendrá el documento html en caso de queres generarlo
+	 * @param replace Indica la preferencia acerca de sobreescribir en caso de que los archivos objetivo ya existan
+	 * @param incAdm Indica si los documentos que se generarán contendrán información de los Administradores
+	 * @param incMec Indica si los documentos que se generarán contendrán información de los Mecanicos
+	 * @param incLim Indica si los documentos que se generarán contendrán información de el Personal de Limpieza
+	 * @param incSeg Indica si los documentos que se generarán contendrán información de el personal de Seguridad
+	 * @return Devuelve el codigo de error [0-7], devuelve 0 si todo ha sido exitoso
+	 */
 	public static int crearXmlPlantilla(String file,boolean html,int skin,boolean replace,boolean incAdm,boolean incMec,boolean incLim,boolean incSeg) {
 		try{
 			if(Parking.usuarioConectado.getCodGaraje()<0){
