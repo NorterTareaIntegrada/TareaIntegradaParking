@@ -1167,7 +1167,7 @@ public class Principal extends JFrame {
 		btnServSelect1.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnServSelect1.setHorizontalAlignment(SwingConstants.LEADING);
 		btnServSelect1.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btnServSelect1.setIcon(new ImageIcon(panelXXX.class.getResource("/Recursos/iconos/icono_lavado.png")));
+		btnServSelect1.setIcon(new ImageIcon(Principal.class.getResource("/Recursos/iconos/icono_lavado.png")));
 		btnServSelect1.setBounds(2, 2, 309, 55);
 		panelServSelect.add(btnServSelect1);
 		
@@ -1179,7 +1179,7 @@ public class Principal extends JFrame {
 		});
 		btnServSelect2.setFocusPainted(false);
 		btnServSelect2.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnServSelect2.setIcon(new ImageIcon(panelXXX.class.getResource("/Recursos/iconos/icono_aceite.png")));
+		btnServSelect2.setIcon(new ImageIcon(Principal.class.getResource("/Recursos/iconos/icono_aceite.png")));
 		btnServSelect2.setHorizontalAlignment(SwingConstants.LEADING);
 		btnServSelect2.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnServSelect2.setBounds(2, 57, 309, 55);
