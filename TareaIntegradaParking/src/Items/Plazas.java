@@ -33,7 +33,9 @@ public class Plazas {
 		this.cod_ticket = cod_ticket;
 		this.activa = true;
 	}
-
+	/**
+	 * Constructor de Plazas inválidas
+	 */
 	public Plazas() {
 		this.activa = false;
 	}

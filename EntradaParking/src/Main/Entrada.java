@@ -32,6 +32,11 @@ public class Entrada {
 	public static void main(String[] args){
 		while(programa(args));
 	}
+	/**
+	 * Funcion que actua como un main, contenido dentro de otro main en forma de bucle
+	 * @param args Son los mismos parametros que los de la funcion main
+	 * @return Retorna en función de si ha ocurrido un error al conectarse a la BBDD
+	 */
 	public static boolean programa(String[] args){
 
 		ContCarga=-25;

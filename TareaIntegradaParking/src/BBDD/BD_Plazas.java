@@ -15,7 +15,6 @@ public class BD_Plazas extends BBDD_Connector {
 
 	public BD_Plazas(String bbdd) {
 		super(bbdd);
-		// TODO Auto-generated constructor stub
 	}
 	/**
 	 * Funcion para listar las plazas registradas en la base de datos

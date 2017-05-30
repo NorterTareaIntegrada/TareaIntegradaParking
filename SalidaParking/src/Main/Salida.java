@@ -10,7 +10,7 @@ import BBDD.BBDD_Connector;
 import Windows.*;
 
 /**
- * @descrition Programa de entrada al parking
+ * @descrition Programa de salida del parking
  * @author Norter S.L.
  * @version 1.0
  */
@@ -32,6 +32,11 @@ public class Salida {
 	public static void main(String[] args){
 		while(programa(args));
 	}
+	/**
+	 * Funcion que actua como un main, contenido dentro de otro main en forma de bucle
+	 * @param args Son los mismos parametros que los de la funcion main
+	 * @return Retorna en función de si ha ocurrido un error al conectarse a la BBDD
+	 */
 	public static boolean programa(String[] args){
 
 		ContCarga=-25;
