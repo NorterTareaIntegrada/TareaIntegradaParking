@@ -10,7 +10,7 @@ import BBDD.BBDD_Connector;
 import Windows.*;
 
 /**
- * @descrition Programa de salida del parking
+ * Programa de salida del parking
  * @author Norter S.L.
  * @version 1.0
  */
