@@ -20,7 +20,10 @@ public class BBDD_Connector {
 	private String serverName;
 	private int portNumber;
 	private Properties prop;
-	
+	/**
+	 * Constructor de BBDD_Connector para crear una conexión con los datos almacenados en un XML
+	 * @param fileName nombre del fichero XML con los datos de conexión a la BBDD, el fichero debe de estar previamente empaquetado
+	 */
 	public BBDD_Connector(String fileName){
 		try{
 			this.prop = new Properties();
@@ -69,7 +72,9 @@ public class BBDD_Connector {
 		abrir();
 		cerrar();
 	}
-	
+	/**
+	 * Función para abrir una conexión con la base de datos, una vez creado el conector
+	 */
 	public void abrir(){
 		try{
 			c = null;
@@ -80,7 +85,9 @@ public class BBDD_Connector {
 		}
 		catch (SQLException e){System.out.println(e.getMessage());}
 	}
-	
+	/**
+	 * Función para cerrar una conexión activa a la BBDD
+	 */
 	public void cerrar(){
 		try{if (c!=null){c.close();c=null;}}
 		catch (SQLException e){System.out.println(e.getMessage());}

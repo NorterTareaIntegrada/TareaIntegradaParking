@@ -33,9 +33,6 @@ import javax.swing.JSeparator;
 
 public class PrincipalSalida extends JFrame {
 
-	/**
-	 * 
-	 */
 	public static Plazas plaz=new Plazas();
 	
 	private static final long serialVersionUID = 1L;
@@ -62,7 +59,7 @@ public class PrincipalSalida extends JFrame {
 	public static JButton btnSalidaEstandarBorrar = new JButton("Borrar");
 	public static JButton btnSalidaEstandarPago = new JButton("Proceder al pago");
 	/**
-	 * Launch the application.
+	 * Se crea la ventana
 	 */
 	public static void abrir() {
 		EventQueue.invokeLater(new Runnable() {
@@ -78,7 +75,7 @@ public class PrincipalSalida extends JFrame {
 	}
 
 	/**
-	 * Create the frame.
+	 * Constructor de la Ventana
 	 */
 	public PrincipalSalida() {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(PrincipalSalida.class.getResource("/Recursos/iconos/northlogo_default.png")));
@@ -391,6 +388,10 @@ public class PrincipalSalida extends JFrame {
 		/**/
 		reset(1);
 	}
+	/**
+	 * Función para alternar entre los paneles disponibles, y dar formato a los campos que lo necesiten
+	 * @param x ID de el panel que se quiera sacar al freante, escondiendo los demás (1-3)
+	 */
 	public static void reset(int x){
 		panelPortada.setVisible(false);
 		panelEstandar.setVisible(false);

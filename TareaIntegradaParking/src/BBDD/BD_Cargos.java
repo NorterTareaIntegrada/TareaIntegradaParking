@@ -15,8 +15,11 @@ public class BD_Cargos extends BBDD_Connector {
 	public BD_Cargos(String bbdd) {
 		super(bbdd);
 	}
-
-	public Vector<Cargos> listadoCargos(String Cargos) {
+	/**
+	 * Funcion para listar los cargos registrados en la base de datos
+	 * @return Devuelve un Vector de tipo Cargos que contiene los cargos registrados en la base de datos
+	 */
+	public Vector<Cargos> listadoCargos() {
 		String cadenaSQL = "SELECT cod_garaje,num_plaza,cod_servicio FROM cargos";
 		Vector<Cargos> listaCargos = new Vector<Cargos>();
 		try {
@@ -33,6 +36,13 @@ public class BD_Cargos extends BBDD_Connector {
 			return null;
 		}
 	}
+	/**
+	 * Funcion para añadir un cargo a la base de datos
+	 * @param co Código de garaje en que se realiza el cargo
+	 * @param nu Plaza a la que se aplica el cargo
+	 * @param se Código de servicio contratado
+	 * @return Devuelve un número con la cantidad de filas añadidas (1 si se ha aañadido satisfactoriamente, 0 si ha ocurrido un error)
+	 */
 	public int anyadirCargo(int co,int nu,int se){
 		this.abrir();
 		int re=0;

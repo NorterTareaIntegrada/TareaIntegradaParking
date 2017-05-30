@@ -15,10 +15,12 @@ public class BD_Plazas extends BBDD_Connector {
 
 	public BD_Plazas(String bbdd) {
 		super(bbdd);
-		// TODO Auto-generated constructor stub
 	}
-
-	public Vector<Plazas> listado(String plaza) {
+	/**
+	 * Funcion para listar las plazas registradas en la base de datos
+	 * @return Devuelve un Vector de tipo Plazas que contiene las plazas registradas en la base de datos
+	 */
+	public Vector<Plazas> listado() {
 		String cadenaSQL = "SELECT COD_GARAJE,NUM_PLAZA,NUM_PLANTA,DIMENSIONES,MATRICULA,H_ENTRADA,COD_TICKET FROM plazas";
 		Vector<Plazas> listaPlazas = new Vector<Plazas>();
 		try {
@@ -38,7 +40,12 @@ public class BD_Plazas extends BBDD_Connector {
 			return null;
 		}
 	}
-
+	/**
+	 * Función para validar en que plaza esta aparcado un determinado cliente
+	 * @param matricula La matricula del vehiculo introducido en el garaje
+	 * @param codTicket Código de ticket otorgado a la entrada del garaje
+	 * @return Si los datos son válidos se devuelve un objeto Plaza con los datos de la misma, si no lo son, se devuelve un objeto Plaza sin datos válidos
+	 */
 	public Plazas validarPlaza(String matricula, int codTicket) {
 		Plazas plazaReturn = new Plazas();
 		this.abrir();
@@ -54,7 +61,11 @@ public class BD_Plazas extends BBDD_Connector {
 		this.cerrar();
 		return plazaReturn;
 	}
-	
+	/**
+	 * Calcula el precio a pagar por la estancia de un cliente estandar, teniendo en cuenta los servicios contratados durante su estancia
+	 * @param pla Plaza objetivo del cálculo
+	 * @return Devuelve el precio con 2 decimales en formato double
+	 */
 	public double precioTotal(Plazas pla){
 		this.abrir();
 		double tot=0;
@@ -74,7 +85,11 @@ public class BD_Plazas extends BBDD_Connector {
 		this.cerrar();
 		return Math.floor(tot*100)/100;
 	}
-	
+	/**
+	 * Funcion para calcular el número de servicios contratados durante la estancia de un cliente en uno de los parkings
+	 * @param pla Plaza objetivo del recuento
+	 * @return Devuelve un int con la cantidad de servicios contratados por esa plaza
+	 */
 	public int contServicios(Plazas pla){
 		this.abrir();
 		int tot=0;
@@ -89,10 +104,4 @@ public class BD_Plazas extends BBDD_Connector {
 		this.cerrar();
 		return tot;
 	}
-
-	/*
-	 * SALIR, ENTRAR, SI LA PLAZA ESTA OCUPADA O NO, Y PASANDOLE LA MAT Y COD
-	 * TICKET QUE LA MAT NO SEA NULL, QUE COD TICKET NO SEA NULL, Y HDE ENTRADA
-	 * NO NULL
-	 */
 }

@@ -15,7 +15,10 @@ public class BD_Garaje extends BBDD_Connector {
 	public BD_Garaje(String bbdd) {
 		super(bbdd);
 	}
-
+	/**
+	 * Funcion para listar los garajes registrados en la base de datos
+	 * @return Devuelve un Vector de tipo Garajes que contiene los garajes registrados en la base de datos
+	 */
 	public Vector<Garaje> listadoGaraje(String Garaje) {
 		String cadenaSQL = "SELECT cod,direccion from garajes";
 		Vector<Garaje> listaGaraje = new Vector<Garaje>();
@@ -34,6 +37,11 @@ public class BD_Garaje extends BBDD_Connector {
 			return null;
 		}
 	}
+	/**
+	 * Función para obtener la dirección de un garaje
+	 * @param codGaraje Código del garaje objetivo
+	 * @return Devuelve la dirección en forma de texto plano (String)
+	 */
 	public String descGaraje(int codGaraje) {
 		String txt="Desconocido";
 		this.abrir();

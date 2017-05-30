@@ -123,7 +123,8 @@ public class Principal extends JFrame {
 			public static int servSelect=0;
 	//Less important
 	public static JLabel lblMsgBienvenida = new JLabel("");
-	private final JLabel lblEventos = new JLabel("a");
+	public static JLabel lblEventos = new JLabel("a");
+	public static JButton changePasswordButton = new JButton("Cambiar Contrase\u00F1a");
 	public static void abrir() {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -179,7 +180,6 @@ public class Principal extends JFrame {
 		closeSessionButton.setBounds(869, 5, 120, 30);
 		cabecera.add(closeSessionButton);
 		
-		JButton changePasswordButton = new JButton("Cambiar Contrase\u00F1a");
 		changePasswordButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		changePasswordButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -558,7 +558,7 @@ public class Principal extends JFrame {
 					cont=false;txt="Las contraseñas no coinciden";
 				}
 				if(cont&&(!Validator.Contrasenya(new String(passwordPersonalAlta1.getPassword())))){
-					cont=false;txt="La contraseña debe de tener al menos 8 caracteres";
+					cont=false;txt="La contraseña debe de tener al menos 6 caracteres";
 				}
 				if(cont&&!Validator.Telefono(txtPersonalAltaTelefono.getText())){
 					cont=false;txt="Formato incorrecto de telefono";
@@ -1090,7 +1090,7 @@ public class Principal extends JFrame {
 		/**/
 		
 		/**/
-		//
+		// Contratar servicios
 		/**/
 		
 		panelServicios.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -1246,13 +1246,19 @@ public class Principal extends JFrame {
 		
 		reset();
 	}
-	
+	/**
+	 * Reset general de algunos paneles
+	 */
 	public static void reset(){
+		changePasswordButton.setVisible(false);
 		PanelDuplicadoTarjetaBorrarTodo(true);
 		PanelBajaBorrarTodo();
 		txtPersonalAltaNUsuario.setText("");
 	}
-	
+	/**
+	 * Alterna entre los estados de el panel principal, dependiendo de si alquien se ha identificado o ha cerrado sesión
+	 * @param x True si alguien se ha identificado, false si la ha cerrado
+	 */
 	public static void setUtil(Boolean x){
 		
 		reset();
@@ -1286,6 +1292,7 @@ public class Principal extends JFrame {
 							tabbedPane.addTab(" Eventos Recientes ", null, panelEventos, "Consultar los eventos que han ocurrido desde el inicio de sesi\u00F3n");
 							break;
 					}
+					changePasswordButton.setVisible(true);
 					break;
 				case "ESTANDAR":
 					lblMsgBienvenida.setText("<html>&nbsp;&nbsp;&nbsp;Gestión de Coche&nbsp;&nbsp;&nbsp;<span style=\"background-color:#687043;color:#ceccc2;font-size:11px;padding-left:3px;font-family:consolas;\">&nbsp;"+Parking.plazaObjetivo.getMatricula()+"&nbsp;</span>&nbsp;&nbsp;&nbsp;Entrada: <span style=\"background-color:#91cee0;color:#343434;font-size:11px;padding-left:3px;font-family:consolas;\">&nbsp;"+Parking.plazaObjetivo.getHora_entrada()+"&nbsp;</span></html>");
@@ -1306,6 +1313,9 @@ public class Principal extends JFrame {
 		}
 		
 	}
+	/**
+	 * Actua como reset de los elementos clave del panel de bajas
+	 */
 	public static void PanelBajaBorrarTodo(){
 		lblAltaPersonalProTip.setText("Completa el formulario para continuar");
 		lblAltaPersonalProTip.setForeground(new Color(75,75,75));
@@ -1321,6 +1331,11 @@ public class Principal extends JFrame {
 		btnPersonalAltaP3Cancelar.setVisible(false);
 		btnPersonalAltaP3Confirmar.setVisible(false);
 	}
+
+	/**
+	 * Actua como reset de los elementos clave del panel de duplicado de tarjeta
+	 * @param borrarTexto Indica si se quiere borrar el texto de los campos del formulario
+	 */
 	public static void PanelDuplicadoTarjetaBorrarTodo(boolean borrarTexto){
 		if(borrarTexto){
 			txtDuplicadoTarjetaFormCodGaraje.setText("");
@@ -1338,6 +1353,10 @@ public class Principal extends JFrame {
 		btnDuplicadoTarjetaCancelar.setVisible(false);
 		btnDuplicadoTarjetaProceder.setVisible(false);
 	}
+	/**
+	 * Actua como reset de los elementos clave del panel de bajas
+	 * @param id Indica el servicio del cual se quiere mostrar informacion
+	 */
 	private static void resetServDesc(int id){
 		servSelect=id;
 		panelServDesc0.setVisible(false);

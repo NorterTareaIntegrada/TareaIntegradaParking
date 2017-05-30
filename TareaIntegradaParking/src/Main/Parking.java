@@ -13,13 +13,12 @@ import Items.Usuario;
 import Windows.*;
 
 /**
- * @descrition Programa de gestion de parking
+ * Programa de gestion de parking
  * @author Norter S.L.
  * @version 1.0
  */
 
 public class Parking {
-	
 	
 	public static Scanner in=new Scanner(System.in);
 	public static BBDD_Connector bd;
@@ -38,9 +37,13 @@ public class Parking {
 	public static void main(String[] args){
 		while(programa(args));
 	}
+	/**
+	 * Funcion que actua como un main, contenido dentro de otro main en forma de bucle
+	 * @param args Son los mismos parametros que los de la funcion main
+	 * @return Retorna en función de si ha ocurrido un error al conectarse a la BBDD
+	 */
 	public static boolean programa(String[] args){
 
-		//ContCarga=-150;
 		ContCarga=449;
 		CargaAcabada=false;
 		
@@ -48,7 +51,6 @@ public class Parking {
 		Cargador.abrir(400);
 		Timer cargaInicial=new Timer(1,new ActionListener(){
 			public void actionPerformed(ActionEvent e){
-				//System.out.println("bucle "+ContCarga);
 				if(!errConBBDD)ContCarga++;
 				if(ContCarga==100){
 					bd=new BBDD_Connector("mysql-properties.xml");

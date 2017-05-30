@@ -15,7 +15,10 @@ public class BD_Productos extends BBDD_Connector {
 		super(bbdd);
 		// TODO Auto-generated constructor stub
 	}
-
+	/**
+	 * Funcion para listar los productos registrados en la base de datos
+	 * @return Devuelve un Vector de tipo Productos que contiene los servicios registrados en la base de datos
+	 */
 	public Vector<Productos> listado() {
 		String cadenaSQL = "SELECT cod, cod_servicio, cod_proveedor, nombre, descripcion, unidades, max_unidades, precio_uni from productos";
 		Vector<Productos> ListaProductos = new Vector<Productos>();

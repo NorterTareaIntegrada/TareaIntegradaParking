@@ -11,13 +11,21 @@ import javax.swing.JPasswordField;
 import javax.swing.JSeparator;
 import javax.swing.JButton;
 
+import BBDD.BD_Usuario;
+import Items.Usuario;
+import Items.Validator;
+import Main.Parking;
+
 import java.awt.Color;
 import java.awt.Cursor;
+import java.awt.Font;
 import java.awt.Toolkit;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 
 public class CambiarContrasenya extends JFrame {
 	
@@ -29,10 +37,11 @@ public class CambiarContrasenya extends JFrame {
 	public static CambiarContrasenya frame;
 	
 	private JPanel contentPane;
-	private JPasswordField passwordAntiguaField;
-	private JPasswordField passwordNuevaField;
-	private JPasswordField passwordNuevaValidField;
-
+	public static JPasswordField passwordAntiguaField = new JPasswordField();
+	public static JPasswordField passwordNuevaField = new JPasswordField();;
+	public static JPasswordField passwordNuevaValidField = new JPasswordField();;
+	public static JLabel lblProTip = new JLabel();
+	public static boolean success=false;
 	/**
 	 * Launch the application.
 	 */
@@ -53,16 +62,18 @@ public class CambiarContrasenya extends JFrame {
 	 * Create the frame.
 	 */
 	public CambiarContrasenya() {
+		setResizable(false);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setIconImage(Toolkit.getDefaultToolkit().getImage(Cargador.class.getResource("/Recursos/iconos/northlogo_default.png")));
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent arg0) {
+				reset();
 				Principal.frame.setEnabled(true);
 			}
 		});
-		setType(Type.UTILITY);
 		setTitle("Cambiar Contrase\u00F1a");
-		setBounds(100, 100, 300, 275);
+		setBounds(100, 100, 289, 269);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -88,18 +99,15 @@ public class CambiarContrasenya extends JFrame {
 		labelContraNuevaValid.setBounds(0, 110, 284, 30);
 		panelPrincipal.add(labelContraNuevaValid);
 		
-		passwordAntiguaField = new JPasswordField();
 		passwordAntiguaField.setEchoChar('#');
 		passwordAntiguaField.setHorizontalAlignment(SwingConstants.CENTER);
 		passwordAntiguaField.setBounds(42, 30, 200, 25);
 		panelPrincipal.add(passwordAntiguaField);
 		
-		passwordNuevaField = new JPasswordField();
 		passwordNuevaField.setHorizontalAlignment(SwingConstants.CENTER);
 		passwordNuevaField.setBounds(42, 85, 200, 25);
 		panelPrincipal.add(passwordNuevaField);
 		
-		passwordNuevaValidField = new JPasswordField();
 		passwordNuevaValidField.setHorizontalAlignment(SwingConstants.CENTER);
 		passwordNuevaValidField.setBounds(42, 140, 200, 25);
 		panelPrincipal.add(passwordNuevaValidField);
@@ -111,23 +119,52 @@ public class CambiarContrasenya extends JFrame {
 		JSeparator separator_bot = new JSeparator();
 		separator_bot.setBounds(0, 205, 284, 2);
 		panelPrincipal.add(separator_bot);
-		
-		JLabel lblProTip = new JLabel("Completar los campos para continuar");
+		lblProTip.addComponentListener(new ComponentAdapter() {
+			@Override
+			public void componentShown(ComponentEvent arg0) {
+				if(success){
+					try {Thread.sleep(1250);}catch(InterruptedException e) {}
+					success=false;
+					reset();
+				}
+			}
+		});
 		lblProTip.setHorizontalAlignment(SwingConstants.CENTER);
 		lblProTip.setBounds(0, 176, 284, 28);
+		lblProTip.setFont(new Font("Consolas", Font.PLAIN, 11));
+		lblProTip.setForeground(new Color(75, 75, 75));
+		lblProTip.setBackground(new Color(240, 240, 240));
 		panelPrincipal.add(lblProTip);
 		
 		JButton btnAplicarCambios = new JButton("Establecer Nueva Contrase\u00F1a");
+		btnAplicarCambios.setFocusPainted(false);
 		btnAplicarCambios.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if(new String(passwordAntiguaField.getPassword()).equals("")||new String(passwordNuevaField.getPassword()).equals("")||new String(passwordNuevaValidField.getPassword()).equals("")){
 					lblProTip.setText("Todos los campos tienen que estar rellenos");
 					lblProTip.setForeground(new Color(225,155,25));
+				}else if(!Validator.Contrasenya(new String(passwordAntiguaField.getPassword()))||!Validator.Contrasenya(new String(passwordNuevaField.getPassword()))||!Validator.Contrasenya(new String(passwordNuevaValidField.getPassword()))){
+					lblProTip.setText("Contraseñas de al menos 6 caracteres");
+					lblProTip.setForeground(new Color(225,155,25));
 				}else if(!new String(passwordNuevaField.getPassword()).equals(new String(passwordNuevaValidField.getPassword()))){
 					lblProTip.setText("¡La contraseña nueva no coincide!");
 					lblProTip.setForeground(new Color(225,155,25));
+				}else if(new String(passwordNuevaField.getPassword()).equals(new String(passwordAntiguaField.getPassword()))){
+					lblProTip.setText("¡Contraseña nueva igual a la antigua!");
+					lblProTip.setForeground(new Color(225,155,25));
 				}else{
-					
+					Usuario usu=new BD_Usuario("mysql-properties.xml").validarLogin(Parking.usuarioConectado.getNombreUsuario(),new String(passwordAntiguaField.getPassword()));
+					if(usu.isVerificado()){
+						new BD_Usuario("mysql-properties.xml").cambiarContrasenya(Parking.usuarioConectado,new String(passwordNuevaField.getPassword()));
+						success=true;
+						lblProTip.setText("¡Contraseña cambiada!");
+						lblProTip.setForeground(new Color(75,255,75));
+						lblProTip.setVisible(false);
+						lblProTip.setVisible(true);
+					}else{
+						lblProTip.setText("¡Contraseña Incorrecta!");
+						lblProTip.setForeground(new Color(255,75,75));
+					}
 				}
 			}
 		});
@@ -140,5 +177,14 @@ public class CambiarContrasenya extends JFrame {
 		panelCargando.setBounds(0, 0, 284, 366);
 		contentPane.add(panelCargando);
 		panelCargando.setLayout(null);
+		
+		reset();
+	}
+	private static void reset(){
+		passwordAntiguaField.setText("");
+		passwordNuevaField.setText("");
+		passwordNuevaValidField.setText("");
+		lblProTip.setForeground(new Color(75, 75, 75));
+		lblProTip.setText("Completa los campos para continuar");
 	}
 }

@@ -3,8 +3,11 @@ package Items;
 public  class Validaciones {
 	
 	private static String letrasDNI="TRWAGMYFPDXBNJZSQVHLCKE";
-	
-	
+	/**
+	 * Valida que un DNI sea válido (8 números, 1 letra,letra correcta)
+	 * @param dni El DNI como tal
+	 * @return True si es válido, False si no
+	 */
 	public static boolean Dni(String dni) {
 	    try{
 	    	return dni.length() == 9 && Character.isLetter(dni.charAt(8)) && (letrasDNI.charAt( Integer.parseInt(dni.substring(0,8)) % 23)+"").equals((dni.charAt(8)+"").toUpperCase());
@@ -12,6 +15,11 @@ public  class Validaciones {
 	    	return false;
 	    }
 	}
+	/**
+	 * Valida que un código de abonado tenga el formato correcto (5 números)
+	 * @param codAbonado El Código de Abonado como tal
+	 * @return True si es válido, False si no
+	 */
 	public static boolean CodAbonado(String codAbonado){
 		try{
 			return codAbonado.length()==5 && Integer.parseInt(codAbonado)<100000;

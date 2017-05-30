@@ -17,9 +17,11 @@ public class BD_Plazas extends BBDD_Connector {
 
 	public BD_Plazas(String bbdd) {
 		super(bbdd);
-		// TODO Auto-generated constructor stub
 	}
-
+	/**
+	 * Funcion para listar las plazas registradas en la base de datos
+	 * @return Devuelve un Vector de tipo Plazas que contiene las plazas registradas en la base de datos
+	 */
 	public Vector<Plazas> listado(String plaza) {
 		String cadenaSQL = "SELECT COD_GARAJE,NUM_PLAZA,NUM_PLANTA,DIMENSIONES,MATRICULA,H_ENTRADA,COD_TICKET FROM plazas";
 		Vector<Plazas> listaPlazas = new Vector<Plazas>();
@@ -40,7 +42,12 @@ public class BD_Plazas extends BBDD_Connector {
 			return null;
 		}
 	}
-
+	/**
+	 * Función para validar en que plaza esta aparcado un determinado cliente
+	 * @param matricula La matricula del vehiculo introducido en el garaje
+	 * @param codTicket Código de ticket otorgado a la entrada del garaje
+	 * @return Si los datos son válidos se devuelve un objeto Plaza con los datos de la misma, si no lo son, se devuelve un objeto Plaza sin datos válidos
+	 */
 	public Plazas validarPlaza(String matricula, int codTicket) {
 		Plazas plazaReturn = new Plazas();
 		this.abrir();
@@ -57,7 +64,12 @@ public class BD_Plazas extends BBDD_Connector {
 		this.cerrar();
 		return plazaReturn;
 	}
-
+	/**
+	 * Función para añadir registro de una persona estándar aparcando en una plaza no reservada a abonados
+	 * @param mat Matricula del coche que euiere aparcar
+	 * @param codTicket Código de ticket otorgado a el vehiculo
+	 * @return Devuelve true si se ha apracado correctamente, false si ha ocurrido una excepción
+	 */
 	public boolean aparcarEstandar(String mat,int codTicket) {
 		this.abrir();
 		try {
@@ -70,8 +82,12 @@ public class BD_Plazas extends BBDD_Connector {
 		}
 		this.cerrar();
 		return true;
-	}/**/
-	
+	}
+	/**
+	 * Función para añadir registro de una persona abonada aparcando en su plaza reservada
+	 * @param tarj Tarjeta de abonado presentada en la entrada
+	 * @return Devuelve true si se ha apracado correctamente, false si ha ocurrido una excepción
+	 */
 	public boolean aparcarAbonado(Tarjetas tarj) {
 		this.abrir();
 		try {
@@ -83,10 +99,4 @@ public class BD_Plazas extends BBDD_Connector {
 		this.cerrar();
 		return true;
 	}
-
-	/*
-	 * SALIR, ENTRAR, SI LA PLAZA ESTA OCUPADA O NO, Y PASANDOLE LA MAT Y COD
-	 * TICKET QUE LA MAT NO SEA NULL, QUE COD TICKET NO SEA NULL, Y HDE ENTRADA
-	 * NO NULL
-	 */
 }

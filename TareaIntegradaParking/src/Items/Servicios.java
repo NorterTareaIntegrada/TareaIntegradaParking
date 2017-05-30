@@ -5,7 +5,13 @@ public class Servicios {
 	private String nombre;
 	private double precio;
 	private String descripcion;
-
+	/**
+	 * Constructor de servicios
+	 * @param cod Código de servicio
+	 * @param nombre Nombre de el servicio
+	 * @param precio Precio de contratación del servicio
+	 * @param descripcion Descripción breve del servicio
+	 */
 	public Servicios(int cod, String nombre, double precio, String descripcion) {
 		super();
 		this.cod = cod;
