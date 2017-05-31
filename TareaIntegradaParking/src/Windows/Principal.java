@@ -33,6 +33,7 @@ import javax.swing.JTabbedPane;
 import javax.swing.JLabel;
 
 import java.awt.Font;
+import java.time.LocalDate;
 
 import BBDD.BD_Cargos;
 import BBDD.BD_Tarjeta;
@@ -239,7 +240,7 @@ public class Principal extends JFrame {
 		lblInfoTitle.setBounds(0, 0, 314, 74);
 		panelEventos.add(lblInfoTitle);
 		
-		JLabel lblInfoContent = new JLabel("<html>\r\n<p style=\"text-align:justify;padding:15px;\">\r\nAqui aparecer\u00E1n los <b>eventos</b> mas recientes desde el inicio de la sesi\u00F3n como:<br>\r\n</p><ul>\r\n<li>Entradas y salidas del parking</li>\r\n<li>Altas y bajas de personal</li>\r\n<li>Solicitaciones de servicios</li>\r\n<li>Pedidos realizados de forma autom\u00E1tica</li>\r\n</ul>\r\n</html>");
+		JLabel lblInfoContent = new JLabel("<html>\r\n<p style=\"text-align:justify;padding:15px;\">\r\nAqui aparecer\u00E1n los <b>eventos</b> mas recientes desde el inicio del programa incluyendo, pero no limitandose a:<br>\r\n</p><ul>\r\n<li>Información general de la aplicación</li>\r\n<li>Altas y bajas de personal</li>\r\n<li>Solicitudes de servicios</li>\r\n<li>Inicios y cierres de sesión</li>\r\n<li>Peticiones de duplicado de tarjeta</li>\r\n<li>Cambios de contraseña</li>\r\n<li>Errores de la aplicación</li>\r\n</ul>\r\n</html>");
 		lblInfoContent.setVerticalAlignment(SwingConstants.TOP);
 		lblInfoContent.setBounds(10, 85, 304, 419);
 		panelEventos.add(lblInfoContent);
@@ -554,7 +555,7 @@ public class Principal extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				boolean cont = true;
 				String txt="";
-				if(cont&&(txtPersonalAltaNomUsuario.getText().equals("")||new String(passwordPersonalAlta1.getPassword()).equals("")||new String(passwordPersonalAlta2.getPassword()).equals("")||txtPersonalAltaNombre.getText().equals(""))){
+				if(cont&&(txtPersonalAltaNomUsuario.getText().equals("")||new String(passwordPersonalAlta1.getPassword()).equals("")||new String(passwordPersonalAlta2.getPassword()).equals("")||txtPersonalAltaNombre.getText().equals("")||lblPersonalAltaTelefono.getText().equals(""))){
 					cont=false;txt="Completa todos los campos obligatorios";
 				}
 				if(cont&&(!new String(passwordPersonalAlta1.getPassword()).equals(new String(passwordPersonalAlta2.getPassword())))){
@@ -571,10 +572,13 @@ public class Principal extends JFrame {
 				}
 				boolean tmp=false;
 				//try{dateChooserPersonalAlta.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate().wait();}catch(Exception ee){tmp=true;}
-				try{new java.sql.Date(dateChooserPersonalAlta.getDate().getTime()).toLocalDate();}catch(Exception ee){tmp=true;}
+				try{
+					new java.sql.Date(dateChooserPersonalAlta.getDate().getTime()).toLocalDate();
+					tmp = new java.sql.Date(dateChooserPersonalAlta.getDate().getTime()).toLocalDate().getYear()+18>LocalDate.now().getYear();
+				}catch(Exception ee){tmp=true;}
 				//System.out.println(new java.sql.Date(dateChooserPersonalAlta.getDate().getTime()).toLocalDate());
 				if(cont&&tmp){
-					cont=false;txt="Introduce una fecha de nacimiento";
+					cont=false;txt="Introduce una fecha de nacimiento válida";
 				}
 				if(cont){
 					Usuario usuAlta = new Usuario(
@@ -624,7 +628,7 @@ public class Principal extends JFrame {
 		lblPersonal.setBounds(10, 11, 282, 50);
 		panelPersonal.add(lblPersonal);
 		
-		JLabel lblDescripcion = new JLabel("<html>\r\n\t<h3>Descripci\u00F3n</h3>\r\n\t<p style=\"margin:10px;text-align:justify;\">El panel de personal permite dar de <b>alta</b> y <b>baja</b> a el personal</p>\r\n\t<h3>Utilizaci\u00F3n</h3>\r\n\t<p style=\"margin:10px;text-align:justify;\">Se deben introducir datos v\u00E1lidos para dar de alta, no son necesarios todos los datos, los campos obligatorios son:\r\n<ul>\r\n\t<li>Tipo</li>\r\n\t<li>Nombre</li>\r\n\t<li>Nombre de usuario</li>\r\n\t<li>Contrase\u00F1a</li>\r\n\t<li>Garaje</li>\r\n</ul></p>\r\n\t<h3>Precauciones</h3>\r\n\t<p style=\"margin:10px;text-align:justify;\">Los cambios aqui realizados son <span style=\"color:red;\">permanentes</span>, una vez dada de baja una persona, no podr\u00E1 recuperarse.</p>\r\n</html>");
+		JLabel lblDescripcion = new JLabel("<html>\r\n\t<h3>Descripci\u00F3n</h3>\r\n\t<p style=\"margin:10px;text-align:justify;\">El panel de personal permite dar de <b>alta</b> y <b>baja</b> a el personal</p>\r\n\t<h3>Utilizaci\u00F3n</h3>\r\n\t<p style=\"margin:10px;text-align:justify;\">Se deben introducir datos v\u00E1lidos para dar de alta, no son necesarios todos los datos, los campos obligatorios son:\r\n<ul style=\"margin-top:0px;margin-bottom:0px;\">\r\n\t<li>Tipo</li>\r\n\t<li>Nombre</li>\r\n\t<li>Credenciales</li>\r\n\t<li>Garaje</li>\r\n<li>Fecha de Nacimiento</li>\r\n\t<li>Teléfono</li>\r\n\t</ul></p>\r\n\t<h3>Precauciones</h3>\r\n\t<p style=\"margin:10px;text-align:justify;\">Los cambios aqui realizados son <span style=\"color:red;\">permanentes</span>, una vez dada de baja una persona, no podr\u00E1 recuperarse.</p>\r\n</html>");
 		lblDescripcion.setToolTipText("Datos generales sobre el panel de personal");
 		lblDescripcion.setVerticalAlignment(SwingConstants.TOP);
 		lblDescripcion.setBounds(20, 67, 272, 429);
@@ -806,6 +810,7 @@ public class Principal extends JFrame {
 						lblDuplicadoTarjetaConfirmacion.setVisible(true);
 						btnDuplicadoTarjetaCancelar.setVisible(true);
 						btnDuplicadoTarjetaProceder.setVisible(true);
+						lblDuplicadoTarjetaDibujoTop.setText("<html>\r\n\t<table>\r\n\t\t<tr>\r\n\t\t\t<td width=\"70\">Garaje: <b>"+tarjetaAAunlar.getCodGaraje()+"</b></td>\r\n\t\t\t<td></td>\r\n\t\t</tr>\r\n\t\t<tr>\r\n\t\t\t<td>N. Plaza: <b>"+tarjetaAAunlar.getNumPlaza()+"</b></td>\r\n\t\t\t<td></td>\r\n\t\t</tr>\r\n\t\t<tr height=\"3\">\r\n\t\t\t<td></td>\r\n\t\t\t<td>Cod. Tarjeta: <b>"+tarjetaAAunlar.getNumAbonado()+"</b></td>\r\n\t\t</tr>\r\n\t</table>\r\n</html>");
 					}else{
 						lblDuplicadoTarjetaFormProTip.setText("La tarjeta indicada no existe o no esta activa");
 						lblDuplicadoTarjetaFormProTip.setForeground(new Color(255,75,75));
@@ -1292,10 +1297,10 @@ public class Principal extends JFrame {
 					lblMsgBienvenida.setText("<html>&nbsp;&nbsp;&nbsp;\u00A1 Bienvenido/a "+Parking.usuarioConectado.getNombreCompleto()+" !&nbsp;&nbsp;&nbsp;<span style=\"background-color:#8c7a31;color:#ceccc2;font-size:11px;padding-left:3px;\">&nbsp;"+Parking.usuarioConectado.getTipo().toUpperCase()+"&nbsp;</span></html>");
 					switch(Parking.usuarioConectado.getTipo()){
 						case "ADMINISTRADOR":
-							tabbedPane.addTab(" Consultas ", null, panelConsulta, "Consultar distintos tipos de datos");
-							tabbedPane.addTab(" Avisos ", null, panelAvisos, "Mirar los temas de urgencia a tratar");
-							tabbedPane.addTab(" Reponer ", null, panelReponer, "Reponer materiales propios de los servicios");
-							tabbedPane.addTab(" Pedidos ", null, panelPedidos, "Consultar los ultimos pedidos");
+							//tabbedPane.addTab(" Consultas ", null, panelConsulta, "Consultar distintos tipos de datos");
+							//tabbedPane.addTab(" Avisos ", null, panelAvisos, "Mirar los temas de urgencia a tratar");
+							//tabbedPane.addTab(" Reponer ", null, panelReponer, "Reponer materiales propios de los servicios");
+							//tabbedPane.addTab(" Pedidos ", null, panelPedidos, "Consultar los ultimos pedidos");
 							tabbedPane.addTab(" Personal ", null, panelPersonal, "Dar de alta y de baja a el personal");
 							comboBoxPersonalAltaGaraje.setModel(new DefaultComboBoxModel<Object>(new String[] {""+Parking.usuarioConectado.getCodGaraje()}));
 							tabbedPane.addTab(" Generar XML ", null, panelGenerar, "Generar archivos XML y HTML opcionalmente");

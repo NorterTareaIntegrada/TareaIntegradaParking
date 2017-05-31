@@ -25,8 +25,7 @@ public class BD_Tarjeta extends BBDD_Connector {
 		this.abrir();
 		try {
 			reg = c.createStatement().executeQuery(
-					"SELECT dni,num_plaza,matricula,n_abonado,cod_garaje,activa FROM tarjetas WHERE n_abonado = '"
-							+ nAbonado + "' AND dni = '" + dni + "';");
+					"SELECT tarjetas.dni,tarjetas.num_plaza,tarjetas.matricula,tarjetas.n_abonado,tarjetas.cod_garaje,tarjetas.activa FROM tarjetas,plazas WHERE tarjetas.n_abonado = '"+nAbonado+"' AND tarjetas.dni = '"+dni+"' AND (tarjetas.cod_garaje,tarjetas.num_plaza) = (plazas.cod_garaje,plazas.num_plaza) AND plazas.matricula IS NOT NULL;;");
 			reg.next();
 			tarjetaReturn = new Tarjetas(reg.getString(1), reg.getInt(2), reg.getString(3), reg.getInt(4),
 					reg.getInt(5), reg.getBoolean(6));

@@ -158,7 +158,7 @@ public class CambiarContrasenya extends JFrame {
 				}else{
 					Usuario usu=new BD_Usuario("mysql-properties.xml").validarLogin(Parking.usuarioConectado.getNombreUsuario(),new String(passwordAntiguaField.getPassword()));
 					if(usu.isVerificado()){
-						new BD_Usuario("mysql-properties.xml").cambiarContrasenya(Parking.usuarioConectado,new String(passwordNuevaField.getPassword()));
+						new BD_Usuario("mysql-properties.xml").cambiarContrasenya(usu,new String(passwordNuevaField.getPassword()));
 						success=true;
 						lblProTip.setText("¡Contraseña cambiada!");
 						lblProTip.setForeground(new Color(75,255,75));
