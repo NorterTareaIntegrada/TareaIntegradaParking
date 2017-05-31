@@ -12,6 +12,7 @@ import javax.swing.JSeparator;
 import javax.swing.JButton;
 
 import BBDD.BD_Usuario;
+import Items.Eventos;
 import Items.Usuario;
 import Items.Validator;
 import Main.Parking;
@@ -123,7 +124,9 @@ public class CambiarContrasenya extends JFrame {
 			@Override
 			public void componentShown(ComponentEvent arg0) {
 				if(success){
-					try {Thread.sleep(1250);}catch(InterruptedException e) {}
+					try {Thread.sleep(1000);}catch(InterruptedException e) {}
+					Eventos.addEvento("<span style='color:purple'>[LOGIN]</span>: <b>"+Parking.usuarioConectado.getNombreUsuario()+"</b> ha cambiado su contraseña");
+					try {Thread.sleep(250);}catch(InterruptedException e) {}
 					success=false;
 					reset();
 				}
@@ -155,7 +158,7 @@ public class CambiarContrasenya extends JFrame {
 				}else{
 					Usuario usu=new BD_Usuario("mysql-properties.xml").validarLogin(Parking.usuarioConectado.getNombreUsuario(),new String(passwordAntiguaField.getPassword()));
 					if(usu.isVerificado()){
-						new BD_Usuario("mysql-properties.xml").cambiarContrasenya(Parking.usuarioConectado,new String(passwordNuevaField.getPassword()));
+						new BD_Usuario("mysql-properties.xml").cambiarContrasenya(usu,new String(passwordNuevaField.getPassword()));
 						success=true;
 						lblProTip.setText("¡Contraseña cambiada!");
 						lblProTip.setForeground(new Color(75,255,75));
